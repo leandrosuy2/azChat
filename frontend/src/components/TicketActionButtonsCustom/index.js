@@ -12,7 +12,7 @@ import {
     PictureAsPdf,
     Replay,
     SwapHorizOutlined,
-    SmartToyOutlined,
+    AndroidOutlined,
 } from "@material-ui/icons";
 import { v4 as uuidv4 } from "uuid";
 
@@ -529,7 +529,7 @@ const TicketActionButtonsCustom = ({
                                             : i18n.t("messagesList.header.buttons.resumeAi")
                                     }
                                 >
-                                    <SmartToyOutlined
+                                    <AndroidOutlined
                                         style={{
                                             color: aiBotActive ? theme.palette.warning.main : theme.palette.text.disabled,
                                         }}
