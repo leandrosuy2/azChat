@@ -9,7 +9,17 @@ export type OrderItemInput = {
   description?: string;
   qty?: number;
   unitPrice?: number;
-  total?: number;
+  total?: number | string;
+};
+
+const itemLineTotal = (it: OrderItemInput): number => {
+  const raw = it.total;
+  if (raw != null && String(raw).trim() !== "") {
+    const n = Number(raw);
+    return Number.isFinite(n) ? n : 0;
+  }
+  const line = Number(it.qty || 0) * Number(it.unitPrice || 0);
+  return Number.isFinite(line) ? line : 0;
 };
 
 interface Request {
@@ -20,13 +30,7 @@ interface Request {
 }
 
 const sumItems = (items: OrderItemInput[]): number =>
-  items.reduce((acc, it) => {
-    const line =
-      it.total != null && it.total !== ""
-        ? Number(it.total)
-        : Number(it.qty || 0) * Number(it.unitPrice || 0);
-    return acc + (Number.isFinite(line) ? line : 0);
-  }, 0);
+  items.reduce((acc, it) => acc + itemLineTotal(it), 0);
 
 const CreateStandaloneOrderService = async ({
   companyId,
@@ -59,10 +63,7 @@ const CreateStandaloneOrderService = async ({
   const normalized = items.map((it, i) => {
     const qty = Number(it.qty) || 0;
     const unit = Number(it.unitPrice) || 0;
-    const total =
-      it.total != null && it.total !== ""
-        ? Number(it.total)
-        : Math.round(qty * unit * 100) / 100;
+    const total = Math.round(itemLineTotal(it) * 100) / 100;
     return {
       code: it.code || String(i + 1),
       description: it.description || "",
