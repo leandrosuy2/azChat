@@ -1,0 +1,21 @@
+node_modules
+dist
+.env
+.env.vps-dev
+yarn.lock
+yarn-error.log
+
+/src/config/sentry.js
+
+# Ignore test-related files
+/coverage.data
+/coverage/
+
+postgres_data
+postgres18*
+docs/SINCRONIZAR-BANCO-PRODUCAO-PARA-LOCAL.md
+azvdodesigner_dump.sql
+public/company*
+public/announcements
+postgres_data*
+postgres18_data*

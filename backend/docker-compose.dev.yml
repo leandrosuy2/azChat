@@ -1,0 +1,36 @@
+services:
+  postgres-dev:
+    image: postgres:18-alpine
+    container_name: azchat-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: azchat_dev
+      POSTGRES_PASSWORD: azchat_dev123
+      POSTGRES_DB: azchat_dev
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ./postgres18_data_dev:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U azchat_dev -d azchat_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-dev:
+    image: redis:7-alpine
+    container_name: azchat-redis-dev
+    restart: unless-stopped
+    command: redis-server --requirepass azchat_dev123 --port 6379
+    ports:
+      - "127.0.0.1:6380:6379"
+    volumes:
+      - redis_data_dev:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "azchat_dev123", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  redis_data_dev:

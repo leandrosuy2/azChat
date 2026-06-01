@@ -1,0 +1,4466 @@
+Aguardando conexão para iniciar a importação de mensagens:
+  Whatsapp nome: Claudio Torres Junior
+  Whatsapp Id: 6
+  Criação do arquivo de logs: 27/04/2026 14:22:13
+  Selecionado Data de inicio de importação: 26/04/2026 14:20:00 
+  Selecionado Data final da importação: 27/04/2026 14:19:00 
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:20:52
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:20:33
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:20:21
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:19:45
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:19:36
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:19:27
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:19:25
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:19:18
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 13:19:06
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:30:08
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:41
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:10
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:59
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:48
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:18
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:54
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:47
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:42
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:30:49
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:28:17
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:26:04
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:26:00
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:25:50
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:31
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:27
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:21
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:17
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:15
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:36
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:44:52
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:31
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:28
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:21:16
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:20:57
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:20:53
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:18:29
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:18:23
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:30
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:27
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:15
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:10
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:09
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:06
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:05
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:03
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:56:33
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:56:29
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:25:13
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:40
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:31
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:23
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:50
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:31
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:43:46
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:06:27
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:10:20
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:05:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:54:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:56
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:54
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:54
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:46
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:43
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:31
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:29
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:37:02
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:36:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:36:30
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:48
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:42
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:32
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:17
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:09
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:31:46
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:31:31
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:46
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:35
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:21
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:11
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:06
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:04
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:59
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:53
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:43
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:23
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:08
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:38
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:28
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:27
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:25
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:08
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:55
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:43
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:29
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:24
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:23
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:21
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:21
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:55:26
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:54:28
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:54:05
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 08:59:07
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 08:59:03
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:41:09
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:41:06
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:14:09
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:13:57
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:05:30
+  Contato da Mensagem : 260382543356080@lid
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:03:33
+  Contato da Mensagem : 260382543356080@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:02:30
+  Contato da Mensagem : 260382543356080@lid
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:02:34
+  Contato da Mensagem : 146875533533373@lid
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:26:04
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:25:33
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:25:29
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:25:13
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:48
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:42
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:35
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:30
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:23
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:10
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:04
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:24:00
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:56
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:52
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:49
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:46
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:46
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:38
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:31
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:26
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:23:10
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:22:51
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:22:40
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:28
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:14
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:11
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:01
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:01
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:52
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:37
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:10
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:43
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:20
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:10:23
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:09:55
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:08:02
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:07:58
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:07:57
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:07:48
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:07:39
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:07:36
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:07:27
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:59
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:57
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:55
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:50
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:49
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:46
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:45
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:40
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:15
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:06:14
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:05:48
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:05:23
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:04:56
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:04:31
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:04:27
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:04:01
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:52
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:46
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:34
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:34
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:22
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:02:18
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:02:05
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:00:15
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:58:31
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:57:54
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:57:33
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:57:13
+  Contato da Mensagem : 554197301413@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:54
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:31
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:28
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:21:16
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:20:57
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:20:53
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:18:29
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:18:23
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:30
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:27
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:15
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:10
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:09
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:06
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:05
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:03
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:16:03
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:15:48
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:15:18
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:15:15
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:15:13
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:14:10
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:14:02
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:13:54
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:57:55
+  Contato da Mensagem : 554299019896@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:56:33
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:10:20
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:05:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:54:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:56
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:54
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:03:54
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:46
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:43
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:31
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:29
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:37:02
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:36:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:36:30
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:36:22
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:36:21
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:35:19
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:34:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:34:23
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:09:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:09:39
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:09:10
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:09:08
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:06:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:06:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 08:26:01
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 08:26:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:21:45
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:55
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:45
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:36
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:33
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:31
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:26
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:21
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:20
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:16
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:09
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:17:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:34
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:24
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:24
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:23
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:22
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:21
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:14
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:12
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:16:05
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:15:59
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:15:46
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:15:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:04:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:04:18
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:04:02
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:03:39
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:03:34
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:03:15
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:03:14
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:56
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:52
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:45
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:41
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:40
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:33
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:19
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:15
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:02:04
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 00:01:50
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:43:39
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:43:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:43:23
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:41:29
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:41:13
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:34:31
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:31:50
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:31:12
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:31:09
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:30:59
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:30:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:30:06
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:29:58
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:29:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:29:34
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:29:23
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:29:22
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:29:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:28:57
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:28:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:28:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:28:29
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:28:28
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:28:21
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:50
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:16
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:27:15
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:26:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:26:30
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:26:05
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:25:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:22:04
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:21:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:51:01
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:50:23
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:49:33
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:36:09
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:34:57
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:34:50
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:34:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:34:18
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:34:15
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:34:01
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:59
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:55
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:47
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:34
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:33
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:31
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:18
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:16
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:14
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:12
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:05
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:04
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:33:01
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:57
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:55
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:47
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:23
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:10
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:10
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:32:04
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:31:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:31:28
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:31:14
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:30:57
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:30:33
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : documentMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:29:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:29:19
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:28:45
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:28:43
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:28:39
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:28:24
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:24:48
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:19:56
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:19:45
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:28:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:19:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 21:19:27
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:28:39
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:24:54
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:24:50
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:24:58
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:23:44
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:23:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:40:32
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 20:24:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:23:12
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:23:11
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:23:03
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:18:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:17:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:40:26
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:17:33
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:17:35
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:17:29
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:08:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:08:40
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:05:47
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:05:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:05:40
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:05:38
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:31:01
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:30:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:25:51
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : stickerMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:25:49
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:24:57
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:23:07
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:13:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:13:28
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:13:19
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:13:11
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:11:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:11:20
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:11:11
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:59
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:50
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:42
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:34
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:26
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:22
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:20
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:06
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:10:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:09:53
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:09:41
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:09:34
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:08:56
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:08:37
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:08:26
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:08:19
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:08:14
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:07:40
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:07:29
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:07:04
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:07:17
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:07:00
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:04:51
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:04:11
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:04:07
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 16:16:25
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 15:08:19
+  Contato da Mensagem : 5541920015603@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:48
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:42
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:32
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:17
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:37:09
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:31:46
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:31:31
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:46
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:35
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:21
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:11
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:06
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:29:04
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:59
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:53
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:51
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:48
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:46
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:37
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:34
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:30
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:26
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:14
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:11
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:28:08
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:56
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:42
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:32
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:28
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:28
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:27:20
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:26:47
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:26:38
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:22:36
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:22:22
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:22:20
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:22:05
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:21:53
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:21:44
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:21:35
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:50
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:45
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:41
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:40
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:35
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:28
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:28
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:15
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:08
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:08
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:20:00
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:53
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:46
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:45
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:39
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:19:34
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:36
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:30
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:26
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:21
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:16
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:13
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:12
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:08
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:18:03
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:57
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:45
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:37
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:35
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:27
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:26
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:22
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:07
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:17:05
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:56
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:00
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:40
+  Contato da Mensagem : 553597601505@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:43
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:23
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:16:08
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:38
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:28
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:27
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:25
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:15:08
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:55
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:43
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:29
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:24
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:23
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:21
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:21
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:20
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:13
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:06
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:14:02
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:13:52
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:13:36
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:13:30
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:13:05
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:58
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:52
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:48
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:45
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:43
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:36
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:35
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:22
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:20
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:10
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:03
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:12:00
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:48
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:48
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:38
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:35
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:33
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:31
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:29
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:27
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:25
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:11:18
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:10:59
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:10:22
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:09:23
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:08:48
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:08:36
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:08:16
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:08:00
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 10:00:02
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:51
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:47
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:41
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:40
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:36
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:33
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:30
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:59:27
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:56:03
+  Contato da Mensagem : 554188949779@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:55:26
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:54:28
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:54:05
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 08:59:07
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 08:59:03
+  Contato da Mensagem : 554191329485@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:41:09
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 23:41:06
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:14:09
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:13:57
+  Contato da Mensagem : 234793077854229@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:05:30
+  Contato da Mensagem : 260382543356080@lid
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:03:33
+  Contato da Mensagem : 260382543356080@lid
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:02:30
+  Contato da Mensagem : 260382543356080@lid
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 22:02:34
+  Contato da Mensagem : 146875533533373@lid
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:47
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:31:42
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:30:49
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:28:17
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:26:04
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:26:00
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 12:25:50
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:31
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:27
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:21
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:17
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:15
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:36
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:44:52
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:06:21
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:58:25
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:58:20
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:58:00
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:45
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:30
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:29
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:24
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:19
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:13
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:57:05
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:56:38
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:56:33
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:56:18
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:56:10
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:55:57
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:55:54
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 19:05:33
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:39:29
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:39:21
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : extendedTextMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:06:36
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:05:48
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:05:46
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:05:30
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : audioMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 18:05:00
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 17:40:24
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 26/04/2026 17:40:20
+  Contato da Mensagem : 553597763946@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:56:29
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 11:25:13
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : imageMessage
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:40
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:31
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:48:23
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:50
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:47:31
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:43:46
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
+Adicionando mensagem para pos processamento:
+  Não é Mensagem de GRUPO >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  Data e hora da mensagem: 27/04/2026 09:06:27
+  Contato da Mensagem : 553597131205@s.whatsapp.net
+  Tipo da mensagem : conversation
+  
+   
