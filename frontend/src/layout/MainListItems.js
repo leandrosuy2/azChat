@@ -875,7 +875,7 @@ const MainListItems = ({ collapsed, drawerClose }) => {
               fontWeight: "bold",
             }}
           >
-            {`V3.7.0`}
+            {`V3.8.0`}
           </Typography>
         </React.Fragment>
       )}
