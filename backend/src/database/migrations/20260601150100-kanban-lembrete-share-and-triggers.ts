@@ -2,25 +2,32 @@ import { QueryInterface, DataTypes } from "sequelize";
 
 const TABLE = "TicketLembretes";
 
+type TableColumns = Record<string, unknown>;
+
+const hasColumn = (tableInfo: TableColumns, name: string): boolean =>
+  Boolean(tableInfo[name]);
+
 module.exports = {
   up: async (queryInterface: QueryInterface) => {
-    const tableInfo = await queryInterface.describeTable(TABLE);
+    const tableInfo = (await queryInterface.describeTable(
+      TABLE
+    )) as TableColumns;
 
-    if (!tableInfo.notifyOnShare) {
+    if (!hasColumn(tableInfo, "notifyOnShare")) {
       await queryInterface.addColumn(TABLE, "notifyOnShare", {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
       });
     }
-    if (!tableInfo.notifyShareGroupIds) {
+    if (!hasColumn(tableInfo, "notifyShareGroupIds")) {
       await queryInterface.addColumn(TABLE, "notifyShareGroupIds", {
         type: DataTypes.JSONB,
         allowNull: true,
         defaultValue: null
       });
     }
-    if (!tableInfo.quadroGroupId) {
+    if (!hasColumn(tableInfo, "quadroGroupId")) {
       await queryInterface.addColumn(TABLE, "quadroGroupId", {
         type: DataTypes.INTEGER,
         allowNull: true,
@@ -32,14 +39,16 @@ module.exports = {
   },
 
   down: async (queryInterface: QueryInterface) => {
-    const tableInfo = await queryInterface.describeTable(TABLE);
-    if (tableInfo.quadroGroupId) {
+    const tableInfo = (await queryInterface.describeTable(
+      TABLE
+    )) as TableColumns;
+    if (hasColumn(tableInfo, "quadroGroupId")) {
       await queryInterface.removeColumn(TABLE, "quadroGroupId");
     }
-    if (tableInfo.notifyShareGroupIds) {
+    if (hasColumn(tableInfo, "notifyShareGroupIds")) {
       await queryInterface.removeColumn(TABLE, "notifyShareGroupIds");
     }
-    if (tableInfo.notifyOnShare) {
+    if (hasColumn(tableInfo, "notifyOnShare")) {
       await queryInterface.removeColumn(TABLE, "notifyOnShare");
     }
   }
