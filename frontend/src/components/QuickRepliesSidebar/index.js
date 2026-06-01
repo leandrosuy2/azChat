@@ -382,7 +382,9 @@ const QuickRepliesSidebar = ({
     setEditorQuickId(null);
     setEditorInitialMessage(body);
     setEditorOpen(true);
-    onDraftQuickMessageConsumed?.();
+    if (typeof onDraftQuickMessageConsumed === "function") {
+      onDraftQuickMessageConsumed();
+    }
   }, [draftQuickMessage, onDraftQuickMessageConsumed]);
 
   useEffect(() => {
