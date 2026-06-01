@@ -1,6 +1,8 @@
 import { QueryInterface, DataTypes } from "sequelize";
 
 const TABLE = "Products";
+const IDX_COMPANY = "products_company_id_idx";
+const IDX_COMPANY_STATUS = "products_company_id_status_idx";
 
 type TableColumns = Record<string, unknown>;
 
@@ -16,14 +18,53 @@ const tableExists = async (queryInterface: QueryInterface): Promise<boolean> => 
   }
 };
 
-const addIndexSafe = async (
-  queryInterface: QueryInterface,
-  fields: string[]
-): Promise<void> => {
+const existingIndexNames = async (
+  queryInterface: QueryInterface
+): Promise<Set<string>> => {
   try {
-    await queryInterface.addIndex(TABLE, fields);
+    const rows = (await queryInterface.showIndex(TABLE)) as Array<{
+      name?: string;
+    }>;
+    return new Set(
+      rows.map((r) => String(r.name || "").toLowerCase()).filter(Boolean)
+    );
   } catch {
-    /* índice já existe ou coluna indisponível */
+    return new Set();
+  }
+};
+
+const indexAlreadyPresent = (
+  names: Set<string>,
+  explicitName: string,
+  legacyNames: string[] = []
+): boolean => {
+  const wanted = explicitName.toLowerCase();
+  if (names.has(wanted)) return true;
+  return legacyNames.some((n) => names.has(n.toLowerCase()));
+};
+
+const ensureIndex = async (
+  queryInterface: QueryInterface,
+  fields: string[],
+  name: string,
+  legacyNames: string[] = []
+): Promise<void> => {
+  const names = await existingIndexNames(queryInterface);
+  if (indexAlreadyPresent(names, name, legacyNames)) {
+    return;
+  }
+  try {
+    await queryInterface.addIndex(TABLE, fields, { name });
+  } catch (err: unknown) {
+    const msg = String((err as Error)?.message || err || "").toLowerCase();
+    if (
+      msg.includes("already exists") ||
+      msg.includes("duplicate") ||
+      legacyNames.some((n) => msg.includes(n.toLowerCase()))
+    ) {
+      return;
+    }
+    throw err;
   }
 };
 
@@ -155,10 +196,17 @@ module.exports = {
     )) as TableColumns;
 
     if (hasColumn(finalInfo, "companyId")) {
-      await addIndexSafe(queryInterface, ["companyId"]);
+      await ensureIndex(queryInterface, ["companyId"], IDX_COMPANY, [
+        "products_company_id"
+      ]);
     }
     if (hasColumn(finalInfo, "companyId") && hasColumn(finalInfo, "status")) {
-      await addIndexSafe(queryInterface, ["companyId", "status"]);
+      await ensureIndex(
+        queryInterface,
+        ["companyId", "status"],
+        IDX_COMPANY_STATUS,
+        ["products_company_id_status"]
+      );
     }
   },
 
