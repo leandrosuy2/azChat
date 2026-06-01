@@ -19,6 +19,7 @@ import FindAllCompaniesService from "../services/CompanyService/FindAllCompanies
 import ShowPlanCompanyService from "../services/CompanyService/ShowPlanCompanyService";
 import User from "../models/User";
 import ListCompaniesPlanService from "../services/CompanyService/ListCompaniesPlanService";
+import GetCompanyLifecycleOverviewService from "../services/CompanyService/GetCompanyLifecycleOverviewService";
 
 interface TokenPayload {
   id: string;
@@ -401,6 +402,27 @@ export const removeLogo = async (
   await company.reload();
 
   return res.status(200).json(company);
+};
+
+export const lifecycleOverview = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id } = req.params;
+  const authHeader = req.headers.authorization;
+  const [, token] = authHeader.split(" ");
+  const decoded = verify(token, authConfig.secret);
+  const { id: requestUserId } = decoded as TokenPayload;
+  const requestUser = await User.findByPk(requestUserId);
+
+  if (!requestUser?.super) {
+    return res
+      .status(403)
+      .json({ error: "Você não possui permissão para acessar este recurso!" });
+  }
+
+  const data = await GetCompanyLifecycleOverviewService(parseInt(id, 10));
+  return res.status(200).json(data);
 };
 
 export const indexPlan = async (req: Request, res: Response): Promise<Response> => {

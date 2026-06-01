@@ -7,6 +7,7 @@ import {
 import { SerializeUser } from "../../helpers/SerializeUser";
 import Queue from "../../models/Queue";
 import Company from "../../models/Company";
+import LogCompanyLifecycleEventService from "../CompanyService/LogCompanyLifecycleEventService";
 import Setting from "../../models/Setting";
 import CompaniesSettings from "../../models/CompaniesSettings";
 
@@ -76,9 +77,25 @@ const AuthUserService = async ({
   } else if ((await user.checkPassword(password))) {
 
     const company = await Company.findByPk(user?.companyId);
-    await company.update({
-      lastLogin: new Date()
-    });
+    if (company) {
+      const hadLogin = company.lastLogin;
+      await company.update({
+        lastLogin: new Date()
+      });
+      if (!hadLogin) {
+        try {
+          await LogCompanyLifecycleEventService({
+            companyId: company.id,
+            eventType: "primeiro_acesso",
+            title: "Primeiro acesso",
+            description: `Primeiro login registrado (${user.name || user.email}).`,
+            userId: user.id
+          });
+        } catch {
+          /* lifecycle opcional */
+        }
+      }
+    }
 
   } else {
     throw new AppError("ERR_INVALID_CREDENTIALS", 401);

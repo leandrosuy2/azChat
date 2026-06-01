@@ -27,6 +27,7 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 import useWhatsApps from "../../hooks/useWhatsApps";
 
 import { Can } from "../Can";
+import UserAccessibilityPreferences from "../UserAccessibilityPreferences";
 import { Avatar, Grid, Input, Paper, Tab, Tabs } from "@material-ui/core";
 import { getBackendUrl } from "../../config";
 import TabPanel from "../TabPanel";
@@ -275,6 +276,7 @@ const UserModal = ({ open, onClose, userId }) => {
 								>
 									<Tab label={i18n.t("userModal.tabs.general")} value={"general"} />
 									<Tab label={i18n.t("userModal.tabs.permissions")} value={"permissions"} />
+									<Tab label="Acessibilidade" value={"accessibility"} />
 								</Tabs>
 							</Paper>
 							<Paper className={classes.paper} elevation={0}>
@@ -778,6 +780,13 @@ const UserModal = ({ open, onClose, userId }) => {
 												</>
 											}
 										/>
+									</TabPanel>
+									<TabPanel
+										className={classes.container}
+										value={tab}
+										name={"accessibility"}
+									>
+										<UserAccessibilityPreferences />
 									</TabPanel>
 								</DialogContent>
 							</Paper>

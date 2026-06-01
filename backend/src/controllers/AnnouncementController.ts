@@ -20,6 +20,7 @@ type IndexQuery = {
   searchParam: string;
   pageNumber: string;
   companyId: string | number;
+  audience?: string;
 };
 
 type StoreData = {
@@ -30,6 +31,7 @@ type StoreData = {
   companyId: number;
   mediaPath?: string;
   mediaName?: string;
+  targetAudience?: string;
 };
 
 type FindParams = {
@@ -37,11 +39,12 @@ type FindParams = {
 };
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
-  const { searchParam, pageNumber } = req.query as IndexQuery;
+  const { searchParam, pageNumber, audience } = req.query as IndexQuery;
 
   const { records, count, hasMore } = await ListService({
     searchParam,
-    pageNumber
+    pageNumber,
+    viewerAudience: audience || "internal"
   });
 
   return res.json({ records, count, hasMore });

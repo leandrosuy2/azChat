@@ -16,6 +16,25 @@ import AttachFileIcon from "@material-ui/icons/AttachFile";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { i18n } from "../translate/i18n";
 
+/** Mesmos tipos do menu "Nova resposta" — mapeados para passos de sequência. */
+const CREATION_KIND_ACTIONS = [
+  { kind: "text", stepType: "text", seedBody: "" },
+  { kind: "image", stepType: "media", seedBody: "" },
+  { kind: "video", stepType: "media", seedBody: "" },
+  { kind: "audio", stepType: "media", seedBody: "" },
+  { kind: "document", stepType: "media", seedBody: "" },
+  { kind: "pix", stepType: "text", seedBody: "Chave PIX:\nTipo:\nTitular:\n" },
+  { kind: "group", stepType: "text", seedBody: "Participantes (números):\n" },
+  { kind: "contact", stepType: "text", seedBody: "Contato:\nNome:\nTelefone:\n" },
+  {
+    kind: "linkBanner",
+    stepType: "text",
+    seedBody: "Link com banner:\nURL:\nTexto do botão:\n",
+  },
+  { kind: "sticker", stepType: "media", seedBody: "" },
+  { kind: "list", stepType: "text", seedBody: "1) \n2) \n3) \n" },
+];
+
 /**
  * Interruptor + lista de passos (texto, espera, vários anexos) para respostas rápidas.
  * Estado (enabled/steps) fica no componente pai.
@@ -50,6 +69,28 @@ const QuickMessageSequenceFormSection = ({
       }
       if (type === "media") {
         setSequenceSteps((prev) => [...prev, { type: "media", caption: "" }]);
+      }
+    },
+    [setSequenceSteps]
+  );
+
+  const addCreationKindStep = useCallback(
+    (kind) => {
+      setAddStepAnchor(null);
+      const def = CREATION_KIND_ACTIONS.find((a) => a.kind === kind);
+      if (!def) return;
+      if (def.stepType === "text") {
+        setSequenceSteps((prev) => [
+          ...prev,
+          { type: "text", body: def.seedBody || "" },
+        ]);
+        return;
+      }
+      if (def.stepType === "media") {
+        setSequenceSteps((prev) => [
+          ...prev,
+          { type: "media", caption: def.seedBody || "" },
+        ]);
       }
     },
     [setSequenceSteps]
@@ -251,15 +292,14 @@ const QuickMessageSequenceFormSection = ({
             getContentAnchorEl={null}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           >
-            <MenuItem dense onClick={() => addStepOfType("text")}>
-              {i18n.t("messagesInput.quickReplies.sequenceStepText")}
-            </MenuItem>
             <MenuItem dense onClick={() => addStepOfType("delay")}>
               {i18n.t("messagesInput.quickReplies.sequenceStepDelay")}
             </MenuItem>
-            <MenuItem dense onClick={() => addStepOfType("media")}>
-              {i18n.t("messagesInput.quickReplies.sequenceStepMedia")}
-            </MenuItem>
+            {CREATION_KIND_ACTIONS.map((a) => (
+              <MenuItem key={a.kind} dense onClick={() => addCreationKindStep(a.kind)}>
+                {i18n.t(`messagesInput.quickReplies.createTypes.${a.kind}`)}
+              </MenuItem>
+            ))}
           </Menu>
         </Box>
       ) : null}

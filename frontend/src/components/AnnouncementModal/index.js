@@ -78,6 +78,7 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
     text: "",
     priority: 3,
     status: true,
+    targetAudience: "internal",
   };
 
   const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -253,6 +254,24 @@ const AnnouncementModal = ({ open, onClose, announcementId, reload }) => {
                       >
                         <MenuItem value={true}>{i18n.t("announcements.dialog.form.active")}</MenuItem>
                         <MenuItem value={false}>{i18n.t("announcements.dialog.form.inactive")}</MenuItem>
+                      </Field>
+                    </FormControl>
+                  </Grid>
+                  <Grid xs={12} item>
+                    <FormControl variant="outlined" margin="dense" fullWidth>
+                      <InputLabel id="audience-selection-label">
+                        Público-alvo
+                      </InputLabel>
+                      <Field
+                        as={Select}
+                        label="Público-alvo"
+                        labelId="audience-selection-label"
+                        id="targetAudience"
+                        name="targetAudience"
+                      >
+                        <MenuItem value="internal">Equipe interna</MenuItem>
+                        <MenuItem value="clients">Clientes (compradores)</MenuItem>
+                        <MenuItem value="both">Equipe e clientes</MenuItem>
                       </Field>
                     </FormControl>
                   </Grid>

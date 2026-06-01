@@ -48,6 +48,10 @@ class Announcement extends Model<Announcement> {
   @Column
   status: boolean;
 
+  /** internal | clients | both */
+  @Column({ defaultValue: "internal" })
+  targetAudience: string;
+
   @CreatedAt
   createdAt: Date;
 

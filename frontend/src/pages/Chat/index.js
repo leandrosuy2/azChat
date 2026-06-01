@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -14,6 +15,7 @@ import {
   Tab,
   Tabs,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import ChatList from "./ChatList";
 import ChatMessages from "./ChatMessages";
@@ -34,19 +36,40 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     position: "relative",
     flex: 1,
-    padding: theme.spacing(2),
+    padding: theme.spacing(0.25),
     height: `calc(100% - 48px)`,
     overflowY: "hidden",
-    border: "1px solid rgba(0, 0, 0, 0.12)",
+    backgroundColor:
+      theme.mode === "dark" ? theme.palette.background.default : "#f5f6f8",
+    boxShadow: "none",
   },
   gridContainer: {
     flex: 1,
     height: "100%",
-    border: "1px solid rgba(0, 0, 0, 0.12)",
-    background: theme.palette.background.color,
+    backgroundColor: "transparent",
+    overflow: "hidden",
   },
   gridItem: {
     height: "100%",
+    minHeight: 0,
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+  },
+  listPanel: {
+    height: "100%",
+    minHeight: 0,
+    display: "flex",
+    flexDirection: "column",
+    borderRight: `1px solid ${theme.palette.divider}`,
+    backgroundColor: theme.palette.background.paper,
+  },
+  messagesPanel: {
+    height: "100%",
+    minHeight: 0,
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: theme.palette.background.paper,
   },
   gridItemTab: {
     height: "92%",
@@ -339,47 +362,62 @@ function Chat(props) {
 
   const renderGrid = () => {
     return (
-      <Grid className={classes.gridContainer} container>
-        <Grid className={classes.gridItem} md={3} item>
-          {/* {user.profile === "admin" && ( */}
-          <div className={classes.btnContainer}>
-            <Button
-              onClick={() => {
-                setDialogType("new");
+      <Grid className={classes.gridContainer} container wrap="nowrap">
+        <Grid className={classes.gridItem} md={4} item>
+          <Paper className={classes.listPanel} elevation={0} square>
+            <div className={classes.btnContainer}>
+              <Button
+                onClick={() => {
+                  setDialogType("new");
+                  setShowDialog(true);
+                }}
+                color="primary"
+                variant="contained"
+                size="small"
+              >
+                {i18n.t("chatInternal.new")}
+              </Button>
+              <HelpHint areaKey="chats" />
+            </div>
+            <ChatList
+              chats={chats}
+              pageInfo={chatsPageInfo}
+              loading={loading}
+              handleSelectChat={(chat) => selectChat(chat)}
+              handleDeleteChat={(chat) => deleteChat(chat)}
+              handleEditChat={() => {
+                setDialogType("edit");
                 setShowDialog(true);
               }}
-              color="primary"
-              variant="contained"
-            >
-              {i18n.t("chatInternal.new")}
-            </Button>
-            <HelpHint areaKey="chats" />
-          </div>
-          {/* )} */}
-          <ChatList
-            chats={chats}
-            pageInfo={chatsPageInfo}
-            loading={loading}
-            handleSelectChat={(chat) => selectChat(chat)}
-            handleDeleteChat={(chat) => deleteChat(chat)}
-            handleEditChat={() => {
-              setDialogType("edit");
-              setShowDialog(true);
-            }}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} md={9} item>
-          {isObject(currentChat) && has(currentChat, "id") && (
-            <ChatMessages
-              chat={currentChat}
-              scrollToBottomRef={scrollToBottomRef}
-              pageInfo={messagesPageInfo}
-              messages={messages}
-              loading={loading}
-              handleSendMessage={sendMessage}
-              handleLoadMore={loadMoreMessages}
             />
-          )}
+          </Paper>
+        </Grid>
+        <Grid className={classes.gridItem} md={8} item>
+          <Paper className={classes.messagesPanel} elevation={0} square>
+            {isObject(currentChat) && has(currentChat, "id") ? (
+              <ChatMessages
+                chat={currentChat}
+                scrollToBottomRef={scrollToBottomRef}
+                pageInfo={messagesPageInfo}
+                messages={messages}
+                loading={loading}
+                handleSendMessage={sendMessage}
+                handleLoadMore={loadMoreMessages}
+              />
+            ) : (
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                height="100%"
+                color="textSecondary"
+              >
+                <Typography variant="body2">
+                  {i18n.t("chatInternal.selectChatHint")}
+                </Typography>
+              </Box>
+            )}
+          </Paper>
         </Grid>
       </Grid>
     );

@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { 
   Box, 
   Container, 
@@ -44,9 +45,17 @@ import { ChartsDate } from "./ChartsDate";
 import ForbiddenPage from "../../components/ForbiddenPage";
 import { i18n } from "../../translate/i18n";
 import HelpHint from "../../components/HelpHint";
+import MomentsUser from "../../components/MomentsUser";
+import Reports from "../Reports";
+import CommercialBiPanel from "../../components/Dashboard/CommercialBiPanel";
+import CompanyFinancePanel from "../../components/Dashboard/CompanyFinancePanel";
+
+const HUB_KEYS = ["indicators", "reports", "live", "commercial", "finance"];
 
 const Dashboard = () => {
   const theme = useTheme();
+  const history = useHistory();
+  const location = useLocation();
   const [counters, setCounters] = useState({});
   const [attendants, setAttendants] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
@@ -56,6 +65,18 @@ const Dashboard = () => {
   const [fetchDataFilter, setFetchDataFilter] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+
+  const hubTab = useMemo(() => {
+    const hub = new URLSearchParams(location.search).get("hub");
+    const idx = HUB_KEYS.indexOf(hub);
+    return idx >= 0 ? idx : 0;
+  }, [location.search]);
+
+  const setHubTab = (index) => {
+    const key = HUB_KEYS[index] || "indicators";
+    const search = index === 0 ? "" : `?hub=${key}`;
+    history.replace({ pathname: "/", search });
+  };
   
   const { find } = useDashboard();
   const { user } = useContext(AuthContext);
@@ -193,13 +214,62 @@ const Dashboard = () => {
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h4" fontWeight="bold" color="primary">
-              {i18n.t("dashboard.title") || "Dashboard"}
+              Painel operacional
             </Typography>
             <HelpHint areaKey="dashboard" />
           </Box>
-          
+          <IconButton onClick={toggleShowFilter} color="primary" size="small">
+            <FilterList />
+          </IconButton>
         </Box>
 
+        <Paper sx={{ mb: 3, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>
+          <Tabs
+            value={hubTab}
+            onChange={(_, v) => setHubTab(v)}
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            <Tab label="Indicadores" />
+            <Tab label="Relatórios" />
+            <Tab label="Painel ao vivo" />
+            <Tab label="BI Comercial" />
+            <Tab label="Financeiro" />
+          </Tabs>
+        </Paper>
+
+        {hubTab === 1 && (
+          <Paper sx={{ p: 0, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3, overflow: "hidden" }}>
+            <Reports embedded />
+          </Paper>
+        )}
+
+        {hubTab === 2 && (
+          <Paper sx={{ p: 2, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3, minHeight: "70vh" }}>
+            <Box display="flex" alignItems="center" mb={2}>
+              <Typography variant="h6" fontWeight="bold">
+                Painel de atendimentos
+              </Typography>
+              <HelpHint areaKey="moments" />
+            </Box>
+            <MomentsUser />
+          </Paper>
+        )}
+
+        {hubTab === 3 && (
+          <Paper sx={{ p: 3, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3 }}>
+            <CommercialBiPanel />
+          </Paper>
+        )}
+
+        {hubTab === 4 && (
+          <Paper sx={{ p: 3, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3 }}>
+            <CompanyFinancePanel />
+          </Paper>
+        )}
+
+        {hubTab === 0 && (
+        <>
         {/* Filters Section */}
         {showFilter && (
           <Paper 
@@ -518,6 +588,8 @@ const Dashboard = () => {
               <ChatsUser />
             </Box>
           </Paper>
+        )}
+        </>
         )}
       </Container>
     </Box>

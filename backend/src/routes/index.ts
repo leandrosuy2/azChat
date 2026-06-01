@@ -47,6 +47,7 @@ import flowBuilder from "./flowBuilderRoutes";
 import flowCampaignRoutes from "./flowCampaignRoutes";
 import quadroRoutes from "./quadroRoutes";
 import ticketBudgetRoutes from "./ticketBudgetRoutes";
+import productRoutes from "./productRoutes";
 import metaRoutes from "./metaRoutes";
 
 
@@ -102,6 +103,7 @@ routes.use(companySettingsRoutes);
 routes.use(scheduleMessageRoutes);
 routes.use(quadroRoutes);
 routes.use(ticketBudgetRoutes);
+routes.use(productRoutes);
 routes.use(metaRoutes);
 
 export default routes;

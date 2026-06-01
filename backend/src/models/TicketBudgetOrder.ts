@@ -32,8 +32,9 @@ class TicketBudgetOrder extends Model<TicketBudgetOrder> {
   company: Company;
 
   @ForeignKey(() => TicketBudget)
+  @AllowNull(true)
   @Column
-  budgetId: number;
+  budgetId: number | null;
 
   @BelongsTo(() => TicketBudget)
   budget: TicketBudget;

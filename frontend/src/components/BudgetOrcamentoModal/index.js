@@ -630,6 +630,34 @@ const BudgetOrcamentoModal = ({
   const [sellerName, setSellerName] = useState("");
   const [notes, setNotes] = useState("");
   const [items, setItems] = useState([emptyItem()]);
+  const [catalogProducts, setCatalogProducts] = useState([]);
+
+  useEffect(() => {
+    if (!open) return;
+    api
+      .get("/products/active")
+      .then(({ data }) => setCatalogProducts(Array.isArray(data) ? data : []))
+      .catch(() => setCatalogProducts([]));
+  }, [open]);
+
+  const applyCatalogProduct = (idx, productId) => {
+    if (!productId) return;
+    const p = catalogProducts.find((x) => String(x.id) === String(productId));
+    if (!p) return;
+    setItems((prev) =>
+      prev.map((r, i) =>
+        i === idx
+          ? recalcLine({
+              ...r,
+              productId: p.id,
+              code: p.code || String(p.id),
+              description: p.name,
+              unitPrice: Number(p.price) || 0,
+            })
+          : r
+      )
+    );
+  };
 
   const totals = useMemo(
     () =>
@@ -1158,9 +1186,38 @@ const BudgetOrcamentoModal = ({
           </AccordionSummary>
           <AccordionDetails style={{ display: "block" }}>
             <Box width="100%">
+              {catalogProducts.length > 0 && (
+                <Typography variant="caption" color="textSecondary" display="block" style={{ marginBottom: 8 }}>
+                  Vincule itens ao catálogo de produtos cadastrado ou preencha manualmente.
+                </Typography>
+              )}
               {items.map((row, idx) => (
                 <Paper key={idx} variant="outlined" style={{ padding: 12, marginBottom: 10, borderRadius: 0 }}>
                   <Grid container spacing={1} alignItems="flex-start">
+                    {catalogProducts.length > 0 && (
+                      <Grid item xs={12}>
+                        <TextField
+                          select
+                          label="Produto cadastrado"
+                          size="small"
+                          fullWidth
+                          variant="outlined"
+                          value={row.productId || ""}
+                          onChange={(e) => applyCatalogProduct(idx, e.target.value)}
+                        >
+                          <MenuItem value="">
+                            <em>Selecionar do catálogo…</em>
+                          </MenuItem>
+                          {catalogProducts.map((p) => (
+                            <MenuItem key={p.id} value={p.id}>
+                              {p.name}
+                              {p.code ? ` (${p.code})` : ""} —{" "}
+                              {fmtMoney(p.price)}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+                    )}
                     <Grid item xs={6} sm={2}>
                       <TextField
                         label="Cód."

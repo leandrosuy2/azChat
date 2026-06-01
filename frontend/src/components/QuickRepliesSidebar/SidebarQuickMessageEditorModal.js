@@ -173,7 +173,14 @@ const seedRecordForCreationKind = (kind) => {
 };
 
 /** Editor só dentro do painel de respostas (sem Dialog / portal na página). */
-const SidebarQuickMessageEditorModal = ({ open, onClose, quickemessageId, creationKind, onSaved }) => {
+const SidebarQuickMessageEditorModal = ({
+  open,
+  onClose,
+  quickemessageId,
+  creationKind,
+  initialMessage,
+  onSaved,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const { user } = useContext(AuthContext);
@@ -240,10 +247,14 @@ const SidebarQuickMessageEditorModal = ({ open, onClose, quickemessageId, creati
     setSequenceSteps([{ type: "text", body: "" }]);
     setMediaFilesByStepIndex({});
     setServerAttachments([]);
-    setRecord(seedRecordForCreationKind(creationKind || null));
+    const seeded = seedRecordForCreationKind(creationKind || null);
+    if (initialMessage && String(initialMessage).trim()) {
+      seeded.message = String(initialMessage);
+    }
+    setRecord(seeded);
     setAttachment(null);
     if (attachmentFile.current) attachmentFile.current.value = null;
-  }, [quickemessageId, open, creationKind]);
+  }, [quickemessageId, open, creationKind, initialMessage]);
 
   const handleClose = () => {
     resetLocal();

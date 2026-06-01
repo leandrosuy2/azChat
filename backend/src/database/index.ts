@@ -64,6 +64,8 @@ import TicketLembrete from "../models/TicketLembrete";
 import TicketLembreteDisparo from "../models/TicketLembreteDisparo";
 import TicketBudget from "../models/TicketBudget";
 import TicketBudgetOrder from "../models/TicketBudgetOrder";
+import Product from "../models/Product";
+import CompanyLifecycleEvent from "../models/CompanyLifecycleEvent";
 
 // eslint-disable-next-line
 const dbConfig = require("../config/database");
@@ -135,7 +137,9 @@ const models = [
   TicketLembrete,
   TicketLembreteDisparo,
   TicketBudget,
-  TicketBudgetOrder
+  TicketBudgetOrder,
+  Product,
+  CompanyLifecycleEvent
 ];
 
 sequelize.addModels(models);

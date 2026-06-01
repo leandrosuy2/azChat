@@ -14,6 +14,9 @@ export interface UpdateTicketLembreteData {
   antecedenciaMinutos?: number | null;
   tipoGatilho?: string;
   addGoogle?: boolean;
+  notifyOnShare?: boolean;
+  notifyShareGroupIds?: number[] | null;
+  quadroGroupId?: number | null;
 }
 
 const UpdateTicketLembreteService = async (
@@ -89,6 +92,18 @@ const UpdateTicketLembreteService = async (
   }
   if (data.addGoogle !== undefined) {
     patch.addGoogle = !!data.addGoogle;
+  }
+  if (data.notifyOnShare !== undefined) {
+    patch.notifyOnShare = !!data.notifyOnShare;
+  }
+  if (data.notifyShareGroupIds !== undefined) {
+    patch.notifyShareGroupIds = Array.isArray(data.notifyShareGroupIds)
+      ? data.notifyShareGroupIds.map(Number).filter((n) => Number.isFinite(n) && n > 0)
+      : null;
+  }
+  if (data.quadroGroupId !== undefined) {
+    patch.quadroGroupId =
+      data.quadroGroupId == null ? null : Number(data.quadroGroupId);
   }
 
   if (Object.keys(patch).length === 0) {

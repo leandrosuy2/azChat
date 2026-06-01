@@ -6,6 +6,8 @@ import User from "../models/User";
 import TicketBudgetOrder from "../models/TicketBudgetOrder";
 import CreateTicketBudgetService from "../services/BudgetServices/CreateTicketBudgetService";
 import ListTicketBudgetsService from "../services/BudgetServices/ListTicketBudgetsService";
+import ListContactBudgetsService from "../services/BudgetServices/ListContactBudgetsService";
+import Contact from "../models/Contact";
 import ShowTicketBudgetService from "../services/BudgetServices/ShowTicketBudgetService";
 import UpdateTicketBudgetService from "../services/BudgetServices/UpdateTicketBudgetService";
 import SendBudgetLinkWhatsAppService from "../services/BudgetServices/SendBudgetLinkWhatsAppService";
@@ -69,6 +71,23 @@ export const listByTicket = async (
     return res.status(404).json({ error: "Ticket não encontrado" });
   }
   const rows = await ListTicketBudgetsService(ticketId, companyId);
+  return res.json(rows);
+};
+
+export const listByContact = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { companyId } = req.user;
+  const contactId = parseInt(req.params.contactId, 10);
+  if (Number.isNaN(contactId)) {
+    return res.status(400).json({ error: "contactId inválido" });
+  }
+  const contact = await Contact.findOne({ where: { id: contactId, companyId } });
+  if (!contact) {
+    return res.status(404).json({ error: "Contato não encontrado" });
+  }
+  const rows = await ListContactBudgetsService(contactId, companyId);
   return res.json(rows);
 };
 

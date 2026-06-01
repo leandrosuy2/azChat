@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useContext, useRef } from "react";
 import clsx from "clsx";
-import { makeStyles, alpha } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
   Button,
@@ -30,7 +30,6 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import EventIcon from "@material-ui/icons/Event";
-import RateReviewIcon from "@material-ui/icons/RateReview";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -48,6 +47,16 @@ import SidebarQuickReplyPreviewModal from "./SidebarQuickReplyPreviewModal";
 import QuickReplySidebarScheduleDialog from "./QuickReplySidebarScheduleDialog";
 
 const UNCATEGORIZED_KEY = "__sem_categoria__";
+
+const contrastTextOn = (hexColor) => {
+  const hex = String(hexColor || "#546E7A").replace("#", "");
+  if (hex.length < 6) return "#fff";
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 150 ? "#1a1a1a" : "#ffffff";
+};
 
 /** Tipos ao criar nova resposta (menu no botão +, sem modal). */
 const NEW_REPLY_KINDS = [
@@ -198,14 +207,35 @@ const useStyles = makeStyles((theme) => ({
   },
   itemRow: {
     display: "flex",
-    alignItems: "flex-start",
+    flexDirection: "column",
+    gap: theme.spacing(0.5),
+    padding: theme.spacing(0.75, 0.75),
+    marginBottom: theme.spacing(0.5),
+    borderRadius: 6,
+    border: `1px solid ${theme.palette.divider}`,
+  },
+  itemRowTop: {
+    display: "flex",
+    alignItems: "center",
     gap: theme.spacing(0.25),
-    padding: theme.spacing(0.5, 0.5),
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    minWidth: 0,
+  },
+  itemActions: {
+    display: "flex",
+    alignItems: "center",
+    flexShrink: 0,
+    marginLeft: "auto",
   },
   itemBody: {
     flex: 1,
     minWidth: 0,
+  },
+  inlineEditField: {
+    marginTop: theme.spacing(0.25),
+    "& .MuiOutlinedInput-input": {
+      fontSize: "0.72rem",
+      padding: "6px 8px",
+    },
   },
   shortcode: {
     fontWeight: 700,
@@ -289,6 +319,8 @@ const QuickRepliesSidebar = ({
   contact,
   quickReplyHandlersRef,
   onClose,
+  draftQuickMessage,
+  onDraftQuickMessageConsumed,
 }) => {
   const classes = useStyles();
   const { user, socket } = useContext(AuthContext);
@@ -318,6 +350,10 @@ const QuickRepliesSidebar = ({
   const [draggingMessageId, setDraggingMessageId] = useState(null);
   const [dragOverCategoryKey, setDragOverCategoryKey] = useState(null);
   const draggingMessageIdRef = useRef(null);
+  const [inlineEditId, setInlineEditId] = useState(null);
+  const [inlineEditValue, setInlineEditValue] = useState("");
+  const [inlineEditSaving, setInlineEditSaving] = useState(false);
+  const [editorInitialMessage, setEditorInitialMessage] = useState("");
 
   const load = useCallback(async () => {
     if (!user?.companyId) return;
@@ -335,6 +371,19 @@ const QuickRepliesSidebar = ({
   useEffect(() => {
     load();
   }, [load]);
+
+  useEffect(() => {
+    const body =
+      draftQuickMessage?.message != null
+        ? String(draftQuickMessage.message).trim()
+        : "";
+    if (!body) return;
+    setEditorCreationKind("text");
+    setEditorQuickId(null);
+    setEditorInitialMessage(body);
+    setEditorOpen(true);
+    onDraftQuickMessageConsumed?.();
+  }, [draftQuickMessage, onDraftQuickMessageConsumed]);
 
   useEffect(() => {
     if (!user?.companyId || !socket) return undefined;
@@ -460,6 +509,7 @@ const QuickRepliesSidebar = ({
     setEditorOpen(false);
     setEditorQuickId(null);
     setEditorCreationKind(null);
+    setEditorInitialMessage("");
   };
 
   const openScheduleFromMessage = (m) => {
@@ -474,6 +524,54 @@ const QuickRepliesSidebar = ({
   const closeRowMenu = () => {
     setRowMenuAnchor(null);
     setRowMenuMessage(null);
+  };
+
+  const buildQuickMessagePayload = (m, overrides = {}) => {
+    const hasMedia = Boolean(m.mediaPath);
+    return {
+      id: m.id,
+      shortcode: m.shortcode || "",
+      message: m.message != null ? String(m.message) : "",
+      geral: Boolean(m.geral),
+      visao: Boolean(m.visao),
+      category: (m.category || "").trim() || null,
+      categoryColor: m.categoryColor || null,
+      isFavorite: Boolean(m.isFavorite),
+      autoSend: m.autoSend !== false,
+      useInSlash: m.useInSlash !== false,
+      isMedia: hasMedia,
+      mediaPath: hasMedia ? mediaBasename(m.mediaPath) : null,
+      mediaName: m.mediaName || null,
+      ...overrides,
+    };
+  };
+
+  const saveInlineEdit = async (m) => {
+    if (inlineEditSaving) return;
+    const trimmed = String(inlineEditValue || "").trim();
+    const hasMedia = Boolean(m.mediaPath);
+    if (!hasMedia && trimmed.length < 3) {
+      toast.warning("A mensagem deve ter pelo menos 3 caracteres.");
+      return;
+    }
+    setInlineEditSaving(true);
+    try {
+      await updateQuickMessage(
+        buildQuickMessagePayload(m, { message: inlineEditValue })
+      );
+      toast.success(i18n.t("messagesInput.quickReplies.inlineEditSaved"));
+      setInlineEditId(null);
+      load();
+    } catch (err) {
+      toastError(err);
+    } finally {
+      setInlineEditSaving(false);
+    }
+  };
+
+  const startInlineEdit = (m) => {
+    setInlineEditId(m.id);
+    setInlineEditValue(m.message != null ? String(m.message) : "");
   };
 
   const handleDuplicate = async (m) => {
@@ -569,29 +667,17 @@ const QuickRepliesSidebar = ({
       const fromKey = (m.category || "").trim() || UNCATEGORIZED_KEY;
       if (fromKey === cat.key) return;
 
-      const hasMedia = Boolean(m.mediaPath);
       const newCategory = cat.key === UNCATEGORIZED_KEY ? null : String(cat.key);
       const newColor =
         cat.key === UNCATEGORIZED_KEY ? null : cat.color || "#546E7A";
 
-      const payload = {
-        id: m.id,
-        shortcode: m.shortcode || "",
-        message: m.message != null ? String(m.message) : "",
-        geral: Boolean(m.geral),
-        visao: Boolean(m.visao),
-        category: newCategory,
-        categoryColor: newColor,
-        isFavorite: Boolean(m.isFavorite),
-        autoSend: m.autoSend !== false,
-        useInSlash: m.useInSlash !== false,
-        isMedia: hasMedia,
-        mediaPath: hasMedia ? mediaBasename(m.mediaPath) : null,
-        mediaName: m.mediaName || null,
-      };
-
       try {
-        await updateQuickMessage(payload);
+        await updateQuickMessage(
+          buildQuickMessagePayload(m, {
+            category: newCategory,
+            categoryColor: newColor,
+          })
+        );
         toast.success(i18n.t("messagesInput.quickReplies.categoryMoved"));
         load();
       } catch (err) {
@@ -838,10 +924,15 @@ const QuickRepliesSidebar = ({
                 className={classes.accordionSummary}
                 style={{
                   borderLeftColor: cat.color,
-                  backgroundColor: alpha(cat.color, 0.14),
+                  backgroundColor: cat.color,
+                  color: contrastTextOn(cat.color),
                 }}
               >
-                <Typography component="span" className={classes.categoryTitle}>
+                <Typography
+                  component="span"
+                  className={classes.categoryTitle}
+                  style={{ color: "inherit" }}
+                >
                   {String(cat.label).toUpperCase()}
                 </Typography>
               </AccordionSummary>
@@ -849,14 +940,13 @@ const QuickRepliesSidebar = ({
                 style={{
                   display: "block",
                   padding: "6px 8px",
-                  backgroundColor: alpha(cat.color, 0.05),
-                  borderLeft: `3px solid ${alpha(cat.color, 0.35)}`,
+                  backgroundColor: "transparent",
+                  borderLeft: `4px solid ${cat.color}`,
                 }}
               >
                 {cat.items.map((m) => {
-                  const tint = (opacity) => alpha(cat.color, opacity);
-                  const rowBg = tint(0.07);
-                  const rowBgHover = tint(0.16);
+                  const accent = m.categoryColor || cat.color;
+                  const isEditing = inlineEditId === m.id;
                   return (
                   <Box
                     key={m.id}
@@ -865,69 +955,103 @@ const QuickRepliesSidebar = ({
                       draggingMessageId === m.id && classes.itemRowDragging
                     )}
                     style={{
-                      backgroundColor: rowBg,
-                      borderLeft: `2px solid ${tint(0.4)}`,
-                      borderRadius: 4,
-                      marginBottom: 4,
-                      transition: "background-color 120ms ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = rowBgHover;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = rowBg;
+                      borderLeft: `4px solid ${accent}`,
                     }}
                   >
-                    <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipDragToCategory")}>
-                      <Box
-                        component="span"
-                        className={classes.dragHandle}
-                        draggable
-                        onDragStart={(e) => handleQuickMessageDragStart(e, m)}
-                        onDragEnd={clearCategoryDragUi}
-                      >
-                        <DragIndicatorIcon fontSize="small" />
+                    <Box className={classes.itemRowTop}>
+                      <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipDragToCategory")}>
+                        <Box
+                          component="span"
+                          className={classes.dragHandle}
+                          draggable
+                          onDragStart={(e) => handleQuickMessageDragStart(e, m)}
+                          onDragEnd={clearCategoryDragUi}
+                        >
+                          <DragIndicatorIcon fontSize="small" />
+                        </Box>
+                      </Tooltip>
+                      <Box className={classes.itemBody}>
+                        <Typography className={classes.shortcode}>
+                          {m.isFavorite ? "⭐ " : ""}
+                          {String(m.shortcode || "").toUpperCase()}
+                        </Typography>
                       </Box>
-                    </Tooltip>
-                    <Box className={classes.itemBody}>
-                      <Typography className={classes.shortcode}>
-                        {m.isFavorite ? "⭐ " : ""}
-                        {String(m.shortcode || "").toUpperCase()}
-                      </Typography>
-                      <Typography className={classes.snippet}>
+                      <Box className={classes.itemActions}>
+                        <Tooltip title={i18n.t("messagesInput.quickReplies.menuEdit")}>
+                          <IconButton
+                            size="small"
+                            onClick={() =>
+                              isEditing ? saveInlineEdit(m) : startInlineEdit(m)
+                            }
+                          >
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipPreview")}>
+                          <IconButton size="small" onClick={() => openPreview(m)}>
+                            <VisibilityIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipSend")}>
+                          <IconButton
+                            size="small"
+                            color="primary"
+                            onClick={(e) => handleSend(m, e)}
+                          >
+                            <SendIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipMore")}>
+                          <IconButton
+                            size="small"
+                            onClick={(e) => {
+                              setRowMenuAnchor(e.currentTarget);
+                              setRowMenuMessage(m);
+                            }}
+                          >
+                            <MoreVertIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                    </Box>
+                    {isEditing ? (
+                      <TextField
+                        className={classes.inlineEditField}
+                        size="small"
+                        fullWidth
+                        multiline
+                        minRows={2}
+                        maxRows={6}
+                        variant="outlined"
+                        value={inlineEditValue}
+                        onChange={(ev) => setInlineEditValue(ev.target.value)}
+                        onBlur={() => saveInlineEdit(m)}
+                        onKeyDown={(ev) => {
+                          if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) {
+                            ev.preventDefault();
+                            saveInlineEdit(m);
+                          }
+                          if (ev.key === "Escape") {
+                            setInlineEditId(null);
+                          }
+                        }}
+                        autoFocus
+                        disabled={inlineEditSaving}
+                      />
+                    ) : (
+                      <Typography
+                        className={classes.snippet}
+                        style={{ whiteSpace: "normal", cursor: "text" }}
+                        onClick={() => startInlineEdit(m)}
+                      >
                         {quickMessageSnippet(m.message)}
                       </Typography>
-                      <Typography className={classes.meta}>
-                        {i18n.t("messagesInput.quickReplies.uses", {
-                          count: m.useCount || 0,
-                        })}
-                      </Typography>
-                    </Box>
-                    <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipMore")}>
-                      <IconButton
-                        size="small"
-                        onClick={(e) => {
-                          setRowMenuAnchor(e.currentTarget);
-                          setRowMenuMessage(m);
-                        }}
-                      >
-                        <MoreVertIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipPreview")}>
-                      <IconButton size="small" onClick={() => openPreview(m)}>
-                        <VisibilityIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipSend")}>
-                      <IconButton
-                        size="small"
-                        color="primary"
-                        onClick={(e) => handleSend(m, e)}
-                      >
-                        <SendIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
+                    )}
+                    <Typography className={classes.meta}>
+                      {i18n.t("messagesInput.quickReplies.uses", {
+                        count: m.useCount || 0,
+                      })}
+                    </Typography>
                   </Box>
                   );
                 })}
@@ -1000,22 +1124,6 @@ const QuickRepliesSidebar = ({
           </ListItemIcon>
           <ListItemText
             primary={i18n.t("messagesInput.quickReplies.menuSchedule")}
-            classes={{ primary: classes.menuPrimary }}
-          />
-        </MenuItem>
-        <MenuItem
-          dense
-          className={classes.menuItemDense}
-          onClick={() => {
-            if (rowMenuMessage) openPreview(rowMenuMessage);
-            closeRowMenu();
-          }}
-        >
-          <ListItemIcon className={classes.menuItemIcon}>
-            <RateReviewIcon style={{ fontSize: 18 }} />
-          </ListItemIcon>
-          <ListItemText
-            primary={i18n.t("messagesInput.quickReplies.menuEditAndSend")}
             classes={{ primary: classes.menuPrimary }}
           />
         </MenuItem>
@@ -1104,6 +1212,7 @@ const QuickRepliesSidebar = ({
             onClose={closeEditor}
             quickemessageId={editorQuickId ?? undefined}
             creationKind={editorQuickId ? null : editorCreationKind}
+            initialMessage={editorQuickId ? undefined : editorInitialMessage}
             onSaved={() => {
               load();
               closeEditor();

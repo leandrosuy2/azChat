@@ -1,6 +1,7 @@
 import express from "express";
 import isAuth from "../middleware/isAuth";
 import * as TicketBudgetController from "../controllers/TicketBudgetController";
+import * as TicketBudgetOrderController from "../controllers/TicketBudgetOrderController";
 import * as PublicTicketBudgetController from "../controllers/PublicTicketBudgetController";
 import uploadBudgetPdfTemp from "../config/uploadBudgetPdfTemp";
 
@@ -10,6 +11,24 @@ ticketBudgetRoutes.get(
   "/ticket-budgets/ticket/:ticketId",
   isAuth,
   TicketBudgetController.listByTicket
+);
+
+ticketBudgetRoutes.get(
+  "/ticket-budgets/contact/:contactId",
+  isAuth,
+  TicketBudgetController.listByContact
+);
+
+ticketBudgetRoutes.get(
+  "/ticket-budget-orders/contact/:contactId",
+  isAuth,
+  TicketBudgetOrderController.listByContact
+);
+
+ticketBudgetRoutes.post(
+  "/ticket-budget-orders",
+  isAuth,
+  TicketBudgetOrderController.storeStandalone
 );
 
 ticketBudgetRoutes.get(

@@ -47,6 +47,7 @@ import { ForwardMessageContext } from "../../context/ForwarMessage/ForwardMessag
 
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
+import { toast } from "react-toastify";
 // import { SocketContext } from "../../context/Socket/SocketContext";
 import { i18n } from "../../translate/i18n";
 import SelectMessageCheckbox from "./SelectMessageCheckbox";
@@ -558,6 +559,7 @@ const MessagesList = ({
   queueId,
   channel,
   ticketIdProp,
+  onDraftQuickReply,
 }) => {
   const classes = useStyles();
   const [messagesList, dispatch] = useReducer(reducer, []);
@@ -889,10 +891,11 @@ const handleSaveAsQuickReply = () => {
     return;
   }
   handleCloseMessageOptionsMenu();
-  history.push({
-    pathname: "/quick-messages",
-    state: { draftQuickMessage: { message: body } },
-  });
+  if (typeof onDraftQuickReply === "function") {
+    onDraftQuickReply(body);
+    return;
+  }
+  toast.info("Abra o painel de respostas rápidas no atendimento para criar uma resposta.");
 };
 
 const hanldeReplyMessage = (e, message) => {

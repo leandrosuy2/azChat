@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Switch, Route as RouterRoute } from "react-router-dom";
+import { BrowserRouter, Switch, Route as RouterRoute, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import LoggedInLayout from "../layout";
@@ -15,13 +15,11 @@ import Contacts from "../pages/Contacts";
 import ContactImportPage from "../pages/Contacts/import";
 import ChatMoments from "../pages/Moments"
 import Queues from "../pages/Queues";
-import Tags from "../pages/Tags";
 import MessagesAPI from "../pages/MessagesAPI";
 import Helps from "../pages/Helps";
 import ContactLists from "../pages/ContactLists";
 import ContactListItems from "../pages/ContactListItems";
 import Companies from "../pages/Companies";
-import QuickMessages from "../pages/QuickMessages";
 import { AuthProvider } from "../context/Auth/AuthContext";
 import { TicketsContextProvider } from "../context/Tickets/TicketsContext";
 import { WhatsAppsProvider } from "../context/WhatsApp/WhatsAppsContext";
@@ -54,6 +52,7 @@ import Quadro from "../pages/Quadro";
 import PublicOrcamentoPage from "../pages/PublicOrcamentoPage";
 import { PrivacyPolicy, TermsOfService, MetaCallback, DataDeletion } from "../pages/PublicLegal";
 import NotificationsCenter from "../pages/NotificationsCenter";
+import Products from "../pages/Products";
 
 
 const Routes = () => {
@@ -90,10 +89,14 @@ const Routes = () => {
                 <Route exact path="/tickets/:ticketId?" component={TicketResponsiveContainer} isPrivate />
                 <Route exact path="/notifications" component={NotificationsCenter} isPrivate />
                 <Route exact path="/connections" component={Connections} isPrivate />
-                <Route exact path="/quick-messages" component={QuickMessages} isPrivate />
+                <Route exact path="/quick-messages">
+                  <Redirect to="/tickets" />
+                </Route>
                 <Route exact path="/todolist" component={ToDoList} isPrivate />
                 <Route exact path="/schedules" component={Schedules} isPrivate />
-                <Route exact path="/tags" component={Tags} isPrivate />
+                <Route exact path="/tags">
+                  <Redirect to="/tickets" />
+                </Route>
                 <Route exact path="/contacts" component={Contacts} isPrivate />
                 <Route exact path="/contacts/import" component={ContactImportPage} isPrivate />
                 <Route exact path="/helps" component={Helps} isPrivate />
@@ -103,7 +106,10 @@ const Routes = () => {
                 <Route exact path="/messages-api" component={MessagesAPI} isPrivate />
                 <Route exact path="/settings" component={SettingsCustom} isPrivate />
                 <Route exact path="/queues" component={Queues} isPrivate />
-                <Route exact path="/reports" component={Reports} isPrivate />
+                <Route exact path="/reports">
+                  <Redirect to="/?hub=reports" />
+                </Route>
+                <Route exact path="/products" component={Products} isPrivate />
                 <Route exact path="/queue-integration" component={QueueIntegration} isPrivate />
                 <Route exact path="/announcements" component={Annoucements} isPrivate />
                 <Route
@@ -126,7 +132,9 @@ const Routes = () => {
                 />
                 <Route exact path="/chats/:id?" component={Chat} isPrivate />
                 <Route exact path="/files" component={Files} isPrivate />
-                <Route exact path="/moments" component={ChatMoments} isPrivate />
+                <Route exact path="/moments">
+                  <Redirect to="/?hub=live" />
+                </Route>
                 <Route exact path="/kanban" component={Kanban} isPrivate />
                 <Route exact path="/quadro/:ticketUuid" component={Quadro} isPrivate />
                 <Route exact path="/TagsKanban" component={TagsKanban} isPrivate />

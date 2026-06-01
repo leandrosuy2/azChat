@@ -33,7 +33,7 @@ import TagModal from "../TagModal";
 import QuickFunnelStageModal from "../QuickFunnelStageModal";
 
 /** Quantidade máxima de chips na faixa; o restante abre em “Ver mais”. */
-const MAX_INLINE_INBOX_TAGS = 5;
+const MAX_INLINE_INBOX_TAGS = 12;
 
 /** Mesmo valor que o backend (`INBOX_FUNNEL_FILTER_KANBAN`) — etapas do funil na caixa. */
 const KANBAN_INBOX_FUNNEL_STAGES = 2;
@@ -444,28 +444,71 @@ const TicketsInboxFilterBar = ({
     refreshTags();
   };
 
-  /** Chips na faixa: só filtro / arrastar contato — exclusão fica em “Gerenciar”. */
-  const renderScrollTagChip = (tag, keyPrefix) => (
-    <Chip
-      key={`${keyPrefix}-${tag.id}`}
-      size="small"
-      className={`${classes.tagChip} ${classes.chipScrollItem} ${
-        dragOverTagId === tag.id ? classes.chipDrop : ""
-      }`}
-      style={{
-        backgroundColor: isFolderTagActive(tag) ? tag.color || "#1976d2" : undefined,
-        color: isFolderTagActive(tag) ? "#fff" : undefined,
-        borderColor: isFolderTagActive(tag) ? "transparent" : undefined,
-      }}
-      label={tag.name}
-      onClick={() => {
-        selectFolderTag(tag);
-      }}
-      onDragOver={(e) => handleDragOverTag(e, tag.id)}
-      onDragLeave={handleDragLeaveTag}
-      onDrop={(e) => handleDropOnTag(e, tag)}
-    />
-  );
+  /** Chips na faixa: filtro, reordenar (handle) ou arrastar contato para etiquetar. */
+  const renderScrollTagChip = (tag, keyPrefix, kind) => {
+    const isReorderTarget =
+      manageDropTargetId === Number(tag.id) &&
+      manageReorderDragRef.current?.kind === kind;
+    const isDragging =
+      manageDragSourceId === Number(tag.id) &&
+      manageReorderDragRef.current?.kind === kind;
+
+    return (
+      <Chip
+        key={`${keyPrefix}-${tag.id}`}
+        size="small"
+        className={`${classes.tagChip} ${classes.chipScrollItem} ${
+          dragOverTagId === tag.id ? classes.chipDrop : ""
+        } ${isReorderTarget ? classes.manageListDropTarget : ""} ${
+          isDragging ? classes.manageListDragging : ""
+        }`}
+        style={{
+          backgroundColor: isFolderTagActive(tag) ? tag.color || "#1976d2" : undefined,
+          color: isFolderTagActive(tag) ? "#fff" : undefined,
+          borderColor: isFolderTagActive(tag) ? "transparent" : undefined,
+        }}
+        icon={
+          <Tooltip title={i18n.t("tickets.inbox.manageDragReorderTooltip")}>
+            <DragIndicator
+              fontSize="small"
+              draggable
+              onDragStart={(e) => {
+                e.stopPropagation();
+                handleManageDragStart(e, kind, tag.id);
+              }}
+              onDragEnd={handleManageDragEnd}
+              style={{ cursor: "grab" }}
+            />
+          </Tooltip>
+        }
+        label={tag.name}
+        onClick={() => {
+          selectFolderTag(tag);
+        }}
+        onDragOver={(e) => {
+          if (manageReorderDragRef.current?.kind === kind) {
+            handleManageDragOverRow(e, kind, tag.id);
+          } else {
+            handleDragOverTag(e, tag.id);
+          }
+        }}
+        onDragLeave={(e) => {
+          if (manageReorderDragRef.current?.kind === kind) {
+            handleManageDragLeaveRow(e);
+          } else {
+            handleDragLeaveTag();
+          }
+        }}
+        onDrop={(e) => {
+          if (manageReorderDragRef.current?.kind === kind) {
+            handleManageDropRow(e, kind, tag.id);
+          } else {
+            handleDropOnTag(e, tag);
+          }
+        }}
+      />
+    );
+  };
 
   return (
     <Box className={classes.root}>
@@ -498,7 +541,7 @@ const TicketsInboxFilterBar = ({
           </Box>
         </Box>
         <Box className={classes.chipWrapStrip}>
-          {categoryInline.map((tag) => renderScrollTagChip(tag, "c"))}
+          {categoryInline.map((tag) => renderScrollTagChip(tag, "c", "category"))}
           {categoryOverflow.length > 0 && (
             <>
               <Chip
@@ -567,7 +610,7 @@ const TicketsInboxFilterBar = ({
           </Box>
         </Box>
         <Box className={classes.chipWrapStrip}>
-          {stageInline.map((tag) => renderScrollTagChip(tag, "s"))}
+          {stageInline.map((tag) => renderScrollTagChip(tag, "s", "stage"))}
           {stageOverflow.length > 0 && (
             <>
               <Chip

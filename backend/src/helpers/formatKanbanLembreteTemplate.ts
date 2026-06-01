@@ -6,6 +6,12 @@ export interface KanbanLembreteTemplateVars {
   contato?: string;
   responsavel?: string;
   arquivo?: string;
+  areaTrabalho?: string;
+  nomeKanban?: string;
+  etapa?: string;
+  areaOrigem?: string;
+  areaDestino?: string;
+  dataMovimentacao?: string;
 }
 
 const DEFAULTS: Record<string, string> = {
@@ -17,7 +23,11 @@ const DEFAULTS: Record<string, string> = {
   prazo_vencido: "O prazo do card {{nome_card}} venceu ou está atrasado (data: {{data}}).",
   anexo_adicionado: "Novo anexo no card {{nome_card}}: {{arquivo}}.",
   agendado:
-    "Lembrete agendado: o card {{nome_card}} — horário: {{data}}. Clique para ver mais detalhes."
+    "Lembrete agendado: o card {{nome_card}} — horário: {{data}}. Clique para ver mais detalhes.",
+  compartilhamento:
+    "O card {{nome_card}} foi compartilhado de {{area_origem}} para {{area_destino}}.",
+  alteracao_responsavel:
+    "O responsável do card {{nome_card}} foi alterado para {{responsavel}}."
 };
 
 export function getDefaultKanbanTemplate(tipoGatilho: string): string {
@@ -69,6 +79,29 @@ export function formatKanbanLembreteTemplate(
 
   const arquivo = vars.arquivo || "—";
   out = applyVar(out, ["arquivo", "ARQUIVO", "anexo"], arquivo);
+
+  const areaTrabalho = vars.areaTrabalho || vars.nomeKanban || "—";
+  out = applyVar(
+    out,
+    ["area_trabalho", "areaTrabalho", "nome_kanban", "nomeKanban", "AREA_TRABALHO"],
+    areaTrabalho
+  );
+
+  const etapa = vars.etapa || vars.coluna || "—";
+  out = applyVar(out, ["etapa", "ETAPA", "nome_etapa", "nomeEtapa"], etapa);
+
+  const areaOrigem = vars.areaOrigem || "—";
+  out = applyVar(out, ["area_origem", "areaOrigem", "AREA_ORIGEM"], areaOrigem);
+
+  const areaDestino = vars.areaDestino || "—";
+  out = applyVar(out, ["area_destino", "areaDestino", "AREA_DESTINO"], areaDestino);
+
+  const dataMov = vars.dataMovimentacao || vars.data || "—";
+  out = applyVar(
+    out,
+    ["data_movimentacao", "dataMovimentacao", "DATA_MOVIMENTACAO"],
+    dataMov
+  );
 
   return out;
 }

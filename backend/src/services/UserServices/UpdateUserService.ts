@@ -28,6 +28,8 @@ interface UserData {
   allowRealTime?: string;
   allowConnections?: string;
   profileImage?: string;
+  permissions?: Record<string, boolean> | null;
+  uiPreferences?: Record<string, unknown> | null;
 }
 
 interface Request {
@@ -89,7 +91,9 @@ const UpdateUserService = async ({
     allowConnections,
     defaultTicketsManagerWidth = 400,
     allowRealTime,
-    profileImage
+    profileImage,
+    permissions,
+    uiPreferences
   } = userData;
 
   try {
@@ -118,7 +122,9 @@ const UpdateUserService = async ({
     defaultTicketsManagerWidth,
     allowRealTime,
     profileImage,
-    allowConnections
+    allowConnections,
+    ...(permissions !== undefined ? { permissions } : {}),
+    ...(uiPreferences !== undefined ? { uiPreferences } : {})
   });
 
   await user.$set("queues", queueIds);
@@ -155,7 +161,9 @@ const UpdateUserService = async ({
     defaultTicketsManagerWidth: user.defaultTicketsManagerWidth,
     allowRealTime: user.allowRealTime,
     allowConnections: user.allowConnections,
-    profileImage: user.profileImage
+    profileImage: user.profileImage,
+    permissions: user.permissions || null,
+    uiPreferences: user.uiPreferences || null
   };
 
   return serializedUser;

@@ -825,6 +825,7 @@ const messages = {
       },
       chatInternal: {
         new: "Nova",
+        selectChatHint: "Selecione uma conversa ou crie um novo chat interno.",
         modal: {
           conversation: "Conversa",
           title: "Título",
@@ -1682,6 +1683,7 @@ const messages = {
           "queue-integration": "Integrações",
           files: "Arquivos",
           budgets: "Orçamentos / OS",
+          "contact-drawer": "Painel do contato no atendimento",
           settings: "Configurações",
           companies: "Empresas",
         },
@@ -1907,6 +1909,8 @@ const messages = {
             disableIntegration: "Desabilitar integração",
             logTicket: "Logs do Ticket",
             requiredTag: "Você deve atribuir uma tag antes de fechar o ticket.",
+            pauseAi: "Pausar IA neste atendimento",
+            resumeAi: "Retomar IA neste atendimento",
           },
         },
       },
@@ -1965,8 +1969,8 @@ const messages = {
           menuDuplicate: "Duplicar resposta rápida",
           menuEdit: "Editar",
           menuSchedule: "Criar agendamento",
-          menuEditAndSend: "Editar e enviar",
           menuDelete: "Deletar",
+          inlineEditSaved: "Conteúdo da resposta atualizado.",
           confirmDeleteTitle: "Excluir resposta rápida?",
           confirmDeleteMessage:
             "Esta ação não pode ser desfeita. Confirma a exclusão de /{{shortcode}}?",

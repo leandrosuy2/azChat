@@ -16,6 +16,7 @@ import fs from "fs";
 import path from "path";
 
 import AppError from "../errors/AppError";
+import { assertQuickMessagePermission } from "../helpers/checkQuickMessagePermission";
 
 type IndexQuery = {
   searchParam: string;
@@ -66,6 +67,8 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
   const { searchParam, pageNumber } = req.query as IndexQuery;
   const { companyId, id: userId } = req.user;
 
+  assertQuickMessagePermission(req.user, "view");
+
   const { records, count, hasMore } = await ListService({
     searchParam,
     pageNumber,
@@ -80,7 +83,7 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
   const { companyId } = req.user;
   const data = req.body as StoreData;
 
-
+  assertQuickMessagePermission(req.user, "create");
 
   const schema = Yup.object().shape({
     shortcode: Yup.string().required(),
@@ -112,6 +115,8 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
 export const show = async (req: Request, res: Response): Promise<Response> => {
   const { id } = req.params;
 
+  assertQuickMessagePermission(req.user, "view");
+
   const record = await ShowService(id);
 
   return res.status(200).json(record);
@@ -123,6 +128,8 @@ export const update = async (
 ): Promise<Response> => {
   const data = req.body as StoreData;
   const { companyId } = req.user;
+
+  assertQuickMessagePermission(req.user, "edit");
 
   const schema = Yup.object().shape({
     shortcode: Yup.string().required(),
@@ -160,6 +167,8 @@ export const remove = async (
   const { id } = req.params;
   const { companyId } = req.user;
 
+  assertQuickMessagePermission(req.user, "delete");
+
   await DeleteService(id);
 
   const io = getIO();
@@ -177,6 +186,7 @@ export const findList = async (
   res: Response
 ): Promise<Response> => {
   const params = req.query as FindParams;
+  assertQuickMessagePermission(req.user, "view");
   const records: QuickMessage[] = await FindService(params);
 
   return res.status(200).json(records);
@@ -188,6 +198,8 @@ export const incrementUse = async (
 ): Promise<Response> => {
   const { id } = req.params;
   const { companyId } = req.user;
+
+  assertQuickMessagePermission(req.user, "view");
 
   const record = await IncrementUseService(id, companyId);
 

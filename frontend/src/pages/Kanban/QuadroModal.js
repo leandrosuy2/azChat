@@ -122,7 +122,13 @@ const LEMBRETE_GATILHO_OPTIONS = [
   { value: "movimentacao", label: "Mudança de coluna (Kanban)" },
   { value: "mudanca_status", label: "Mudança de status do quadro" },
   { value: "anexo_adicionado", label: "Novo anexo no cartão" },
+  { value: "compartilhamento", label: "Compartilhamento com outra área" },
+  { value: "alteracao_responsavel", label: "Alteração de responsável" },
 ];
+
+const LEMBRETE_TEMPLATE_VARS_HINT =
+  "{{nome_card}} {{coluna}} {{etapa}} {{status}} {{data}} {{nome_contato}} {{responsavel}} " +
+  "{{arquivo}} {{area_trabalho}} {{nome_kanban}} {{area_origem}} {{area_destino}} {{data_movimentacao}}";
 
 /** Normaliza hora para HH:mm (API / Sequelize). */
 function normalizeLembreteHora(h) {
@@ -174,11 +180,16 @@ function previewKanbanLembreteTemplate(template) {
   };
   apply(["nomeCard", "nome_card"], "Meu projeto exemplo");
   apply(["coluna", "nome_coluna", "COLUNA"], "Produção");
+  apply(["etapa", "nome_etapa"], "Produção");
   apply(["status", "STATUS"], "Em andamento");
   apply(["data", "DATA"], "31/12/2026");
   apply(["contato", "nome_contato"], "Cliente Exemplo");
   apply(["responsavel", "responsável"], "Maria (responsável)");
   apply(["arquivo", "anexo"], "orcamento.pdf");
+  apply(["area_trabalho", "nome_kanban"], "Área Comercial");
+  apply(["area_origem"], "Comercial");
+  apply(["area_destino"], "Financeiro");
+  apply(["data_movimentacao"], "01/06/2026 14:30");
   return out || "—";
 }
 
@@ -1199,7 +1210,11 @@ export default function QuadroModal({
     diasAntecedencia: 1,
     antecedenciaMinutos: "",
     ativo: true,
+    notifyOnShare: true,
+    notifyShareGroupIds: [],
+    quadroGroupId: "",
   });
+  const [lembreteQuadroGroups, setLembreteQuadroGroups] = useState([]);
   /** Painéis colapsáveis no modal de edição do lembrete (evita poluição visual). */
   const [lembreteEditorPanels, setLembreteEditorPanels] = useState({
     info: true,
@@ -1226,6 +1241,11 @@ export default function QuadroModal({
     api.get("/users/").then(({ data }) => {
       const list = data?.users || data || [];
       if (!cancelled && Array.isArray(list)) setCompanyUsersList(list);
+    }).catch(() => {});
+    api.get("/quadro-groups").then(({ data }) => {
+      if (cancelled) return;
+      const list = data.groups || data.lista || data || [];
+      if (Array.isArray(list)) setLembreteQuadroGroups(list);
     }).catch(() => {});
     return () => { cancelled = true; };
   }, [lembreteEditorOpen]);
@@ -2388,6 +2408,14 @@ export default function QuadroModal({
       diasAntecedencia: 1,
       antecedenciaMinutos: "",
       ativo: true,
+      notifyOnShare: true,
+      notifyShareGroupIds: [],
+      quadroGroupId:
+        statusesQuadroGroupId != null && statusesQuadroGroupId !== ""
+          ? String(statusesQuadroGroupId)
+          : quadroGroupIdProp != null && quadroGroupIdProp !== ""
+            ? String(quadroGroupIdProp)
+            : "",
     });
     setLembreteEditorPanels({ info: true, gatilho: false, mensagem: true, destino: false });
     setLembreteEditorOpen(true);
@@ -2425,6 +2453,14 @@ export default function QuadroModal({
           ? String(row.antecedenciaMinutos)
           : "",
       ativo: row.ativo !== false,
+      notifyOnShare: row.notifyOnShare !== false,
+      notifyShareGroupIds: Array.isArray(row.notifyShareGroupIds)
+        ? row.notifyShareGroupIds.map(String)
+        : [],
+      quadroGroupId:
+        row.quadroGroupId != null && row.quadroGroupId !== ""
+          ? String(row.quadroGroupId)
+          : "",
     });
     setLembreteEditorPanels({ info: true, gatilho: false, mensagem: true, destino: false });
     setLembreteEditorOpen(true);
@@ -2486,6 +2522,18 @@ export default function QuadroModal({
       ativo: !!lembreteForm.ativo,
       data: tipoGatilhoNorm === "agendado" ? dataTrim : null,
       hora: tipoGatilhoNorm === "agendado" ? horaNorm : null,
+      notifyOnShare:
+        tipoGatilhoNorm === "compartilhamento" ? lembreteForm.notifyOnShare !== false : false,
+      notifyShareGroupIds:
+        tipoGatilhoNorm === "compartilhamento" && lembreteForm.notifyOnShare !== false
+          ? (lembreteForm.notifyShareGroupIds || [])
+              .map((id) => parseInt(String(id), 10))
+              .filter((n) => Number.isFinite(n) && n > 0)
+          : null,
+      quadroGroupId:
+        lembreteForm.quadroGroupId && String(lembreteForm.quadroGroupId).trim() !== ""
+          ? parseInt(String(lembreteForm.quadroGroupId), 10)
+          : null,
     };
     try {
       if (lembreteForm.id) {
@@ -4014,10 +4062,88 @@ export default function QuadroModal({
                         ))}
                       </Select>
                     </FormControl>
-                    <Typography variant="caption" color="textSecondary">
-                      «Agendado» usa a data/hora abaixo. Prazo próximo / vencido usam «Prazo do card» na secção valores.
-                      Movimentação e status disparam ao mudar coluna ou estado do quadro.
+                    <Typography variant="caption" color="textSecondary" display="block">
+                      «Agendado» usa data/hora abaixo. Prazo próximo/vencido usam «Prazo do card». Movimentação,
+                      status, responsável e compartilhamento disparam nas ações correspondentes do cartão.
                     </Typography>
+                    <FormControl fullWidth margin="dense" variant="outlined" size="small">
+                      <InputLabel shrink style={{ background: theme.palette.type === "dark" ? theme.palette.background.default : theme.palette.grey[50], padding: "0 4px" }}>Área de trabalho (opcional)</InputLabel>
+                      <Select
+                        label="Área de trabalho (opcional)"
+                        displayEmpty
+                        value={lembreteForm.quadroGroupId ? String(lembreteForm.quadroGroupId) : ""}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setLembreteForm((f) => ({ ...f, quadroGroupId: v }));
+                        }}
+                      >
+                        <MenuItem value="">
+                          <em>Todas as áreas deste cartão</em>
+                        </MenuItem>
+                        {lembreteQuadroGroups.map((g) => (
+                          <MenuItem key={g.id} value={String(g.id)}>
+                            {g.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    {lembreteForm.tipoGatilho === "compartilhamento" && (
+                      <Box mt={1}>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={lembreteForm.notifyOnShare !== false}
+                              onChange={(e) => {
+                                const checked = e.target.checked;
+                                setLembreteForm((f) => ({
+                                  ...f,
+                                  notifyOnShare: checked,
+                                }));
+                              }}
+                              color="primary"
+                            />
+                          }
+                          label="Notificar ao compartilhar com outra área de trabalho"
+                        />
+                        {lembreteForm.notifyOnShare !== false && (
+                          <FormControl fullWidth margin="dense" variant="outlined" size="small">
+                            <InputLabel shrink style={{ background: theme.palette.type === "dark" ? theme.palette.background.default : theme.palette.grey[50], padding: "0 4px" }}>Áreas que recebem notificação</InputLabel>
+                            <Select
+                              multiple
+                              label="Áreas que recebem notificação"
+                              value={lembreteForm.notifyShareGroupIds || []}
+                              onChange={(e) => {
+                                const v = e.target.value;
+                                setLembreteForm((f) => ({
+                                  ...f,
+                                  notifyShareGroupIds: typeof v === "string" ? v.split(",") : v,
+                                }));
+                              }}
+                              renderValue={(selected) => {
+                                const ids = selected || [];
+                                if (!ids.length) return "Todas as áreas (padrão)";
+                                return ids
+                                  .map(
+                                    (id) =>
+                                      lembreteQuadroGroups.find((g) => String(g.id) === String(id))?.name ||
+                                      `#${id}`
+                                  )
+                                  .join(", ");
+                              }}
+                            >
+                              {lembreteQuadroGroups.map((g) => (
+                                <MenuItem key={g.id} value={String(g.id)}>
+                                  {g.name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                            <Typography variant="caption" color="textSecondary">
+                              Deixe vazio para notificar em qualquer compartilhamento com área nova.
+                            </Typography>
+                          </FormControl>
+                        )}
+                      </Box>
+                    )}
                     {lembreteForm.tipoGatilho === "agendado" && (
                       <Box display="flex" flexWrap="wrap" alignItems="flex-end" style={{ gap: 12 }}>
                         <TextField
@@ -4092,11 +4218,7 @@ export default function QuadroModal({
                   </AccordionSummary>
                   <AccordionDetails className={classes.modalAccordionDetails}>
                     <Typography variant="caption" color="textSecondary" display="block">
-                      Variáveis:{" "}
-                      <code>
-                        {"{{nome_card}} {{coluna}} {{status}} {{data}} {{nome_contato}} {{responsavel}} {{arquivo}}"}
-                      </code>{" "}
-                      (também em forma curta, ex.: {"{nome_card}"}).
+                      Variáveis disponíveis: <code>{LEMBRETE_TEMPLATE_VARS_HINT}</code> (também {"{nome_card}"}, etc.).
                     </Typography>
                     <TextField
                       fullWidth

@@ -100,6 +100,7 @@ const Ticket = () => {
   const { companyId } = user;
   const quickReplyHandlersRef = useRef({});
   const [quickRepliesOpen, setQuickRepliesOpen] = useState(false);
+  const [quickReplyDraft, setQuickReplyDraft] = useState(null);
 
   const refreshTicket = useCallback(async () => {
     if (isNil(ticketId) || ticketId === "undefined") return;
@@ -224,6 +225,12 @@ const Ticket = () => {
     });
   }, []);
 
+  const handleDraftQuickReply = useCallback((messageBody) => {
+    setQuickReplyDraft({ message: messageBody });
+    setDrawerOpen(false);
+    setQuickRepliesOpen(true);
+  }, []);
+
   const renderMessagesList = () => {
     return (
       <Box display="flex" flexDirection="column" flex={1} minHeight={0} minWidth={0}>
@@ -233,6 +240,7 @@ const Ticket = () => {
           whatsappId={ticket.whatsappId}
           queueId={ticket.queueId}
           channel={ticket.channel}
+          onDraftQuickReply={handleDraftQuickReply}
         >
         </MessagesList>
         {ticketId && ticketId !== "undefined" && (
@@ -328,6 +336,8 @@ const Ticket = () => {
           contact={contact}
           quickReplyHandlersRef={quickReplyHandlersRef}
           onClose={() => setQuickRepliesOpen(false)}
+          draftQuickMessage={quickReplyDraft}
+          onDraftQuickMessageConsumed={() => setQuickReplyDraft(null)}
         />
       </Drawer>
 

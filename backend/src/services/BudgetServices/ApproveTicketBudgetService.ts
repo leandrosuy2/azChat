@@ -51,20 +51,6 @@ const ApproveTicketBudgetService = async ({
     throw new AppError("ERR_BUDGET_SIGNER_NAME_REQUIRED", 400);
   }
 
-  if (budget.ticketId != null) {
-    const dup = await TicketBudget.findOne({
-      where: {
-        ticketId: budget.ticketId,
-        companyId: budget.companyId,
-        status: "approved",
-        id: { [Op.ne]: budget.id }
-      }
-    });
-    if (dup) {
-      throw new AppError("ERR_BUDGET_TICKET_ALREADY_APPROVED", 400);
-    }
-  }
-
   const total = sumBudgetItems(budget.payload?.items ?? []);
   const year = new Date().getFullYear();
   const orderCount = await TicketBudgetOrder.count({

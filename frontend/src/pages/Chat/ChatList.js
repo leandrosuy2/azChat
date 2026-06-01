@@ -25,27 +25,40 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     position: "relative",
     flex: 1,
-    height: "calc(100% - 58px)",
+    minHeight: 0,
     overflow: "hidden",
     borderRadius: 0,
-    backgroundColor: theme.mode === 'light' ? "#f2f2f2" : "#7f7f7f",
+    backgroundColor: "transparent",
   },
   chatList: {
     display: "flex",
     flexDirection: "column",
     position: "relative",
     flex: 1,
-    overflowY: "scroll",
+    minHeight: 0,
+    overflowY: "auto",
+    paddingTop: 4,
+    paddingBottom: 8,
     ...theme.scrollbarStyles,
   },
   listItemActive: {
     cursor: "pointer",
-    backgroundColor: theme.palette.background.paper,
-    borderLeft: "6px solid #002d6e",
+    backgroundColor:
+      theme.mode === "dark"
+        ? "rgba(255,255,255,0.08)"
+        : "rgba(25, 118, 210, 0.08)",
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
   },
   listItem: {
     cursor: "pointer",
-    backgroundColor: theme.palette.background.color,
+    backgroundColor: "transparent",
+    borderLeft: "4px solid transparent",
+    "&:hover": {
+      backgroundColor:
+        theme.mode === "dark"
+          ? "rgba(255,255,255,0.04)"
+          : "rgba(0, 0, 0, 0.04)",
+    },
   },
 }));
 

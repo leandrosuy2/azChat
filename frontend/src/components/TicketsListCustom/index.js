@@ -108,107 +108,136 @@ const ticketSortDesc = (a, b) => {
     return 0;
 }
 
+/** IDs podem vir como string (socket) ou number (API) — comparação estrita gerava duplicatas. */
+const ticketIdKey = (ticketOrId) => {
+    const raw =
+        ticketOrId != null && typeof ticketOrId === "object"
+            ? ticketOrId.id
+            : ticketOrId;
+    const id = Number(raw);
+    return Number.isFinite(id) ? id : null;
+};
+
+const findTicketIndexById = (list, ticketOrId) => {
+    const key = ticketIdKey(ticketOrId);
+    if (key == null) return -1;
+    return list.findIndex((t) => ticketIdKey(t) === key);
+};
+
+const dedupeTicketsById = (list) => {
+    const seen = new Set();
+    const out = [];
+    for (const ticket of list) {
+        const key = ticketIdKey(ticket);
+        if (key == null || seen.has(key)) continue;
+        seen.add(key);
+        out.push(ticket);
+    }
+    return out;
+};
+
+const applySort = (list, sortDir) => {
+    if (!sortDir || !["ASC", "DESC"].includes(sortDir)) return list;
+    const next = [...list];
+    next.sort(sortDir === "ASC" ? ticketSortAsc : ticketSortDesc);
+    return next;
+};
+
 const reducer = (state, action) => {
-    //console.log("action", action, state)
     const sortDir = action.sortDir;
     
     if (action.type === "LOAD_TICKETS") {
-        const newTickets = action.payload;
+        const newTickets = Array.isArray(action.payload) ? action.payload : [];
+        const pageNumber = Number(action.pageNumber) || 1;
 
-        newTickets.forEach((ticket) => {
-            const ticketIndex = state.findIndex((t) => t.id === ticket.id);
-            if (ticketIndex !== -1) {
-                state[ticketIndex] = ticket;
-                if (ticket.unreadMessages > 0) {
-                    state.unshift(state.splice(ticketIndex, 1)[0]);
+        let next;
+        if (pageNumber <= 1) {
+            next = [...newTickets];
+        } else {
+            next = [...state];
+            newTickets.forEach((ticket) => {
+                const ticketIndex = findTicketIndexById(next, ticket);
+                if (ticketIndex !== -1) {
+                    next[ticketIndex] = ticket;
+                    if (ticket.unreadMessages > 0) {
+                        const [item] = next.splice(ticketIndex, 1);
+                        next.unshift(item);
+                    }
+                } else {
+                    next.push(ticket);
                 }
-            } else {
-                state.push(ticket);
-            }
-        });
-        if (sortDir && ['ASC', 'DESC'].includes(sortDir)) {
-            sortDir === 'ASC' ? state.sort(ticketSortAsc) : state.sort(ticketSortDesc);
+            });
         }
 
-        return [...state];
+        return dedupeTicketsById(applySort(next, sortDir));
     }
 
     if (action.type === "RESET_UNREAD") {
         const ticketId = action.payload;
+        const next = [...state];
+        const ticketIndex = findTicketIndexById(next, ticketId);
 
-        const ticketIndex = state.findIndex((t) => t.id === ticketId);
         if (ticketIndex !== -1) {
-            state[ticketIndex].unreadMessages = 0;
+            next[ticketIndex] = { ...next[ticketIndex], unreadMessages: 0 };
         }
 
-        if (sortDir && ['ASC', 'DESC'].includes(sortDir)) {
-            sortDir === 'ASC' ? state.sort(ticketSortAsc) : state.sort(ticketSortDesc);
-        }
-
-        return [...state];
+        return dedupeTicketsById(applySort(next, sortDir));
     }
 
     if (action.type === "UPDATE_TICKET") {
         const ticket = action.payload;
+        const next = [...state];
+        const ticketIndex = findTicketIndexById(next, ticket);
 
-        const ticketIndex = state.findIndex((t) => t.id === ticket.id);
         if (ticketIndex !== -1) {
-            state[ticketIndex] = ticket;
+            next[ticketIndex] = ticket;
         } else {
-            state.unshift(ticket);
-        }
-        if (sortDir && ['ASC', 'DESC'].includes(sortDir)) {
-            sortDir === 'ASC' ? state.sort(ticketSortAsc) : state.sort(ticketSortDesc);
+            next.unshift(ticket);
         }
 
-        return [...state];
+        return dedupeTicketsById(applySort(next, sortDir));
     }
 
     if (action.type === "UPDATE_TICKET_UNREAD_MESSAGES") {
         const ticket = action.payload;
+        const next = [...state];
+        const ticketIndex = findTicketIndexById(next, ticket);
 
-        const ticketIndex = state.findIndex((t) => t.id === ticket.id);
         if (ticketIndex !== -1) {
-            state[ticketIndex] = ticket;
-            state.unshift(state.splice(ticketIndex, 1)[0]);
-        } else {
-            if (action.status === action.payload.status) {
-                state.unshift(ticket);
-            }
-        }
-        if (sortDir && ['ASC', 'DESC'].includes(sortDir)) {
-            sortDir === 'ASC' ? state.sort(ticketSortAsc) : state.sort(ticketSortDesc);
+            next[ticketIndex] = ticket;
+            const [item] = next.splice(ticketIndex, 1);
+            next.unshift(item);
+        } else if (action.status === action.payload?.status) {
+            next.unshift(ticket);
         }
 
-        return [...state];
+        return dedupeTicketsById(applySort(next, sortDir));
     }
 
     if (action.type === "UPDATE_TICKET_CONTACT") {
         const contact = action.payload;
-        const ticketIndex = state.findIndex((t) => t.contactId === contact.id);
-        if (ticketIndex !== -1) {
-            state[ticketIndex].contact = contact;
-        }
-        return [...state];
+        const contactKey = Number(contact?.id);
+        if (!Number.isFinite(contactKey)) return state;
+
+        const next = state.map((t) =>
+            Number(t.contactId) === contactKey ? { ...t, contact } : t
+        );
+        return dedupeTicketsById(next);
     }
 
     if (action.type === "DELETE_TICKET") {
-        const ticketId = action.payload;
-        const ticketIndex = state.findIndex((t) => t.id === ticketId);
-        if (ticketIndex !== -1) {
-            state.splice(ticketIndex, 1);
-        }
+        const key = ticketIdKey(action.payload);
+        if (key == null) return state;
 
-        if (sortDir && ['ASC', 'DESC'].includes(sortDir)) {
-            sortDir === 'ASC' ? state.sort(ticketSortAsc) : state.sort(ticketSortDesc);
-        }
-
-        return [...state];
+        const next = state.filter((t) => ticketIdKey(t) !== key);
+        return dedupeTicketsById(applySort(next, sortDir));
     }
 
     if (action.type === "RESET") {
         return [];
     }
+
+    return state;
 };
 
 const TicketsListCustom = (props) => {
@@ -303,18 +332,23 @@ const TicketsListCustom = (props) => {
 
     useEffect(() => {
         if (user?.id == null) return;
+        // Evita repopular a lista com o lote anterior da API enquanto o RESET aguarda o novo GET.
+        if (pageNumber === 1 && loading) return;
+
         tdlog("TicketsListCustom: LOAD_TICKETS (API/socket → reducer)", {
             status,
+            pageNumber,
             qtdDaApi: Array.isArray(tickets) ? tickets.length : null,
             sortTickets,
         });
         dispatch({
             type: "LOAD_TICKETS",
             payload: tickets,
+            pageNumber,
             status,
             sortDir: sortTickets
         });
-    }, [tickets, user?.id, status, sortTickets]);
+    }, [tickets, user?.id, status, sortTickets, pageNumber, loading]);
 
     const userIdRef = useRef(user?.id);
     userIdRef.current = user?.id;

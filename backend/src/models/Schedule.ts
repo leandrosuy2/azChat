@@ -122,6 +122,11 @@ class Schedule extends Model<Schedule> {
   @Default(false)
   @Column
   assinar: boolean;
+
+  /** scheduled_message | contact | installation | technical_visit */
+  @Default("scheduled_message")
+  @Column
+  scheduleCategory: string;
 }
 
 export default Schedule;

@@ -16,6 +16,9 @@ export interface CreateTicketLembreteData {
   destinoId?: number | null;
   diasAntecedencia?: number | null;
   antecedenciaMinutos?: number | null;
+  notifyOnShare?: boolean;
+  notifyShareGroupIds?: number[] | null;
+  quadroGroupId?: number | null;
 }
 
 const CreateTicketLembreteService = async (
@@ -73,7 +76,15 @@ const CreateTicketLembreteService = async (
     antecedenciaMinutos:
       data.antecedenciaMinutos != null ? Number(data.antecedenciaMinutos) : null,
     ultimoDisparoEm: null,
-    ultimoDisparoAt: null
+    ultimoDisparoAt: null,
+    notifyOnShare: data.notifyOnShare === true,
+    notifyShareGroupIds: Array.isArray(data.notifyShareGroupIds)
+      ? data.notifyShareGroupIds.map(Number).filter((n) => Number.isFinite(n) && n > 0)
+      : null,
+    quadroGroupId:
+      data.quadroGroupId != null && Number.isFinite(Number(data.quadroGroupId))
+        ? Number(data.quadroGroupId)
+        : null
   });
 
   return lembrete;

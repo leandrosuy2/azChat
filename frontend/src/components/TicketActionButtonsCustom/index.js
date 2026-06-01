@@ -4,7 +4,16 @@ import { useHistory } from "react-router-dom";
 import { Can } from "../Can";
 import { makeStyles } from "@material-ui/core/styles";
 import { IconButton, Menu } from "@material-ui/core";
-import { DeviceHubOutlined, Description, History, MoreVert, PictureAsPdf, Replay, SwapHorizOutlined } from "@material-ui/icons";
+import {
+    DeviceHubOutlined,
+    Description,
+    History,
+    MoreVert,
+    PictureAsPdf,
+    Replay,
+    SwapHorizOutlined,
+    SmartToyOutlined,
+} from "@material-ui/icons";
 import { v4 as uuidv4 } from "uuid";
 
 import { i18n } from "../../translate/i18n";
@@ -40,6 +49,8 @@ import ShowTicketLogModal from "../ShowTicketLogModal";
 import TicketMessagesDialog from "../TicketMessagesDialog";
 import { useTheme } from "@material-ui/styles";
 import BudgetOrcamentoModal from "../BudgetOrcamentoModal";
+import { openWhatsAppWebFromContact } from "../../utils/kanbanWhatsApp";
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 
 const useStyles = makeStyles(theme => ({
     actionButtons: {
@@ -102,6 +113,7 @@ const TicketActionButtonsCustom = ({
 
     const [showSchedules, setShowSchedules] = useState(false);
     const [enableIntegration, setEnableIntegration] = useState(ticket.useIntegration);
+    const [aiBotActive, setAiBotActive] = useState(Boolean(ticket.isBot));
 
     const [openAlert, setOpenAlert] = useState(false);
     const [userTicketOpen, setUserTicketOpen] = useState("");
@@ -131,7 +143,8 @@ const TicketActionButtonsCustom = ({
         const planConfigs = await getPlanCompany(undefined, companyId);
         setShowSchedules(planConfigs.plan.useSchedules);
         setOpenTicketMessageDialog(false);
-        setDisableBot(ticket.contact.disableBot)
+        setDisableBot(ticket.contact.disableBot);
+        setAiBotActive(Boolean(ticket.isBot));
 
         setShowTicketLogOpen(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -252,6 +265,25 @@ const TicketActionButtonsCustom = ({
 
         } catch (err) {
             toastError(err);
+        }
+    };
+
+    const handleToggleTicketAi = async () => {
+        const nextIsBot = !aiBotActive;
+        setLoading(true);
+        try {
+            await api.put(`/tickets/${ticket.id}`, { isBot: nextIsBot });
+            setAiBotActive(nextIsBot);
+            ticket.isBot = nextIsBot;
+            toast.success(
+                nextIsBot
+                    ? "IA ativa neste atendimento."
+                    : "IA pausada neste atendimento — controle manual."
+            );
+        } catch (err) {
+            toastError(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -485,6 +517,26 @@ const TicketActionButtonsCustom = ({
                                 </Tooltip>
                             </IconButton>
 
+                            <IconButton
+                                className={classes.bottomButtonVisibilityIcon}
+                                onClick={handleToggleTicketAi}
+                                disabled={loading}
+                            >
+                                <Tooltip
+                                    title={
+                                        aiBotActive
+                                            ? i18n.t("messagesList.header.buttons.pauseAi")
+                                            : i18n.t("messagesList.header.buttons.resumeAi")
+                                    }
+                                >
+                                    <SmartToyOutlined
+                                        style={{
+                                            color: aiBotActive ? theme.palette.warning.main : theme.palette.text.disabled,
+                                        }}
+                                    />
+                                </Tooltip>
+                            </IconButton>
+
                             <IconButton className={classes.bottomButtonVisibilityIcon}>
                                 <Tooltip title="Transferir Ticket">
                                     <SwapHorizOutlined
@@ -578,6 +630,20 @@ const TicketActionButtonsCustom = ({
                     >
                         <Tooltip title="Criar orçamento">
                             <Description />
+                        </Tooltip>
+                    </IconButton>
+                )}
+                {contact?.id && (
+                    <IconButton
+                        className={classes.bottomButtonVisibilityIcon}
+                        onClick={() =>
+                            openWhatsAppWebFromContact(contact, () =>
+                                toast.warning("Contato sem número para abrir no WhatsApp.")
+                            )
+                        }
+                    >
+                        <Tooltip title="Abrir conversa no WhatsApp externo">
+                            <WhatsAppIcon style={{ color: "#25d366" }} />
                         </Tooltip>
                     </IconButton>
                 )}

@@ -11,6 +11,11 @@ const companyRoutes = express.Router();
 
 companyRoutes.get("/companies/list", isAuth, CompanyController.list);
 companyRoutes.get("/companies", isAuth, CompanyController.index);
+companyRoutes.get(
+  "/companies/:id/lifecycle",
+  isAuth,
+  CompanyController.lifecycleOverview
+);
 companyRoutes.get("/companies/:id", isAuth, CompanyController.show);
 companyRoutes.post("/companies", isAuth, CompanyController.store);
 companyRoutes.put("/companies/:id", isAuth, CompanyController.update);

@@ -9,6 +9,8 @@ import {
   ListItemIcon,
   ListItemText,
   makeStyles,
+  Tab,
+  Tabs,
   Tooltip,
   Typography,
 } from "@material-ui/core";
@@ -24,6 +26,14 @@ import HelpHint from "../../components/HelpHint";
 const STORAGE_KEY = "azchat_notifications_center";
 const READ_STORAGE_KEY = "azchat_notifications_read_ids";
 const KANBAN_KIND = "kanban_move";
+const SYSTEM_KIND = "system";
+
+const NOTIFICATION_TYPE_TABS = [
+  { value: "all", label: "Todas" },
+  { value: "lembrete", label: "Lembretes" },
+  { value: SYSTEM_KIND, label: "Sistema" },
+  { value: KANBAN_KIND, label: "Kanban" },
+];
 
 const READ_FILTERS = [
   { value: "unread", label: "Pendentes" },
@@ -48,11 +58,18 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     display: "flex",
     alignItems: "center",
+    flexWrap: "wrap",
     gap: theme.spacing(1),
     padding: theme.spacing(0.5, 1.5),
     borderBottom: `1px solid ${theme.palette.divider}`,
     background: theme.palette.background.paper,
     minHeight: 40,
+  },
+  typeTabs: {
+    flexShrink: 0,
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    background: theme.palette.background.paper,
+    minHeight: 36,
   },
   topbarTitle: {
     fontSize: 14,
@@ -614,11 +631,12 @@ const NotificationsCenter = () => {
       (acc, item) => {
         acc.all += 1;
         if (item.kind === "lembrete") acc.lembrete += 1;
+        if (item.kind === SYSTEM_KIND) acc.system += 1;
         if (readSet.has(String(item.id))) acc.read += 1;
         else acc.unread += 1;
         return acc;
       },
-      { all: 0, lembrete: 0, kanban_move: 0, read: 0, unread: 0 }
+      { all: 0, lembrete: 0, system: 0, kanban_move: 0, read: 0, unread: 0 }
     );
   }, [items, readSet]);
 
@@ -801,6 +819,35 @@ const NotificationsCenter = () => {
           </span>
         </Tooltip>
       </Box>
+
+      <Tabs
+        value={activeType}
+        onChange={(_e, v) => {
+          setActiveType(v);
+          setSelectedId(null);
+        }}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="scrollable"
+        scrollButtons="auto"
+        className={classes.typeTabs}
+      >
+        {NOTIFICATION_TYPE_TABS.map((tab) => (
+          <Tab
+            key={tab.value}
+            value={tab.value}
+            label={
+              tab.value === "all"
+                ? `${tab.label} (${counts.all})`
+                : tab.value === "lembrete"
+                  ? `${tab.label} (${counts.lembrete})`
+                  : tab.value === SYSTEM_KIND
+                    ? `${tab.label} (${counts.system || 0})`
+                    : tab.label
+            }
+          />
+        ))}
+      </Tabs>
 
       <Box className={classes.content}>
         <Box className={classes.listPanel}>

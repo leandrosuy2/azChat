@@ -22,6 +22,7 @@ export type TicketBudgetListRow = {
   orderNumber: string | null;
   orderTotal: number | null;
   rejectionReason: string | null;
+  ticketId?: number | null;
 };
 
 const ListTicketBudgetsService = async (

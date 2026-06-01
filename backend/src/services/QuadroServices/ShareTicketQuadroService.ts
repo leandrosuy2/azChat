@@ -3,6 +3,7 @@ import TicketQuadro from "../../models/TicketQuadro";
 import TicketQuadroAnexo from "../../models/TicketQuadroAnexo";
 import Ticket from "../../models/Ticket";
 import AppError from "../../errors/AppError";
+import DispatchKanbanShareLembretesService from "../TicketLembreteServices/DispatchKanbanShareLembretesService";
 
 interface Request {
   ticketId: number;
@@ -234,6 +235,44 @@ const ShareTicketQuadroService = async ({
   const normalizedIds = normalizeGroupIds(groupIds);
   const normalizedStages = normalizeSharedStages(sharedStagesByGroup);
 
+  let beforeShared: number[] = [];
+  if (ticketId < 0) {
+    const rowId = Math.abs(ticketId);
+    const prev = await TicketQuadro.findOne({
+      where: { id: rowId, companyId, ticketId: null },
+      attributes: ["sharedGroupIds"]
+    });
+    beforeShared = toUniquePositiveNumbers(prev?.sharedGroupIds);
+  } else {
+    const prev = await TicketQuadro.findOne({
+      where: { ticketId },
+      attributes: ["sharedGroupIds", "ticketId", "quadroGroupId"]
+    });
+    beforeShared = toUniquePositiveNumbers(prev?.sharedGroupIds);
+  }
+
+  const finishWithShareNotifications = async (
+    quadro: TicketQuadro
+  ): Promise<TicketQuadro> => {
+    const afterShared = toUniquePositiveNumbers(quadro.sharedGroupIds);
+    const addedGroupIds = afterShared.filter((gid) => !beforeShared.includes(gid));
+    const realTicketId =
+      ticketId > 0 ? ticketId : quadro.ticketId != null ? Number(quadro.ticketId) : null;
+    if (realTicketId != null && addedGroupIds.length) {
+      try {
+        await DispatchKanbanShareLembretesService(
+          realTicketId,
+          companyId,
+          quadro.quadroGroupId != null ? Number(quadro.quadroGroupId) : null,
+          addedGroupIds
+        );
+      } catch {
+        /* noop */
+      }
+    }
+    return quadro;
+  };
+
   const updateData: {
     sharedGroupIds: number[];
     linkType?: string;
@@ -270,7 +309,7 @@ const ShareTicketQuadroService = async ({
         unlinkedMirrorDataByGroup: {}
       });
       await quadro.reload();
-      return quadro;
+      return finishWithShareNotifications(quadro);
     }
     const currentShared = toUniquePositiveNumbers(quadro.sharedGroupIds);
     const removedGroupIds = currentShared.filter((gid) => !normalizedIds.includes(gid));
@@ -290,7 +329,7 @@ const ShareTicketQuadroService = async ({
         normalizedStages != null ? normalizedStages : cleanedStages
     });
     await quadro.reload();
-    return quadro;
+    return finishWithShareNotifications(quadro);
   }
 
   let quadro = await TicketQuadro.findOne({ where: { ticketId } });
@@ -305,6 +344,7 @@ const ShareTicketQuadroService = async ({
       linkType: updateData.linkType ?? "linked",
       sharedStagesByGroup: updateData.sharedStagesByGroup
     });
+    return finishWithShareNotifications(quadro);
   } else {
     if (linkType === "unlinked") {
       // "Desvinculado" deve ser independente de verdade: cria cópias físicas e remove vínculos.
@@ -321,7 +361,7 @@ const ShareTicketQuadroService = async ({
         unlinkedMirrorDataByGroup: {}
       });
       await quadro.reload();
-      return quadro;
+      return finishWithShareNotifications(quadro);
     }
     const currentShared = toUniquePositiveNumbers(quadro.sharedGroupIds);
     const removedGroupIds = currentShared.filter((gid) => !normalizedIds.includes(gid));
@@ -343,7 +383,7 @@ const ShareTicketQuadroService = async ({
     await quadro.reload();
   }
 
-  return quadro;
+  return finishWithShareNotifications(quadro);
 };
 
 export default ShareTicketQuadroService;

@@ -175,7 +175,13 @@ export const createLembrete = async (req: Request, res: Response): Promise<Respo
     destinoId: b.destinoId != null ? parseInt(String(b.destinoId), 10) : null,
     diasAntecedencia: b.diasAntecedencia != null ? Number(b.diasAntecedencia) : null,
     antecedenciaMinutos:
-      b.antecedenciaMinutos != null ? Number(b.antecedenciaMinutos) : null
+      b.antecedenciaMinutos != null ? Number(b.antecedenciaMinutos) : null,
+    notifyOnShare: b.notifyOnShare === true || b.notifyOnShare === "true",
+    notifyShareGroupIds: Array.isArray(b.notifyShareGroupIds)
+      ? b.notifyShareGroupIds
+      : null,
+    quadroGroupId:
+      b.quadroGroupId != null ? parseInt(String(b.quadroGroupId), 10) : null
   });
   return res.status(201).json({ lembrete });
 };
@@ -258,7 +264,24 @@ export const listRecentLembreteNotifications = async (
     ]
   });
 
-  const notifications = disparos.map(disparo => {
+  const userId = Number(req.user.id);
+
+  const notifications = disparos
+    .filter(disparo => {
+      const lembrete = disparo.lembrete as any;
+      const dest = String(lembrete?.destinoTipo || "interno").toLowerCase();
+      const destId =
+        lembrete?.destinoId != null ? Number(lembrete.destinoId) : null;
+
+      if (dest === "usuario" && destId != null && destId !== userId) {
+        return false;
+      }
+      if (dest === "interno" && destId != null && destId !== userId) {
+        return false;
+      }
+      return true;
+    })
+    .map(disparo => {
     const ticket = disparo.ticket as any;
     const quadro = Array.isArray(ticket?.quadros) ? ticket.quadros[0] : null;
 

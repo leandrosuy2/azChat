@@ -56,6 +56,19 @@ interface Response {
   hasMore: boolean;
 }
 
+/** JOINs (tags, mensagens) podem repetir o mesmo ticket nas rows do Sequelize. */
+const dedupeTicketsById = (tickets: Ticket[]): Ticket[] => {
+  const byId = new Map<number, Ticket>();
+  for (const ticket of tickets) {
+    const id = Number(ticket.id);
+    if (!Number.isFinite(id)) continue;
+    if (!byId.has(id)) {
+      byId.set(id, ticket);
+    }
+  }
+  return Array.from(byId.values());
+};
+
 const ListTicketsService = async ({
   searchParam = "",
   pageNumber = "1",
@@ -557,7 +570,7 @@ const ListTicketsService = async ({
   const limit = 40;
   const offset = limit * (+pageNumber - 1);
 
-  const { count, rows: tickets } = await Ticket.findAndCountAll({
+  const { count, rows: ticketRows } = await Ticket.findAndCountAll({
     where: whereCondition,
     include: includeCondition,
     attributes: ["id", "uuid", "userId", "queueId", "isGroup", "channel", "status", "contactId", "useIntegration", "lastMessage", "updatedAt", "unreadMessages"],
@@ -568,6 +581,7 @@ const ListTicketsService = async ({
     subQuery: false
   });
 
+  const tickets = dedupeTicketsById(ticketRows);
   const hasMore = count > offset + tickets.length;
 
   return {

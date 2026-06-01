@@ -28,6 +28,8 @@ interface SerializedUser {
   allowGroup: boolean;
   allowRealTime: string;
   allowConnections: string;
+  permissions?: Record<string, boolean> | null;
+  uiPreferences?: Record<string, unknown> | null;
 }
 
 export const SerializeUser = async (user: User): Promise<SerializedUser> => {
@@ -62,6 +64,8 @@ export const SerializeUser = async (user: User): Promise<SerializedUser> => {
     token: generateToken(user.id),
     allowGroup: user.allowGroup,
     allowRealTime: user.allowRealTime,
-    allowConnections: user.allowConnections
+    allowConnections: user.allowConnections,
+    permissions: user.permissions || null,
+    uiPreferences: user.uiPreferences || null
   };
 };

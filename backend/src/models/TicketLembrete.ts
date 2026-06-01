@@ -96,6 +96,18 @@ class TicketLembrete extends Model<TicketLembrete> {
   @Column
   antecedenciaMinutos: number;
 
+  @Default(false)
+  @Column
+  notifyOnShare: boolean;
+
+  @AllowNull(true)
+  @Column(DataType.JSONB)
+  notifyShareGroupIds: number[];
+
+  @AllowNull(true)
+  @Column
+  quadroGroupId: number;
+
   @AllowNull(true)
   @Column(DataType.DATEONLY)
   ultimoDisparoEm: string;

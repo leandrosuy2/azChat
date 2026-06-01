@@ -26,6 +26,7 @@ import BusinessIcon from "@material-ui/icons/Business";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import LaunchOutlinedIcon from "@material-ui/icons/LaunchOutlined";
+import HistoryIcon from "@material-ui/icons/History";
 import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -40,6 +41,7 @@ import Title from "../../components/Title";
 import HelpHint from "../../components/HelpHint";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import CompanyModal from "../../components/CompaniesModal";
+import CompanyLifecycleModal from "../../components/CompanyLifecycleModal";
 
 import { AuthContext } from "../../context/Auth/AuthContext";
 
@@ -247,6 +249,9 @@ const Companies = () => {
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [deletingCompany, setDeletingCompany] = useState(null);
 
+  const [lifecycleOpen, setLifecycleOpen] = useState(false);
+  const [lifecycleCompany, setLifecycleCompany] = useState(null);
+
   useEffect(() => {
     if (!user?.super) {
       toast.error(i18n.t("compaies.forbidden"));
@@ -352,6 +357,12 @@ const Companies = () => {
     handleOpenEdit(company);
   };
 
+  const handleOpenLifecycle = (company) => {
+    if (!company?.id) return;
+    setLifecycleCompany(company);
+    setLifecycleOpen(true);
+  };
+
   const handleScroll = (e) => {
     if (!hasMore || loading) return;
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
@@ -395,6 +406,16 @@ const Companies = () => {
           onSaved={handleSavedCompany}
         />
       )}
+
+      <CompanyLifecycleModal
+        open={lifecycleOpen}
+        onClose={() => {
+          setLifecycleOpen(false);
+          setLifecycleCompany(null);
+        }}
+        companyId={lifecycleCompany?.id}
+        companyName={lifecycleCompany?.name}
+      />
 
       <MainHeader>
         <Box className={classes.headerWrap} flex={1} minWidth={0}>
@@ -511,6 +532,14 @@ const Companies = () => {
                       onClick={() => handleOpenEdit(company)}
                     >
                       <EditOutlinedIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Ciclo de vida e histórico">
+                    <IconButton
+                      size="small"
+                      onClick={() => handleOpenLifecycle(company)}
+                    >
+                      <HistoryIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title={i18n.t("compaies.actions.open")}>

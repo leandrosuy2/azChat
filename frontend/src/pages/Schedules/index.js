@@ -37,9 +37,12 @@ import toastError from "../../errors/toastError";
 import moment from "moment";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import usePlans from "../../hooks/usePlans";
-import { Calendar, momentLocalizer } from "react-big-calendar";
 import "moment/locale/pt-br";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import ScheduleCalendarPanel, {
+  SCHEDULE_CATEGORIES,
+} from "../../components/ScheduleCalendarPanel";
+import { inferScheduleCategory } from "../../utils/scheduleCategories";
 import SearchIcon from "@material-ui/icons/Search";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
@@ -65,7 +68,6 @@ const eventTitleStyle = {
   textOverflow: "ellipsis",
 };
 
-const localizer = momentLocalizer(moment);
 const defaultMessages = {
   date: "Data",
   time: "Hora",
@@ -210,6 +212,7 @@ const Schedules = () => {
 
   const [mainViewTab, setMainViewTab] = useState("calendar");
   const [scheduleKindFilter, setScheduleKindFilter] = useState("");
+  const [categoryTab, setCategoryTab] = useState("scheduled_message");
 
   const { getPlanCompany } = usePlans();
 
@@ -364,6 +367,32 @@ const Schedules = () => {
     [schedules]
   );
 
+  const categoriesWithData = useMemo(() => {
+    const counts = {};
+    schedulesSortedBySendAt.forEach((s) => {
+      const c = inferScheduleCategory(s);
+      counts[c] = (counts[c] || 0) + 1;
+    });
+    return SCHEDULE_CATEGORIES.filter((cat) => (counts[cat.id] || 0) > 0);
+  }, [schedulesSortedBySendAt]);
+
+  useEffect(() => {
+    if (
+      categoriesWithData.length > 0 &&
+      !categoriesWithData.find((c) => c.id === categoryTab)
+    ) {
+      setCategoryTab(categoriesWithData[0].id);
+    }
+  }, [categoriesWithData, categoryTab]);
+
+  const listForCategory = useMemo(
+    () =>
+      schedulesSortedBySendAt.filter(
+        (s) => inferScheduleCategory(s) === categoryTab
+      ),
+    [schedulesSortedBySendAt, categoryTab]
+  );
+
   return (
     <MainContainer>
       <ConfirmationModal
@@ -473,40 +502,35 @@ const Schedules = () => {
 
       <Paper className={classes.mainPaper} variant="outlined" onScroll={handleScroll}>
         {mainViewTab === "calendar" && (
-          <Calendar
-            messages={defaultMessages}
-            formats={{
-              agendaDateFormat: "DD/MM ddd",
-              weekdayFormat: "dddd",
-            }}
-            localizer={localizer}
-            events={schedulesSortedBySendAt.map((schedule) => ({
-              title: (
-                <div key={schedule.id} className="event-container">
-                  <div style={eventTitleStyle}>{schedule?.contact?.name}</div>
-                  <DeleteOutlineIcon
-                    onClick={() => {
-                      setDeletingSchedule(schedule);
-                      setConfirmModalOpen(true);
-                    }}
-                    className="delete-icon"
-                  />
-                  <EditIcon
-                    onClick={() => {
-                      handleEditSchedule(schedule);
-                    }}
-                    className="edit-icon"
-                  />
-                </div>
-              ),
-              start: new Date(schedule.sendAt),
-              end: new Date(schedule.sendAt),
-            }))}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 520 }}
-            className={classes.calendarToolbar}
-          />
+          <>
+            {categoriesWithData.length > 0 ? (
+              <Tabs
+                value={categoryTab}
+                onChange={(_e, v) => setCategoryTab(v)}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="scrollable"
+                scrollButtons="auto"
+                style={{ marginBottom: 8 }}
+              >
+                {categoriesWithData.map((cat) => (
+                  <Tab key={cat.id} value={cat.id} label={cat.label} />
+                ))}
+              </Tabs>
+            ) : null}
+            <ScheduleCalendarPanel
+              schedules={schedulesSortedBySendAt}
+              categoryTab={categoryTab}
+              onEdit={handleEditSchedule}
+              onDelete={(sch) => {
+                setDeletingSchedule(sch);
+                setConfirmModalOpen(true);
+              }}
+              onReschedule={fetchSchedules}
+              messages={defaultMessages}
+              calendarClassName={classes.calendarToolbar}
+            />
+          </>
         )}
 
         {mainViewTab === "list" && (
@@ -534,7 +558,7 @@ const Schedules = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {schedulesSortedBySendAt.map((sch) => (
+              {listForCategory.map((sch) => (
                 <TableRow key={sch.id}>
                   <TableCell>
                     {sch.sendAt ? moment(sch.sendAt).format("DD/MM/YYYY HH:mm") : "—"}

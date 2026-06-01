@@ -18,6 +18,7 @@ import ShowUserService from "../UserServices/ShowUserService";
 import User from "../../models/User";
 import CompaniesSettings from "../../models/CompaniesSettings";
 import CreateLogTicketService from "./CreateLogTicketService";
+import DispatchKanbanLembreteService from "../TicketLembreteServices/DispatchKanbanLembreteService";
 import TicketTag from "../../models/TicketTag";
 import Tag from "../../models/Tag";
 import CreateMessageService from "../MessageServices/CreateMessageService";
@@ -773,6 +774,19 @@ const UpdateTicketService = async ({
         ticket
       });
 
+    const newUserId = ticket.userId != null ? Number(ticket.userId) : null;
+    const prevUserId = oldUserId != null ? Number(oldUserId) : null;
+    if (newUserId !== prevUserId && newUserId != null) {
+      try {
+        const assignee = await User.findByPk(newUserId, { attributes: ["name"] });
+        await DispatchKanbanLembreteService(ticket.id, companyId, {
+          tipo: "alteracao_responsavel",
+          responsavelNome: assignee?.name || "—"
+        });
+      } catch {
+        /* lembrete opcional */
+      }
+    }
 
     return { ticket, oldStatus, oldUserId };
   } catch (err) {

@@ -69,11 +69,13 @@ import useCompanySettings from "../../hooks/useSettings/companySettings";
 import toastError from "../../errors/toastError";
 import api from "../../services/api";
 import { toast } from "react-toastify";
-import { ContactNotes } from "../ContactNotes";
 import ContactModal from "../ContactModal";
 import QuadroModal from "../../pages/Kanban/QuadroModal";
 import BudgetOrcamentoModal, { BudgetPrintDocument } from "../BudgetOrcamentoModal";
 import OrderServicePrintDocument from "../OrderServicePrintDocument";
+import HelpHint from "../HelpHint";
+import ContactParticipationKanban from "../ContactParticipationKanban";
+import OrderServiceModal from "../OrderServiceModal";
 import { generateBudgetPdfBlob, budgetItemsTotal } from "../../utils/generateBudgetPdfBlob";
 import {
 	digitsOnly as brDigitsOnly,
@@ -410,6 +412,43 @@ const useStyles = makeStyles((theme) => ({
 		opacity: 0.72,
 		transition: "opacity 0.15s ease",
 	},
+	budgetStrip: {
+		display: "flex",
+		flexDirection: "row",
+		gap: theme.spacing(1),
+		overflowX: "auto",
+		paddingBottom: theme.spacing(0.5),
+		WebkitOverflowScrolling: "touch",
+	},
+	budgetStripItem: {
+		flex: "0 0 auto",
+		minWidth: 268,
+		maxWidth: 300,
+	},
+	compactInfoGrid: {
+		display: "grid",
+		gridTemplateColumns: "1fr 1fr",
+		gap: theme.spacing(1),
+	},
+	sectionTitleRow: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "space-between",
+		gap: theme.spacing(0.5),
+	},
+	actionBtnRow: {
+		display: "flex",
+		gap: theme.spacing(1),
+		marginBottom: theme.spacing(1.5),
+		flexWrap: "wrap",
+	},
+	osRow: {
+		padding: "8px 10px",
+		borderRadius: 8,
+		border: `1px solid ${alpha("#1565c0", 0.35)}`,
+		backgroundColor: alpha("#1565c0", 0.06),
+		marginBottom: theme.spacing(0.75),
+	},
 	budgetOsBanner: {
 		marginTop: 8,
 		padding: "6px 10px",
@@ -511,6 +550,11 @@ const ContactDrawer = ({
 	const [ticketBudgets, setTicketBudgets] = useState([]);
 	const [loadingTicketBudgets, setLoadingTicketBudgets] = useState(false);
 	const [budgetModalOpen, setBudgetModalOpen] = useState(false);
+	const [orderServiceModalOpen, setOrderServiceModalOpen] = useState(false);
+	const [contactOrders, setContactOrders] = useState([]);
+	const [loadingContactOrders, setLoadingContactOrders] = useState(false);
+	const [contactFinancial, setContactFinancial] = useState(null);
+	const notesMigratedRef = useRef(false);
 	const [editBudgetId, setEditBudgetId] = useState(null);
 	const [budgetPanelsOpen, setBudgetPanelsOpen] = useState({
 		pending: true,
@@ -549,29 +593,92 @@ const ContactDrawer = ({
 		return { pending, approved, rejected };
 	}, [ticketBudgets]);
 
-	const loadTicketBudgets = useCallback(async () => {
-		if (!ticket?.id) {
+	const loadContactBudgets = useCallback(async () => {
+		if (!contact?.id) {
 			setTicketBudgets([]);
 			return;
 		}
 		setLoadingTicketBudgets(true);
 		try {
-			const { data } = await api.get(`/ticket-budgets/ticket/${ticket.id}`);
+			const { data } = await api.get(`/ticket-budgets/contact/${contact.id}`);
 			setTicketBudgets(Array.isArray(data) ? data : []);
 		} catch {
 			setTicketBudgets([]);
 		} finally {
 			setLoadingTicketBudgets(false);
 		}
-	}, [ticket?.id]);
+	}, [contact?.id]);
 
-	useEffect(() => {
-		if (!open || !ticket?.id) {
-			setTicketBudgets([]);
+	const loadContactOrders = useCallback(async () => {
+		if (!contact?.id) {
+			setContactOrders([]);
 			return;
 		}
-		loadTicketBudgets();
-	}, [open, ticket?.id, loadTicketBudgets]);
+		setLoadingContactOrders(true);
+		try {
+			const { data } = await api.get(`/ticket-budget-orders/contact/${contact.id}`);
+			setContactOrders(Array.isArray(data) ? data : []);
+		} catch {
+			setContactOrders([]);
+		} finally {
+			setLoadingContactOrders(false);
+		}
+	}, [contact?.id]);
+
+	const reloadBudgetsAndOrders = useCallback(async () => {
+		await Promise.all([loadContactBudgets(), loadContactOrders()]);
+	}, [loadContactBudgets, loadContactOrders]);
+
+	useEffect(() => {
+		if (!open || !contact?.id) {
+			setTicketBudgets([]);
+			setContactOrders([]);
+			setContactFinancial(null);
+			return;
+		}
+		reloadBudgetsAndOrders();
+		api
+			.get(`/contacts/${contact.id}/financial`)
+			.then(({ data }) => setContactFinancial(data))
+			.catch(() => setContactFinancial(null));
+	}, [open, contact?.id, reloadBudgetsAndOrders]);
+
+	useEffect(() => {
+		if (!open) notesMigratedRef.current = false;
+	}, [open]);
+
+	useEffect(() => {
+		if (!open || !ticket?.id || notesMigratedRef.current) return;
+		let cancelled = false;
+		(async () => {
+			try {
+				const { data } = await api.get("/ticket-notes/list", {
+					params: { ticketId: ticket.id },
+				});
+				const list = Array.isArray(data) ? data : data?.notes || [];
+				if (!list.length || cancelled) return;
+				const combined = list
+					.map((n) => (n.note || "").trim())
+					.filter(Boolean)
+					.join("\n");
+				if (!combined) return;
+				setFormData((prev) => {
+					const existing = (prev.observation || "").trim();
+					if (existing && existing.includes(combined.slice(0, 24))) return prev;
+					return {
+						...prev,
+						observation: existing ? `${existing}\n\n${combined}` : combined,
+					};
+				});
+				notesMigratedRef.current = true;
+			} catch {
+				/* notas do ticket opcionais */
+			}
+		})();
+		return () => {
+			cancelled = true;
+		};
+	}, [open, ticket?.id]);
 
 	const handleApproveBudgetAgent = useCallback(
 		async (b) => {
@@ -590,7 +697,7 @@ const ContactDrawer = ({
 						action: "download",
 					});
 				}
-				await loadTicketBudgets();
+				await reloadBudgetsAndOrders();
 				if (refreshTicket) refreshTicket();
 			} catch (e) {
 				toastError(e);
@@ -598,7 +705,7 @@ const ContactDrawer = ({
 				setBudgetAgentLoadingId(null);
 			}
 		},
-		[loadTicketBudgets, refreshTicket]
+		[reloadBudgetsAndOrders, refreshTicket]
 	);
 
 	const queueOsPdfDownload = useCallback(async (b) => {
@@ -629,14 +736,14 @@ const ContactDrawer = ({
 			toast.success("Orçamento recusado.");
 			setRejectBudgetDialog({ open: false, budget: null });
 			setRejectReason("");
-			await loadTicketBudgets();
+			await reloadBudgetsAndOrders();
 			if (refreshTicket) refreshTicket();
 		} catch (e) {
 			toastError(e);
 		} finally {
 			setBudgetAgentLoadingId(null);
 		}
-	}, [rejectBudgetDialog.budget, rejectReason, loadTicketBudgets, refreshTicket]);
+	}, [rejectBudgetDialog.budget, rejectReason, reloadBudgetsAndOrders, refreshTicket]);
 
 	const openOrderDetailDialog = useCallback(async (b) => {
 		setOrderDetailOpen(true);
@@ -995,21 +1102,20 @@ const ContactDrawer = ({
 
 	// Carregar processos do contato (em quantos quadros/áreas ele está)
 	useEffect(() => {
-		if (activeTab !== 2 || !contact?.id) return;
+		if (activeTab !== 1 || !contact?.id) return;
 		loadProcesses();
 	}, [activeTab, contact?.id, loadProcesses]);
 
-	// Atualiza a aba Processos quando algum ticket/quadro mudar via socket
+	// Atualiza fluxos Kanban quando algum ticket/quadro mudar via socket
 	useEffect(() => {
-		if (activeTab !== 2 || !contact?.id || !user?.companyId || !socket) return;
+		if (activeTab !== 1 || !contact?.id || !user?.companyId || !socket) return;
 		const eventName = `company-${user.companyId}-ticket`;
 		let timer = null;
 		const scheduleReload = () => {
 			if (timer) clearTimeout(timer);
 			timer = setTimeout(() => {
 				loadProcesses();
-				setProcessTickets({});
-				setExpandedProcess(null);
+				reloadBudgetsAndOrders();
 			}, 400);
 		};
 		const handler = () => scheduleReload();
@@ -1018,7 +1124,7 @@ const ContactDrawer = ({
 			if (timer) clearTimeout(timer);
 			socket.off(eventName, handler);
 		};
-	}, [activeTab, contact?.id, user?.companyId, socket, loadProcesses]);
+	}, [activeTab, contact?.id, user?.companyId, socket, loadProcesses, reloadBudgetsAndOrders]);
 
 	const handleToggleProcess = async (groupId) => {
 		if (expandedProcess === groupId) {
@@ -1386,7 +1492,7 @@ const ContactDrawer = ({
 			b.status === "approved" ? "#2e7d32" : b.status === "rejected" ? "#c62828" : "#f9a825";
 		const statusLabel =
 			b.status === "approved"
-				? "Aceito"
+				? "Aprovado"
 				: b.status === "rejected"
 					? "Recusado"
 					: "Pendente";
@@ -1800,8 +1906,7 @@ const ContactDrawer = ({
 							className={classes.tabsRoot}
 						>
 							<Tab label="Contato" className={classes.tab} />
-							<Tab label="Ticket" className={classes.tab} />
-							<Tab label="Processos" className={classes.tab} />
+							<Tab label="Atendimento" className={classes.tab} />
 						</Tabs>
 
 						{/* ===== ABA 0: DETALHES DO CONTATO ===== */}
@@ -2093,9 +2198,14 @@ const ContactDrawer = ({
 
 							<Divider style={{ margin: "4px 0" }} />
 
-							{/* Observações gerais */}
-							<Typography className={classes.sectionTitle}>
-								Observações
+							<div className={classes.sectionTitleRow}>
+								<Typography className={classes.sectionTitle} style={{ margin: 0 }}>
+									Observações do contato
+								</Typography>
+								<HelpHint areaKey="contact-drawer" />
+							</div>
+							<Typography variant="caption" color="textSecondary" display="block" style={{ marginBottom: 6 }}>
+								Histórico centralizado do cliente (inclui anotações que antes ficavam no ticket).
 							</Typography>
 							<TextField
 								value={formData.observation}
@@ -2105,8 +2215,22 @@ const ContactDrawer = ({
 								fullWidth
 								multiline
 								rows={3}
-								placeholder="Digite uma observação"
+								placeholder="Anotações gerais sobre o contato"
 							/>
+
+							{contactFinancial && (
+								<Paper variant="outlined" style={{ padding: 12, marginTop: 12, borderRadius: 10 }}>
+									<Typography variant="subtitle2" style={{ fontWeight: 600, marginBottom: 6 }}>
+										Resumo financeiro
+									</Typography>
+									<Typography variant="caption" color="textSecondary" display="block">
+										Receita: {formatBudgetBRL(contactFinancial.totalRevenue)} · Vendas:{" "}
+										{contactFinancial.salesCount} · Aprovados:{" "}
+										{contactFinancial.approvedBudgetsCount} · Pendentes:{" "}
+										{contactFinancial.pendingBudgetsCount}
+									</Typography>
+								</Paper>
+							)}
 
 							{/* BOTÃO SALVAR TUDO */}
 							<Button
@@ -2123,276 +2247,119 @@ const ContactDrawer = ({
 						</div>
 						)}
 
-						{/* ===== ABA 1: DETALHES DO TICKET ===== */}
+						{/* ===== ABA 1: ATENDIMENTO (ticket + processos + orçamentos + OS) ===== */}
 						{activeTab === 1 && (
 						<div className={classes.formSection}>
-							<Paper variant="outlined" style={{ padding: 12, marginBottom: 12, borderRadius: 10 }}>
-								<Typography variant="subtitle2" style={{ fontWeight: 600, marginBottom: 8 }}>
-									Quadro Kanban
+							<div className={classes.sectionTitleRow}>
+								<Typography className={classes.sectionTitle} style={{ margin: 0 }}>
+									Ticket
 								</Typography>
-								<Typography variant="caption" color="textSecondary" style={{ display: "block", marginBottom: 10 }}>
-									Escolha a área de trabalho e a etapa inicial; em seguida abra o quadro para preencher dados, valores e anexos.
-								</Typography>
-								<Button
-									variant="contained"
-									color="primary"
-									size="small"
-									fullWidth
-									startIcon={<ViewModuleIcon />}
-									onClick={openKanbanDialog}
-									disabled={!ticket?.id}
-								>
-									Vincular ao Kanban e abrir quadro
-								</Button>
-							</Paper>
-
-							<Divider style={{ margin: "4px 0" }} />
-
-							{/* Observações do Ticket */}
-							<Typography className={classes.sectionTitle}>
-								Observações do Ticket
-							</Typography>
-							<ContactNotes ticket={ticket} />
-
-							<Divider style={{ margin: "4px 0" }} />
-
-							{/* Info do Ticket */}
-							<Typography className={classes.sectionTitle}>
-								Informações do Ticket
-							</Typography>
-
-							<TextField
-								label="Protocolo"
-								value={ticket?.id || ""}
-								variant="outlined"
-								size="small"
-								fullWidth
-								InputProps={{ readOnly: true }}
-							/>
-
-							<TextField
-								label="Fila"
-								value={ticket?.queue?.name || "Sem fila"}
-								variant="outlined"
-								size="small"
-								fullWidth
-								InputProps={{ readOnly: true }}
-							/>
-
-							<TextField
-								label="Atendente"
-								value={ticket?.user?.name || "Sem atendente"}
-								variant="outlined"
-								size="small"
-								fullWidth
-								InputProps={{ readOnly: true }}
-							/>
-
-							<TextField
-								label="Conexão"
-								value={ticket?.whatsapp?.name || "—"}
-								variant="outlined"
-								size="small"
-								fullWidth
-								InputProps={{ readOnly: true }}
-							/>
-
-							<TextField
-								label="Status do Ticket"
-								value={ticket?.status || "—"}
-								variant="outlined"
-								size="small"
-								fullWidth
-								InputProps={{ readOnly: true }}
-							/>
-
-							{ticket?.createdAt && (
+								<HelpHint areaKey="tickets" />
+							</div>
+							<div className={classes.compactInfoGrid}>
 								<TextField
-									label="Criado em"
-									value={new Date(ticket.createdAt).toLocaleString("pt-BR")}
+									label="Protocolo"
+									value={ticket?.id || "—"}
 									variant="outlined"
 									size="small"
 									fullWidth
 									InputProps={{ readOnly: true }}
 								/>
-							)}
-
-							{ticket?.updatedAt && (
 								<TextField
-									label="Última atualização"
-									value={new Date(ticket.updatedAt).toLocaleString("pt-BR")}
+									label="Status"
+									value={ticket?.status || "—"}
 									variant="outlined"
 									size="small"
 									fullWidth
 									InputProps={{ readOnly: true }}
 								/>
-							)}
-						</div>
-						)}
+								<TextField
+									label="Fila"
+									value={ticket?.queue?.name || "Sem fila"}
+									variant="outlined"
+									size="small"
+									fullWidth
+									InputProps={{ readOnly: true }}
+								/>
+								<TextField
+									label="Atendente"
+									value={ticket?.user?.name || "Sem atendente"}
+									variant="outlined"
+									size="small"
+									fullWidth
+									InputProps={{ readOnly: true }}
+								/>
+							</div>
 
-						{/* ===== ABA 2: PROCESSOS ===== */}
-						{activeTab === 2 && (
-						<div className={classes.formSection}>
-							<Typography className={classes.sectionTitle}>
-								Processos
+							<Button
+								variant="outlined"
+								color="primary"
+								size="small"
+								fullWidth
+								startIcon={<ViewModuleIcon />}
+								onClick={openKanbanDialog}
+								disabled={!ticket?.id}
+								style={{ marginTop: 10, marginBottom: 12 }}
+							>
+								Vincular ao Kanban e abrir quadro
+							</Button>
+
+							<Divider style={{ margin: "8px 0" }} />
+
+							<div className={classes.sectionTitleRow}>
+								<Typography className={classes.sectionTitle} style={{ margin: 0 }}>
+									Participação nos fluxos
+								</Typography>
+								<HelpHint areaKey="kanban" />
+							</div>
+							<Typography variant="caption" color="textSecondary" display="block" style={{ marginBottom: 8 }}>
+								Estágio atual do contato em cada área de trabalho (visão Kanban).
 							</Typography>
-							<Typography variant="caption" color="textSecondary" style={{ marginBottom: 8, display: "block" }}>
-								Áreas de trabalho em que este contato participa
-							</Typography>
-
-							{loadingProcesses ? (
-								<div className={classes.processLoadingRow}>
-									<CircularProgress size={24} />
-								</div>
-							) : contactProcesses.length === 0 ? (
-								<Paper variant="outlined" style={{ padding: 20, textAlign: "center", borderRadius: 10 }}>
-									<Typography variant="body2" color="textSecondary">
-										Este contato não está vinculado a nenhum quadro.
-									</Typography>
-								</Paper>
-							) : (
-								<div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-									{contactProcesses.map((proc, idx) => {
-										const colors = ["#1976d2", "#2e7d32", "#ed6c02", "#9c27b0", "#d32f2f", "#00838f", "#e91e63", "#ff6f00"];
-										const bgColor = colors[idx % colors.length];
-										const isExpanded = expandedProcess === proc.groupId;
-										const tickets = processTickets[proc.groupId] || [];
-										const isLoading = loadingProcessTickets[proc.groupId];
-
-										return (
-											<div key={proc.groupId || idx}>
-												<div
-													className={`${classes.processCard} ${classes.processCardClickable}`}
-													onClick={() => handleToggleProcess(proc.groupId)}
-												>
-													<div className={classes.processName}>
-														<div
-															className={classes.processIcon}
-															style={{ backgroundColor: bgColor }}
-														>
-															{(proc.groupName || "K").charAt(0).toUpperCase()}
-														</div>
-														<div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
-															<span>{proc.groupName || "Kanban"}</span>
-															{Array.isArray(proc.stages) && proc.stages.length > 0 && (
-																<Typography
-																	variant="caption"
-																	color="textSecondary"
-																	style={{ lineHeight: 1.2, fontWeight: 500 }}
-																>
-																	Etapa: {proc.stages.join(", ")}
-																</Typography>
-															)}
-														</div>
-													</div>
-													<div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-														<div className={classes.processCount}>
-															{proc.count}
-														</div>
-														<ExpandMoreIcon
-															className={`${classes.processExpandIcon} ${isExpanded ? classes.processExpandIconOpen : ""}`}
-														/>
-													</div>
-												</div>
-
-												<Collapse in={isExpanded} timeout="auto" unmountOnExit>
-													<div className={classes.processTicketsList}>
-														{isLoading ? (
-															<div className={classes.processLoadingRow}>
-																<CircularProgress size={20} />
-															</div>
-														) : tickets.length === 0 ? (
-															<Typography variant="caption" color="textSecondary" style={{ textAlign: "center", padding: "8px 0" }}>
-																Nenhum card encontrado
-															</Typography>
-														) : (
-															tickets.map((tk) => (
-																<div key={tk.id} className={classes.processTicketItem}>
-																	<div className={classes.processTicketThumb}>
-																		{tk.capaUrl ? (
-																			<img
-																				src={resolveImageUrl(tk.capaUrl)}
-																				alt=""
-																				style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 6 }}
-																				onError={(e) => { e.target.style.display = "none"; }}
-																			/>
-																		) : tk.contactPic ? (
-																			<Avatar
-																				src={tk.contactPic}
-																				style={{ width: 40, height: 40 }}
-																			>
-																				<PersonIcon />
-																			</Avatar>
-																		) : (
-																			<PersonIcon style={{ fontSize: 20, color: "#bbb" }} />
-																		)}
-																	</div>
-
-																	<div className={classes.processTicketInfo}>
-																		<div className={classes.processTicketName}>
-																			{tk.nomeProjeto || tk.contactName}
-																		</div>
-																		<div className={classes.processTicketMeta}>
-																			<span className={classes.processTicketStatus}>
-																				<FiberManualRecordIcon style={{ fontSize: 10, color: getStatusColor(tk.status) }} />
-																				{getStatusLabel(tk.status)}
-																			</span>
-																			{tk.hasMedia && (
-																				<span className={classes.processTicketMediaBadge}>
-																					<ImageIcon style={{ fontSize: 13 }} />
-																					{tk.attachments.length}
-																				</span>
-																			)}
-																			{tk.tagName && (
-																				<span style={{ fontSize: 11, color: "#666" }}>
-																					· {tk.tagName}
-																				</span>
-																			)}
-																		</div>
-																		<div style={{ fontSize: 10, color: "#999", marginTop: 2 }}>
-																			{tk.createdAt ? format(parseISO(tk.createdAt), "dd/MM/yyyy") : ""}
-																			{tk.valorServico > 0 && (
-																				<span style={{ marginLeft: 8, fontWeight: 600, color: "#2e7d32" }}>
-																					R$ {Number(tk.valorServico).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
-																				</span>
-																			)}
-																		</div>
-																	</div>
-																</div>
-															))
-														)}
-													</div>
-												</Collapse>
-											</div>
-										);
-									})}
-								</div>
-							)}
+							<ContactParticipationKanban
+								contact={contact}
+								contactProcesses={contactProcesses}
+								loading={loadingProcesses}
+							/>
 
 							<Divider style={{ margin: "12px 0" }} />
 
 							<div className={classes.budgetSection}>
-								<Typography className={classes.sectionTitle}>
-									Orçamentos
+								<div className={classes.sectionTitleRow}>
+									<Typography className={classes.sectionTitle} style={{ margin: 0 }}>
+										Orçamentos
+									</Typography>
+									<HelpHint areaKey="budgets" />
+								</div>
+								<Typography variant="caption" color="textSecondary" display="block" style={{ marginBottom: 10 }}>
+									Todos os orçamentos deste contato. Propostas pendentes até aprovação pelo link público; ao aprovar, pode gerar OS automaticamente.
 								</Typography>
-								<Typography variant="caption" color="textSecondary" style={{ display: "block", marginBottom: 10 }}>
-									Vinculados a este ticket e contato. Novos orçamentos ficam pendentes até o cliente aprovar ou recusar pelo link público. Ao aceitar, o fluxo de pedido e Kanban já configurado no sistema é acionado automaticamente.
-								</Typography>
-								<Button
-									variant="contained"
-									color="primary"
-									size="small"
-									fullWidth
-									startIcon={<AddIcon />}
-									disabled={!ticket?.id}
-									onClick={() => {
-										setEditBudgetId(null);
-										setBudgetModalOpen(true);
-									}}
-									style={{ marginBottom: 12, fontWeight: 600 }}
-								>
-									Criar orçamento
-								</Button>
+								<div className={classes.actionBtnRow}>
+									<Button
+										variant="contained"
+										color="primary"
+										size="small"
+										startIcon={<AddIcon />}
+										disabled={!contact?.id}
+										onClick={() => {
+											setEditBudgetId(null);
+											setBudgetModalOpen(true);
+										}}
+										style={{ flex: 1, fontWeight: 600 }}
+									>
+										Criar orçamento
+									</Button>
+									<Button
+										variant="outlined"
+										color="primary"
+										size="small"
+										startIcon={<AssignmentIcon />}
+										disabled={!contact?.id}
+										onClick={() => setOrderServiceModalOpen(true)}
+										style={{ flex: 1, fontWeight: 600 }}
+									>
+										Criar OS
+									</Button>
+								</div>
 
 								{loadingTicketBudgets ? (
 									<div className={classes.processLoadingRow}>
@@ -2401,7 +2368,7 @@ const ContactDrawer = ({
 								) : ticketBudgets.length === 0 ? (
 									<Paper variant="outlined" style={{ padding: 16, textAlign: "center", borderRadius: 10 }}>
 										<Typography variant="body2" color="textSecondary">
-											Nenhum orçamento neste ticket ainda.
+											Nenhum orçamento para este contato ainda.
 										</Typography>
 									</Paper>
 								) : (
@@ -2411,14 +2378,11 @@ const ContactDrawer = ({
 											expanded={budgetPanelsOpen.pending}
 											onChange={handleBudgetPanelToggle("pending")}
 										>
-											<AccordionSummary
-												expandIcon={<ExpandMoreIcon />}
-												className={classes.budgetAccordionSummary}
-											>
+											<AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.budgetAccordionSummary}>
 												<Box display="flex" alignItems="center" style={{ gap: 8 }}>
 													<FiberManualRecordIcon style={{ color: "#f9a825", fontSize: 16 }} />
 													<Typography style={{ fontWeight: 600, fontSize: 13 }}>
-														Orçamentos pendentes ({groupedBudgets.pending.length})
+														Pendentes ({groupedBudgets.pending.length})
 													</Typography>
 												</Box>
 											</AccordionSummary>
@@ -2428,9 +2392,13 @@ const ContactDrawer = ({
 														Nenhum orçamento aguardando resposta.
 													</Typography>
 												) : (
-													<Box display="flex" flexDirection="column" style={{ gap: 8 }}>
-														{groupedBudgets.pending.map((b) => renderBudgetRow(b))}
-													</Box>
+													<div className={classes.budgetStrip}>
+														{groupedBudgets.pending.map((b) => (
+															<div key={b.id} className={classes.budgetStripItem}>
+																{renderBudgetRow(b)}
+															</div>
+														))}
+													</div>
 												)}
 											</AccordionDetails>
 										</Accordion>
@@ -2440,14 +2408,11 @@ const ContactDrawer = ({
 											expanded={budgetPanelsOpen.approved}
 											onChange={handleBudgetPanelToggle("approved")}
 										>
-											<AccordionSummary
-												expandIcon={<ExpandMoreIcon />}
-												className={classes.budgetAccordionSummary}
-											>
+											<AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.budgetAccordionSummary}>
 												<Box display="flex" alignItems="center" style={{ gap: 8 }}>
 													<FiberManualRecordIcon style={{ color: "#2e7d32", fontSize: 16 }} />
 													<Typography style={{ fontWeight: 600, fontSize: 13 }}>
-														Orçamentos aceitos ({groupedBudgets.approved.length})
+														Aprovados ({groupedBudgets.approved.length})
 													</Typography>
 												</Box>
 											</AccordionSummary>
@@ -2457,9 +2422,13 @@ const ContactDrawer = ({
 														Nenhum orçamento aprovado ainda.
 													</Typography>
 												) : (
-													<Box display="flex" flexDirection="column" style={{ gap: 8 }}>
-														{groupedBudgets.approved.map((b) => renderBudgetRow(b))}
-													</Box>
+													<div className={classes.budgetStrip}>
+														{groupedBudgets.approved.map((b) => (
+															<div key={b.id} className={classes.budgetStripItem}>
+																{renderBudgetRow(b)}
+															</div>
+														))}
+													</div>
 												)}
 											</AccordionDetails>
 										</Accordion>
@@ -2469,14 +2438,11 @@ const ContactDrawer = ({
 											expanded={budgetPanelsOpen.rejected}
 											onChange={handleBudgetPanelToggle("rejected")}
 										>
-											<AccordionSummary
-												expandIcon={<ExpandMoreIcon />}
-												className={classes.budgetAccordionSummary}
-											>
+											<AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.budgetAccordionSummary}>
 												<Box display="flex" alignItems="center" style={{ gap: 8 }}>
 													<FiberManualRecordIcon style={{ color: "#c62828", fontSize: 16 }} />
 													<Typography style={{ fontWeight: 600, fontSize: 13 }}>
-														Orçamentos recusados ({groupedBudgets.rejected.length})
+														Recusados ({groupedBudgets.rejected.length})
 													</Typography>
 												</Box>
 											</AccordionSummary>
@@ -2486,9 +2452,13 @@ const ContactDrawer = ({
 														Nenhum orçamento recusado.
 													</Typography>
 												) : (
-													<Box display="flex" flexDirection="column" style={{ gap: 8 }}>
-														{groupedBudgets.rejected.map((b) => renderBudgetRow(b))}
-													</Box>
+													<div className={classes.budgetStrip}>
+														{groupedBudgets.rejected.map((b) => (
+															<div key={b.id} className={classes.budgetStripItem}>
+																{renderBudgetRow(b)}
+															</div>
+														))}
+													</div>
 												)}
 											</AccordionDetails>
 										</Accordion>
@@ -2498,9 +2468,43 @@ const ContactDrawer = ({
 
 							<Divider style={{ margin: "12px 0" }} />
 
-							<Typography variant="caption" color="textSecondary" style={{ display: "block" }}>
-								Total de vínculos: {contactProcesses.reduce((sum, p) => sum + (p.count || 0), 0)}
+							<div className={classes.sectionTitleRow}>
+								<Typography className={classes.sectionTitle} style={{ margin: 0 }}>
+									Ordens de serviço (OS)
+								</Typography>
+								<HelpHint areaKey="budgets" />
+							</div>
+							<Typography variant="caption" color="textSecondary" display="block" style={{ marginBottom: 8 }}>
+								OS vinculadas ao contato — inclui ordens abertas diretamente, sem orçamento prévio.
 							</Typography>
+							{loadingContactOrders ? (
+								<div className={classes.processLoadingRow}>
+									<CircularProgress size={22} />
+								</div>
+							) : contactOrders.length === 0 ? (
+								<Typography variant="caption" color="textSecondary">
+									Nenhuma OS registrada para este contato.
+								</Typography>
+							) : (
+								<div className={classes.budgetStrip}>
+									{contactOrders.map((ord) => (
+										<Paper key={ord.id} elevation={0} className={`${classes.osRow} ${classes.budgetStripItem}`}>
+											<Typography variant="subtitle2" style={{ fontWeight: 700, fontSize: 12 }}>
+												{ord.orderNumber}
+											</Typography>
+											<Typography variant="caption" color="textSecondary" display="block">
+												{formatBudgetBRL(ord.total)} · {ord.itemsCount} item(ns)
+												{ord.budgetNumber ? ` · Orç. ${ord.budgetNumber}` : " · OS direta"}
+											</Typography>
+											{ord.createdAt && (
+												<Typography variant="caption" color="textSecondary">
+													{new Date(ord.createdAt).toLocaleDateString("pt-BR")}
+												</Typography>
+											)}
+										</Paper>
+									))}
+								</div>
+							)}
 						</div>
 						)}
 					</div>
@@ -2761,19 +2765,28 @@ const ContactDrawer = ({
 				</DialogActions>
 			</Dialog>
 
-			{ticket?.id && (
-				<BudgetOrcamentoModal
-					open={budgetModalOpen}
-					onClose={() => {
-						setBudgetModalOpen(false);
-						setEditBudgetId(null);
-					}}
-					ticket={ticket}
-					contact={contact}
-					user={user}
-					editBudgetId={editBudgetId}
-					onAfterSave={loadTicketBudgets}
-				/>
+			{contact?.id && (
+				<>
+					<BudgetOrcamentoModal
+						open={budgetModalOpen}
+						onClose={() => {
+							setBudgetModalOpen(false);
+							setEditBudgetId(null);
+						}}
+						ticket={ticket}
+						contact={contact}
+						user={user}
+						editBudgetId={editBudgetId}
+						onAfterSave={reloadBudgetsAndOrders}
+					/>
+					<OrderServiceModal
+						open={orderServiceModalOpen}
+						onClose={() => setOrderServiceModalOpen(false)}
+						ticket={ticket}
+						contact={contact}
+						onAfterSave={reloadBudgetsAndOrders}
+					/>
+				</>
 			)}
 		</>
 	);

@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Reports = () => {
+const Reports = ({ embedded = false }) => {
   const classes = useStyles();
   const history = useHistory();
   const { getReport } = useDashboard();
@@ -356,8 +356,8 @@ const Reports = () => {
     )
   }
 
-  return (
-    <MainContainer className={classes.mainContainer}>
+  const inner = (
+    <>
       {openTicketMessageDialog && (
         <ShowTicketLogModal
           isOpen={openTicketMessageDialog}
@@ -585,7 +585,17 @@ const Reports = () => {
           </Grid>
         </Grid>
       </div>
-    </MainContainer >
+    </>
+  );
+
+  if (embedded) {
+    return <div style={{ padding: "8px 12px 24px" }}>{inner}</div>;
+  }
+
+  return (
+    <MainContainer className={classes.mainContainer}>
+      {inner}
+    </MainContainer>
   );
 };
 

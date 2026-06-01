@@ -6,6 +6,7 @@ import User from "../../models/User";
 import TicketQuadro from "../../models/TicketQuadro";
 import TicketLembreteDisparo from "../../models/TicketLembreteDisparo";
 import QuadroGroup from "../../models/QuadroGroup";
+import Tag from "../../models/Tag";
 import { getIO } from "../../libs/socket";
 import {
   formatKanbanLembreteTemplate,
@@ -19,7 +20,14 @@ export type KanbanLembreteEvento =
   | { tipo: "mudanca_status"; status: string }
   | { tipo: "prazo_proximo" | "prazo_vencido"; dataPrazoLabel: string }
   | { tipo: "anexo_adicionado"; nomeArquivo: string }
-  | { tipo: "agendado"; dataHoraLabel: string };
+  | { tipo: "agendado"; dataHoraLabel: string }
+  | {
+      tipo: "compartilhamento";
+      areaOrigem: string;
+      areaDestino: string;
+      areaDestinoId?: number;
+    }
+  | { tipo: "alteracao_responsavel"; responsavelNome: string };
 
 const normDestino = (raw: string | null | undefined): string =>
   {
@@ -49,7 +57,11 @@ const DispatchKanbanLembreteService = async (
           ? "anexo_adicionado"
           : evento.tipo === "agendado"
             ? "agendado"
-            : evento.tipo;
+            : evento.tipo === "compartilhamento"
+              ? "compartilhamento"
+              : evento.tipo === "alteracao_responsavel"
+                ? "alteracao_responsavel"
+                : evento.tipo;
 
   const where: Record<string, unknown> = {
     ticketId,
@@ -82,23 +94,40 @@ const DispatchKanbanLembreteService = async (
 
   const quadro = await TicketQuadro.findOne({
     where: { ticketId },
-    attributes: ["id", "nomeProjeto", "quadroGroupId"],
+    attributes: ["id", "nomeProjeto", "quadroGroupId", "kanbanTagId"],
     include: [{ model: QuadroGroup, attributes: ["name"], required: false }]
   });
+
+  let colunaNome = "";
+  if (quadro?.kanbanTagId) {
+    const tag = await Tag.findByPk(quadro.kanbanTagId, { attributes: ["name"] });
+    colunaNome = tag?.name || "";
+  }
 
   const nomeCard =
     (quadro?.nomeProjeto && String(quadro.nomeProjeto).trim()) ||
     ticket.contact?.name ||
     `Ticket #${ticketId}`;
 
+  const groupName = (quadro as any)?.group?.name || "";
   const vars: KanbanLembreteTemplateVars = {
     nomeCard,
     contato: ticket.contact?.name || "",
-    responsavel: ticket.user?.name || ""
+    responsavel: ticket.user?.name || "",
+    areaTrabalho: groupName,
+    nomeKanban: groupName,
+    etapa: colunaNome,
+    dataMovimentacao: moment().format("DD/MM/YYYY HH:mm")
   };
 
   if (evento.tipo === "movimentacao") {
     vars.coluna = evento.colunaNome;
+    vars.etapa = evento.colunaNome;
+  } else if (evento.tipo === "compartilhamento") {
+    vars.areaOrigem = evento.areaOrigem;
+    vars.areaDestino = evento.areaDestino;
+  } else if (evento.tipo === "alteracao_responsavel") {
+    vars.responsavel = evento.responsavelNome;
   } else if (evento.tipo === "mudanca_status") {
     vars.status = evento.status;
   } else if (evento.tipo === "anexo_adicionado") {
@@ -113,6 +142,14 @@ const DispatchKanbanLembreteService = async (
   const nsp = String(companyId);
 
   for (const lembrete of rows) {
+    if (
+      lembrete.quadroGroupId != null &&
+      quadro?.quadroGroupId != null &&
+      Number(lembrete.quadroGroupId) !== Number(quadro.quadroGroupId)
+    ) {
+      continue;
+    }
+
     const template =
       lembrete.mensagemTemplate ||
       (tipoGatilho === "agendado" ? lembrete.descricao : null);

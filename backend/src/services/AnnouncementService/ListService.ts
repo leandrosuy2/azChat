@@ -5,6 +5,8 @@ import Announcement from "../../models/Announcement";
 interface Request {
   searchParam?: string;
   pageNumber?: string;
+  /** internal | clients — filtra informativos para o público do usuário logado */
+  viewerAudience?: string;
 }
 
 interface Response {
@@ -15,11 +17,22 @@ interface Response {
 
 const ListService = async ({
   searchParam = "",
-  pageNumber = "1"
+  pageNumber = "1",
+  viewerAudience = "internal"
 }: Request): Promise<Response> => {
+  const audience = String(viewerAudience || "internal").toLowerCase();
+
   let whereCondition: any = {
     status: true
   };
+
+  if (audience && audience !== "all") {
+    const audienceOr =
+      audience === "clients"
+        ? ["clients", "both"]
+        : ["internal", "both"];
+    whereCondition.targetAudience = { [Op.in]: audienceOr };
+  }
 
   if (!isEmpty(searchParam)) {
     whereCondition = {

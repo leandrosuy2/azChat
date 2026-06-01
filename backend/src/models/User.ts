@@ -14,7 +14,8 @@ import {
   BelongsToMany,
   ForeignKey,
   BelongsTo,
-  BeforeDestroy
+  BeforeDestroy,
+  AllowNull
 } from "sequelize-typescript";
 import { hash, compare } from "bcryptjs";
 import Ticket from "./Ticket";
@@ -183,6 +184,16 @@ class User extends Model<User> {
 
   @Column(DataType.DATE) // Added for password reset expiration
   passwordResetExpires: Date | null;
+
+  /** Permissões granulares (ex.: quickMessages:create). */
+  @AllowNull(true)
+  @Column(DataType.JSON)
+  permissions: Record<string, boolean> | null;
+
+  /** Preferências de interface por usuário. */
+  @AllowNull(true)
+  @Column(DataType.JSON)
+  uiPreferences: Record<string, unknown> | null;
 
   @BeforeDestroy
   static async updateChatbotsUsersReferences(user: User) {

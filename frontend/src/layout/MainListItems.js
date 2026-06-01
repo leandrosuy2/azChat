@@ -20,12 +20,10 @@ import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
 import ContactPhoneOutlinedIcon from "@material-ui/icons/ContactPhoneOutlined";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
-import FlashOnIcon from "@material-ui/icons/FlashOn";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import CodeRoundedIcon from "@material-ui/icons/CodeRounded";
 import ViewKanban from "@mui/icons-material/ViewKanban";
 import Schedule from "@material-ui/icons/Schedule";
-import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -472,32 +470,24 @@ const MainListItems = ({ collapsed, drawerClose }) => {
                 role={user.profile === "user" && user.showDashboard === "enabled" ? "admin" : user.profile}
                 perform={"drawer-admin-items:view"}
                 yes={() => (
-                  <>
-                    <ListItemLink
-                      small
-                      to="/"
-                      primary="Dashboard"
-                      icon={<DashboardOutlinedIcon />}
-                      tooltip={collapsed}
-                    />
-                    <ListItemLink
-                      small
-                      to="/reports"
-                      primary={i18n.t("mainDrawer.listItems.reports")}
-                      icon={<Description />}
-                      tooltip={collapsed}
-                    />
-                  </>
+                  <ListItemLink
+                    small
+                    to="/"
+                    primary="Painel operacional"
+                    icon={<DashboardOutlinedIcon />}
+                    tooltip={collapsed}
+                  />
                 )}
               />
               <Can
-                role={user.profile === "user" && user.allowRealTime === "enabled" ? "admin" : user.profile}
+                role={user.profile === "admin" ? "admin" : user.profile}
                 perform={"drawer-admin-items:view"}
                 yes={() => (
                   <ListItemLink
-                    to="/moments"
-                    primary={i18n.t("mainDrawer.listItems.chatsTempoReal")}
-                    icon={<GridOn />}
+                    small
+                    to="/products"
+                    primary="Produtos"
+                    icon={<Description />}
                     tooltip={collapsed}
                   />
                 )}
@@ -519,13 +509,6 @@ const MainListItems = ({ collapsed, drawerClose }) => {
         icon={<NotificationsNoneIcon />}
         showBadge={unreadNotificationsCount > 0}
         badgeContent={unreadNotificationsCount}
-        tooltip={collapsed}
-      />
-
-      <ListItemLink
-        to="/quick-messages"
-        primary={i18n.t("mainDrawer.listItems.quickMessages")}
-        icon={<FlashOnIcon />}
         tooltip={collapsed}
       />
 
@@ -557,13 +540,6 @@ const MainListItems = ({ collapsed, drawerClose }) => {
           />
         </>
       )}
-
-      <ListItemLink
-        to="/tags"
-        primary={i18n.t("mainDrawer.listItems.tags")}
-        icon={<LocalOfferIcon />}
-        tooltip={collapsed}
-      />
 
       {showInternalChat && (
         <>

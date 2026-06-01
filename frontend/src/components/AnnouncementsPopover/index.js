@@ -192,7 +192,11 @@ export default function AnnouncementsPopover() {
   const fetchAnnouncements = async () => {
     try {
       const { data } = await api.get("/announcements/", {
-        params: { searchParam, pageNumber },
+        params: {
+          searchParam,
+          pageNumber,
+          audience: "internal",
+        },
       });
       dispatch({ type: "LOAD_ANNOUNCEMENTS", payload: data.records });
       setHasMore(data.hasMore);

@@ -4,6 +4,7 @@ import Company from "../../models/Company";
 import User from "../../models/User";
 import sequelize from "../../database";
 import CompaniesSettings from "../../models/CompaniesSettings";
+import LogCompanyLifecycleEventService from "./LogCompanyLifecycleEventService";
 
 interface CompanyData {
   name: string;
@@ -120,6 +121,19 @@ const CreateCompanyService = async (
     },{ transaction: t })
     
     await t.commit();
+
+    try {
+      await LogCompanyLifecycleEventService({
+        companyId: company.id,
+        eventType: "cadastro_realizado",
+        title: "Cadastro realizado",
+        description: `Empresa ${company.name} cadastrada na plataforma.`,
+        userId: user.id,
+        newStatus: company.status ? "ativa" : "inativa"
+      });
+    } catch {
+      /* lifecycle log opcional */
+    }
 
     return company;
   } catch (error) {

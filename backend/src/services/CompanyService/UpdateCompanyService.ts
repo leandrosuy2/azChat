@@ -2,6 +2,8 @@ import AppError from "../../errors/AppError";
 import Company from "../../models/Company";
 import Setting from "../../models/Setting";
 import User from "../../models/User";
+import Plan from "../../models/Plan";
+import LogCompanyLifecycleEventService from "./LogCompanyLifecycleEventService";
 
 interface CompanyData {
   name: string;
@@ -25,6 +27,8 @@ const UpdateCompanyService = async (
 ): Promise<Company> => {
 
   const company = await Company.findByPk(companyData.id);
+  const prevStatus = company?.status;
+  const prevPlanId = company?.planId;
   const {
     name,
     phone,
@@ -99,6 +103,39 @@ const UpdateCompanyService = async (
     if (!created) {
       await setting.update({ value: `${campaignsEnabled}` });
     }
+  }
+
+  try {
+    if (planId != null && Number(planId) !== Number(prevPlanId)) {
+      const plan = await Plan.findByPk(planId, { attributes: ["name"] });
+      await LogCompanyLifecycleEventService({
+        companyId: company.id,
+        eventType: "alteracao_plano",
+        title: "Plano alterado",
+        description: plan?.name ? `Novo plano: ${plan.name}` : undefined,
+        previousStatus: prevPlanId != null ? String(prevPlanId) : null,
+        newStatus: String(planId)
+      });
+    }
+    if (status !== undefined && Boolean(status) !== Boolean(prevStatus)) {
+      await LogCompanyLifecycleEventService({
+        companyId: company.id,
+        eventType: Boolean(status) ? "reativacao" : "bloqueio",
+        title: Boolean(status) ? "Conta reativada" : "Conta bloqueada",
+        previousStatus: prevStatus ? "ativa" : "inativa",
+        newStatus: status ? "ativa" : "inativa"
+      });
+    } else if (status !== undefined) {
+      await LogCompanyLifecycleEventService({
+        companyId: company.id,
+        eventType: "alteracao_status",
+        title: "Status atualizado",
+        previousStatus: prevStatus ? "ativa" : "inativa",
+        newStatus: status ? "ativa" : "inativa"
+      });
+    }
+  } catch {
+    /* noop */
   }
 
   return company;

@@ -23,6 +23,7 @@ interface ScheduleData {
   enviarQuantasVezes?: number;
   tipoDias?: number;
   assinar?: boolean;
+  scheduleCategory?: string;
 }
 
 interface Request {
@@ -62,7 +63,8 @@ const UpdateUserService = async ({
     valorIntervalo,
     enviarQuantasVezes,
     tipoDias,
-    assinar
+    assinar,
+    scheduleCategory
   } = scheduleData;
 
   try {
@@ -87,7 +89,8 @@ const UpdateUserService = async ({
     valorIntervalo,
     enviarQuantasVezes,
     tipoDias,
-    assinar
+    assinar,
+    ...(scheduleCategory != null ? { scheduleCategory } : {})
   });
 
   await schedule.reload();
