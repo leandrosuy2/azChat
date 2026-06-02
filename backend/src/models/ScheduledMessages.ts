@@ -14,7 +14,7 @@ class ScheduledMessages extends Model<ScheduledMessages> {
     data_mensagem_programada: Date;
 
     @Column
-    id_conexao: String;
+    id_conexao: string;
 
     @Column
     intervalo: string;
@@ -37,10 +37,10 @@ class ScheduledMessages extends Model<ScheduledMessages> {
     criar_ticket: boolean;
 
     @Column({ type: DataType.JSONB })
-    contatos: String[];
+    contatos: string[];
 
     @Column({ type: DataType.JSONB })
-    tags: String[];
+    tags: string[];
 
     @Column
     companyId: number;

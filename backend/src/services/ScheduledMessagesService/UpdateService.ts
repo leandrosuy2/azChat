@@ -64,7 +64,12 @@ const UpdateUserService = async ({
   let data: ScheduleData = {
     data_mensagem_programada:
       data_mensagem_programada || schedule.data_mensagem_programada,
-    id_conexao: id_conexao ?? schedule.id_conexao,
+    id_conexao:
+      id_conexao != null
+        ? String(id_conexao)
+        : schedule.id_conexao != null
+          ? String(schedule.id_conexao)
+          : undefined,
     intervalo: intervalo ?? schedule.intervalo,
     valor_intervalo: valor_intervalo ?? schedule.valor_intervalo,
     mensagem: mensagem ?? schedule.mensagem,
