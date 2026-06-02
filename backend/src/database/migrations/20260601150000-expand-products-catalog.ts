@@ -1,4 +1,4 @@
-import { QueryInterface, DataTypes } from "sequelize";
+import { QueryInterface, DataTypes, Model, ModelAttributeColumnOptions } from "sequelize";
 
 const CATEGORIES = "ProductCategories";
 const UNITS = "ProductUnits";
@@ -25,7 +25,7 @@ const addColumnIfMissing = async (
   queryInterface: QueryInterface,
   table: string,
   name: string,
-  definition: Record<string, unknown>
+  definition: ModelAttributeColumnOptions<Model>
 ): Promise<void> => {
   const info = (await queryInterface.describeTable(table)) as TableColumns;
   if (!hasColumn(info, name)) {

@@ -61,7 +61,7 @@ const UpdateUserService = async ({
     return String(value).split(",").filter((item) => item !== "");
   };
 
-  let data = {
+  let data: ScheduleData = {
     data_mensagem_programada:
       data_mensagem_programada || schedule.data_mensagem_programada,
     id_conexao: id_conexao ?? schedule.id_conexao,
