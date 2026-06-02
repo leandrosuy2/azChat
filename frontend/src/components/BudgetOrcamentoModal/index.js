@@ -37,6 +37,8 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
+import { fieldsFromCatalogProduct } from "../../utils/catalogProduct";
+import { unitLabel } from "../../utils/productUnits";
 import { toast } from "react-toastify";
 import { contactHasWhatsAppDestination } from "../../utils/resolveContactWhatsAppPhone";
 import { generateBudgetPdfBlob } from "../../utils/generateBudgetPdfBlob";
@@ -125,8 +127,11 @@ const emptyItem = () => ({
   code: "",
   description: "",
   qty: 1,
+  unit: "un",
   unitPrice: 0,
   total: 0,
+  productId: null,
+  category: "",
 });
 
 const fmtMoney = (n) =>
@@ -643,19 +648,10 @@ const BudgetOrcamentoModal = ({
   const applyCatalogProduct = (idx, productId) => {
     if (!productId) return;
     const p = catalogProducts.find((x) => String(x.id) === String(productId));
-    if (!p) return;
+    const fields = fieldsFromCatalogProduct(p);
+    if (!fields) return;
     setItems((prev) =>
-      prev.map((r, i) =>
-        i === idx
-          ? recalcLine({
-              ...r,
-              productId: p.id,
-              code: p.code || String(p.id),
-              description: p.name,
-              unitPrice: Number(p.price) || 0,
-            })
-          : r
-      )
+      prev.map((r, i) => (i === idx ? recalcLine({ ...r, ...fields }) : r))
     );
   };
 
@@ -836,12 +832,22 @@ const BudgetOrcamentoModal = ({
     client: { ...clientBlock },
     sellerName,
     notes: notes || undefined,
-    items: items.map((it, i) =>
-      recalcLine({
+    items: items.map((it, i) => {
+      const line = recalcLine({
         ...it,
         code: it.code || String(i + 1),
-      })
-    ),
+      });
+      return {
+        code: line.code,
+        description: line.description,
+        qty: line.qty,
+        unitPrice: line.unitPrice,
+        total: line.total,
+        productId: line.productId || undefined,
+        unit: line.unit || undefined,
+        category: line.category || undefined,
+      };
+    }),
     automation:
       kanbanTagId !== "" && !Number.isNaN(Number(kanbanTagId))
         ? { kanbanTagId: Number(kanbanTagId) }
@@ -1233,7 +1239,7 @@ const BudgetOrcamentoModal = ({
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} sm={3}>
                       <TextField
                         label="Descrição do produto ou serviço"
                         size="small"
@@ -1250,7 +1256,17 @@ const BudgetOrcamentoModal = ({
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={4} sm={2}>
+                    <Grid item xs={4} sm={1}>
+                      <TextField
+                        label="Un."
+                        size="small"
+                        value={unitLabel(row.unit)}
+                        InputProps={{ readOnly: true }}
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={4} sm={1}>
                       <TextField
                         label="Qtd"
                         size="small"

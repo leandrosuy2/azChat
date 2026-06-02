@@ -32,6 +32,7 @@ import MessageVariablesPicker from "../MessageVariablesPicker";
 import useQueues from "../../hooks/useQueues";
 import UserStatusIcon from "../UserModal/statusIcon";
 import { Facebook, Instagram, WhatsApp } from "@material-ui/icons";
+import { SCHEDULE_CATEGORIES } from "../../utils/scheduleCategories";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -91,7 +92,8 @@ const ScheduleModal = ({ open, onClose, scheduleId, contactId, cleanContact, rel
 		valorIntervalo: 0,
 		enviarQuantasVezes: 1,
 		tipoDias: 4,
-		assinar: false
+		assinar: false,
+		scheduleCategory: "contact"
 	};
 
 	const initialContact = {
@@ -213,7 +215,6 @@ const ScheduleModal = ({ open, onClose, scheduleId, contactId, cleanContact, rel
 					setSchedule(prevState => {
 						return { ...prevState, ...data, sendAt: moment(data.sendAt).format('YYYY-MM-DDTHH:mm') };
 					});
-					console.log(data)
 					if (data.whatsapp) {
 						setSelectedWhatsapps(data.whatsapp.id);
 					}
@@ -351,8 +352,6 @@ const ScheduleModal = ({ open, onClose, scheduleId, contactId, cleanContact, rel
 			}));
 			toast.success(i18n.t("scheduleModal.toasts.deleted"));
 			if (typeof reload == "function") {
-				console.log(reload);
-				console.log("1");
 				reload();
 			}
 		}
@@ -446,6 +445,33 @@ const ScheduleModal = ({ open, onClose, scheduleId, contactId, cleanContact, rel
 									/>
 								</Grid>
 								<Grid container spacing={1}>
+									<Grid item xs={12} md={6} xl={6}>
+										<FormControl
+											variant="outlined"
+											margin="dense"
+											fullWidth
+											className={classes.formControl}
+										>
+											<InputLabel id="schedule-category-selection-label">
+												Categoria
+											</InputLabel>
+											<Field
+												as={Select}
+												label="Categoria"
+												labelId="schedule-category-selection-label"
+												id="scheduleCategory"
+												name="scheduleCategory"
+											>
+												{SCHEDULE_CATEGORIES.filter(
+													(cat) => cat.id !== "scheduled_message"
+												).map((cat) => (
+													<MenuItem key={cat.id} value={cat.id}>
+														{cat.label}
+													</MenuItem>
+												))}
+											</Field>
+										</FormControl>
+									</Grid>
 									<Grid item xs={12} md={6} xl={6}>
 										<FormControl
 											variant="outlined"

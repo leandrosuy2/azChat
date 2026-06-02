@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import ListQuadroStatusesService from "../services/QuadroServices/ListQuadroStatusesService";
 import UpdateQuadroStatusesService from "../services/QuadroServices/UpdateQuadroStatusesService";
+import { assertKanbanPermission } from "../helpers/checkKanbanPermission";
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "view");
   const { companyId } = req.user;
   const raw = req.query.quadroGroupId;
   if (raw == null || raw === "") {
@@ -17,6 +19,7 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const update = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { companyId } = req.user;
   const { statuses, quadroGroupId: qgBody } = req.body;
   if (qgBody == null || qgBody === "") {

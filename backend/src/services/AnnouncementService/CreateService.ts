@@ -8,7 +8,13 @@ interface Data {
   text: string;
   status: string;
   companyId: number;
+  targetAudience?: string;
 }
+
+const normalizeAudience = (raw: unknown): string => {
+  const value = String(raw || "internal").trim().toLowerCase();
+  return ["internal", "clients", "both"].includes(value) ? value : "internal";
+};
 
 const CreateService = async (data: Data): Promise<Announcement> => {
   const { title, text } = data;
@@ -24,7 +30,10 @@ const CreateService = async (data: Data): Promise<Announcement> => {
     throw new AppError(err.message);
   }
 
-  const record = await Announcement.create(data);
+  const record = await Announcement.create({
+    ...data,
+    targetAudience: normalizeAudience(data.targetAudience)
+  });
 
   return record;
 };

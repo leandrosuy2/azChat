@@ -43,6 +43,9 @@ export type BudgetPayloadStored = {
     qty: number;
     unitPrice: number;
     total: number;
+    productId?: number | null;
+    unit?: string;
+    category?: string;
   }>;
   automation?: { kanbanTagId?: number | null };
   /** Motivo interno quando recusado pelo atendente (opcional). */

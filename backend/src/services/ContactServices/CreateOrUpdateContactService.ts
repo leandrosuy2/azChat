@@ -183,27 +183,37 @@ const CreateOrUpdateContactService = async ({
       }
     }
 
-    const findOr: { number?: string; remoteJid?: string }[] = [];
+    const remoteJidCandidates = [
+      remoteJid && String(remoteJid).includes("@")
+        ? jidNormalizedUser(String(remoteJid))
+        : "",
+      storeRemoteJid && String(storeRemoteJid).includes("@")
+        ? jidNormalizedUser(String(storeRemoteJid))
+        : ""
+    ].filter((value, index, arr) => value && arr.indexOf(value) === index);
+
+    contact = remoteJidCandidates.length
+      ? await Contact.findOne({
+          where: {
+            companyId,
+            remoteJid: { [Op.in]: remoteJidCandidates }
+          },
+          order: [["updatedAt", "DESC"], ["id", "DESC"]]
+        })
+      : null;
+
+    const findOr: { number?: string }[] = [];
     if (number) findOr.push({ number });
     if (!isGroup && rawDigits && rawDigits !== number) {
       findOr.push({ number: rawDigits });
     }
-    if (remoteJid && String(remoteJid).includes("@")) {
-      findOr.push({ remoteJid: jidNormalizedUser(String(remoteJid)) });
-    }
-    if (
-      storeRemoteJid &&
-      String(storeRemoteJid).includes("@") &&
-      storeRemoteJid !== remoteJid
-    ) {
-      findOr.push({ remoteJid: jidNormalizedUser(String(storeRemoteJid)) });
-    }
 
-    contact = findOr.length
+    contact = !contact && findOr.length
       ? await Contact.findOne({
-          where: { companyId, [Op.or]: findOr }
+          where: { companyId, [Op.or]: findOr },
+          order: [["updatedAt", "DESC"], ["id", "DESC"]]
         })
-      : null;
+      : contact;
 
     let updateImage =
       typeof profilePicUrl !== "undefined" &&
@@ -213,7 +223,21 @@ const CreateOrUpdateContactService = async ({
     if (contact) {
       // Atualização de contato existente
       if (storeRemoteJid) {
-        contact.remoteJid = jidNormalizedUser(storeRemoteJid);
+        const normalizedStoreRemoteJid = jidNormalizedUser(storeRemoteJid);
+        const remoteJidConflict = await Contact.findOne({
+          where: {
+            companyId,
+            remoteJid: normalizedStoreRemoteJid,
+            id: { [Op.ne]: contact.id }
+          },
+          order: [["updatedAt", "DESC"], ["id", "DESC"]]
+        });
+
+        if (remoteJidConflict) {
+          contact = remoteJidConflict;
+        } else {
+          contact.remoteJid = normalizedStoreRemoteJid;
+        }
       }
       if (!isGroup && number && contact.number !== number) {
         const conflict = await Contact.findOne({

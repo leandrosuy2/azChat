@@ -150,9 +150,9 @@ export const deleteAnotacao = async (req: Request, res: Response): Promise<Respo
 // ---- Lembretes ----
 export const listLembretes = async (req: Request, res: Response): Promise<Response> => {
   const { ticketId } = req.params;
-  const { companyId } = req.user;
+  const { companyId, id: userId } = req.user;
   const id = await resolveTicketIdFromRouteParam(ticketId, companyId);
-  const { lembretes } = await ListTicketLembretesService(id, companyId);
+  const { lembretes } = await ListTicketLembretesService(id, companyId, Number(userId));
   return res.status(200).json({ lembretes });
 };
 
@@ -161,6 +161,15 @@ export const createLembrete = async (req: Request, res: Response): Promise<Respo
   const { companyId } = req.user;
   const id = await resolveTicketIdFromRouteParam(ticketId, companyId);
   const b = req.body;
+  const destinoTipoRaw = String(b.destinoTipo || "interno").toLowerCase();
+  const destinoTipo =
+    destinoTipoRaw === "pessoal" ? "usuario" : destinoTipoRaw === "geral" ? "interno" : b.destinoTipo;
+  const destinoId =
+    destinoTipoRaw === "pessoal"
+      ? Number(req.user.id)
+      : b.destinoId != null && b.destinoId !== ""
+        ? parseInt(String(b.destinoId), 10)
+        : null;
   const lembrete = await CreateTicketLembreteService(id, companyId, {
     nome: b.nome,
     descricao: b.descricao,
@@ -171,8 +180,8 @@ export const createLembrete = async (req: Request, res: Response): Promise<Respo
     tipoGatilho: b.tipoGatilho,
     ativo: b.ativo,
     mensagemTemplate: b.mensagemTemplate,
-    destinoTipo: b.destinoTipo,
-    destinoId: b.destinoId != null ? parseInt(String(b.destinoId), 10) : null,
+    destinoTipo,
+    destinoId,
     diasAntecedencia: b.diasAntecedencia != null ? Number(b.diasAntecedencia) : null,
     antecedenciaMinutos:
       b.antecedenciaMinutos != null ? Number(b.antecedenciaMinutos) : null,
@@ -248,7 +257,7 @@ export const listRecentLembreteNotifications = async (
       },
       {
         model: Ticket,
-        attributes: ["id", "uuid", "contactId", "quadroGroupId"],
+        attributes: ["id", "uuid", "contactId", "quadroGroupId", "userId", "queueId"],
         required: false,
         include: [
           { model: Contact, attributes: ["name"], required: false },
@@ -274,6 +283,9 @@ export const listRecentLembreteNotifications = async (
         lembrete?.destinoId != null ? Number(lembrete.destinoId) : null;
 
       if (dest === "usuario" && destId != null && destId !== userId) {
+        return false;
+      }
+      if (dest === "responsavel" && Number(disparo.ticket?.userId) !== userId) {
         return false;
       }
       if (dest === "interno" && destId != null && destId !== userId) {

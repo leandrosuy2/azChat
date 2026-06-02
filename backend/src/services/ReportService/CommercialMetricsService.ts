@@ -28,6 +28,13 @@ export interface CommercialMetricsResult {
     name: string;
     qty: number;
     revenue: number;
+    avgTicket: number;
+  }>;
+  topCategories: Array<{
+    category: string;
+    qty: number;
+    revenue: number;
+    avgTicket: number;
   }>;
   revenueByDay: Array<{ date: string; revenue: number; salesCount: number }>;
 }
@@ -166,7 +173,113 @@ const CommercialMetricsService = async (
     }
   )) as Array<{ date: string; revenue: number; salesCount: number }>;
 
-  const topProducts: CommercialMetricsResult["topProducts"] = [];
+  const topProductsRows = (await sequelize.query(
+    `
+    SELECT
+      NULLIF((item->>'productId')::int, 0) AS "productId",
+      COALESCE(
+        NULLIF(TRIM(p.name), ''),
+        NULLIF(TRIM(item->>'description'), ''),
+        'Sem descrição'
+      ) AS name,
+      COALESCE(SUM((item->>'qty')::numeric), 0)::float AS qty,
+      COALESCE(SUM((item->>'total')::numeric), 0)::float AS revenue
+    FROM "TicketBudgetOrders" o
+    CROSS JOIN LATERAL jsonb_array_elements(
+      CASE
+        WHEN jsonb_typeof(o.items) = 'array' THEN o.items
+        ELSE '[]'::jsonb
+      END
+    ) AS item
+    LEFT JOIN "Products" p
+      ON p.id = NULLIF((item->>'productId')::int, 0)
+      AND p."companyId" = :companyId
+    WHERE o."companyId" = :companyId
+      AND o."createdAt" BETWEEN :dateFrom AND :dateTo
+    GROUP BY 1, 2
+    ORDER BY revenue DESC, qty DESC
+    LIMIT 15
+    `,
+    {
+      replacements: {
+        companyId,
+        dateFrom: `${dateFrom} 00:00:00`,
+        dateTo: `${dateTo} 23:59:59`
+      },
+      type: QueryTypes.SELECT
+    }
+  )) as Array<{
+    productId: number | null;
+    name: string;
+    qty: number;
+    revenue: number;
+  }>;
+
+  const topCategoriesRows = (await sequelize.query(
+    `
+    SELECT
+      COALESCE(
+        NULLIF(TRIM(item->>'category'), ''),
+        NULLIF(TRIM(p.category), ''),
+        CASE
+          WHEN pc.name IS NOT NULL THEN
+            pc.name || COALESCE(' / ' || NULLIF(sc.name, ''), '')
+          ELSE NULL
+        END,
+        'Sem categoria'
+      ) AS category,
+      COALESCE(SUM((item->>'qty')::numeric), 0)::float AS qty,
+      COALESCE(SUM((item->>'total')::numeric), 0)::float AS revenue
+    FROM "TicketBudgetOrders" o
+    CROSS JOIN LATERAL jsonb_array_elements(
+      CASE
+        WHEN jsonb_typeof(o.items) = 'array' THEN o.items
+        ELSE '[]'::jsonb
+      END
+    ) AS item
+    LEFT JOIN "Products" p
+      ON p.id = NULLIF((item->>'productId')::int, 0)
+      AND p."companyId" = :companyId
+    LEFT JOIN "ProductCategories" pc ON pc.id = p."categoryId"
+    LEFT JOIN "ProductCategories" sc ON sc.id = p."subcategoryId"
+    WHERE o."companyId" = :companyId
+      AND o."createdAt" BETWEEN :dateFrom AND :dateTo
+    GROUP BY 1
+    ORDER BY revenue DESC, qty DESC
+    LIMIT 15
+    `,
+    {
+      replacements: {
+        companyId,
+        dateFrom: `${dateFrom} 00:00:00`,
+        dateTo: `${dateTo} 23:59:59`
+      },
+      type: QueryTypes.SELECT
+    }
+  )) as Array<{ category: string; qty: number; revenue: number }>;
+
+  const topProducts = topProductsRows.map((r) => {
+    const qty = Number(r.qty) || 0;
+    const revenue = Number(r.revenue) || 0;
+    return {
+      productId: r.productId != null ? Number(r.productId) : null,
+      name: r.name,
+      qty,
+      revenue,
+      avgTicket: qty > 0 ? revenue / qty : 0
+    };
+  });
+
+  const topCategories = topCategoriesRows.map((r) => {
+    const qty = Number(r.qty) || 0;
+    const revenue = Number(r.revenue) || 0;
+    return {
+      category: r.category,
+      qty,
+      revenue,
+      avgTicket: qty > 0 ? revenue / qty : 0
+    };
+  });
 
   return {
     summary: {
@@ -188,6 +301,7 @@ const CommercialMetricsService = async (
           : 0
     })),
     topProducts,
+    topCategories,
     revenueByDay: revenueByDay.map((r) => ({
       date: r.date,
       revenue: Number(r.revenue) || 0,

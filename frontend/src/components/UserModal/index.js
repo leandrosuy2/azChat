@@ -28,7 +28,7 @@ import useWhatsApps from "../../hooks/useWhatsApps";
 
 import { Can } from "../Can";
 import UserAccessibilityPreferences from "../UserAccessibilityPreferences";
-import { Avatar, Grid, Input, Paper, Tab, Tabs } from "@material-ui/core";
+import { Avatar, Checkbox, FormControlLabel, Grid, Input, Paper, Tab, Tabs, Typography } from "@material-ui/core";
 import { getBackendUrl } from "../../config";
 import TabPanel from "../TabPanel";
 import AvatarUploader from "../AvatarUpload";
@@ -140,6 +140,7 @@ const UserModal = ({ open, onClose, userId }) => {
 		showDashboard: "disabled",
 		allowRealTime: "disabled",
 		allowConnections: "disabled",
+		permissions: {},
 	};
 
 	const { user: loggedInUser } = useContext(AuthContext);
@@ -262,7 +263,31 @@ const UserModal = ({ open, onClose, userId }) => {
 						}, 400);
 					}}
 				>
-					{({ touched, errors, isSubmitting, setFieldValue }) => (
+					{({ touched, errors, isSubmitting, setFieldValue, values }) => {
+						const customPermissions =
+							values.permissions && typeof values.permissions === "object"
+								? values.permissions
+								: {};
+						const setCustomPermission = (key, checked) => {
+							setFieldValue("permissions", {
+								...customPermissions,
+								[key]: checked,
+							});
+						};
+						const permissionChecked = (key) => {
+							if (customPermissions[key] === true) return true;
+							if (customPermissions[key] === false) return false;
+							if (values.profile === "admin") return true;
+							return [
+								"quickMessages:view",
+								"quickMessages:create",
+								"quickMessages:edit",
+								"kanban:view",
+								"kanban:moveCard",
+							].includes(key);
+						};
+
+						return (
 						<Form>
 							<Paper className={classes.mainPaper} elevation={1}>
 								<Tabs
@@ -569,6 +594,59 @@ const UserModal = ({ open, onClose, userId }) => {
 											yes={() =>
 												<>
 													<Grid container spacing={1}>
+														<Grid item xs={12}>
+															<Typography variant="subtitle2" style={{ marginTop: 8 }}>
+																Respostas rápidas
+															</Typography>
+														</Grid>
+														{[
+															["quickMessages:view", "Visualizar"],
+															["quickMessages:create", "Criar"],
+															["quickMessages:edit", "Editar"],
+															["quickMessages:delete", "Excluir"],
+														].map(([key, label]) => (
+															<Grid item xs={12} md={6} xl={6} key={key}>
+																<FormControlLabel
+																	control={
+																		<Checkbox
+																			color="primary"
+																			checked={permissionChecked(key)}
+																			onChange={(e) => setCustomPermission(key, e.target.checked)}
+																		/>
+																	}
+																	label={label}
+																/>
+															</Grid>
+														))}
+													</Grid>
+													<Grid container spacing={1}>
+														<Grid item xs={12}>
+															<Typography variant="subtitle2" style={{ marginTop: 8 }}>
+																Quadros Kanban
+															</Typography>
+														</Grid>
+														{[
+															["kanban:view", "Visualizar quadros"],
+															["kanban:create", "Criar quadros"],
+															["kanban:edit", "Editar quadros"],
+															["kanban:delete", "Remover quadros"],
+															["kanban:moveCard", "Movimentar cards"],
+														].map(([key, label]) => (
+															<Grid item xs={12} md={6} xl={6} key={key}>
+																<FormControlLabel
+																	control={
+																		<Checkbox
+																			color="primary"
+																			checked={permissionChecked(key)}
+																			onChange={(e) => setCustomPermission(key, e.target.checked)}
+																		/>
+																	}
+																	label={label}
+																/>
+															</Grid>
+														))}
+													</Grid>
+													<Grid container spacing={1}>
 														<Grid item xs={12} md={6} xl={6}>
 															<FormControl
 																variant="outlined"
@@ -818,7 +896,8 @@ const UserModal = ({ open, onClose, userId }) => {
 								</Button>
 							</DialogActions>
 						</Form>
-					)}
+						);
+					}}
 				</Formik>
 			</Dialog>
 		</div >

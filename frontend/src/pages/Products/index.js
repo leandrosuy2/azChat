@@ -1,9 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
+  Box,
   Button,
   IconButton,
   InputAdornment,
   Paper,
+  Tab,
+  Tabs,
   Table,
   TableBody,
   TableCell,
@@ -22,12 +25,14 @@ import Title from "../../components/Title";
 import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
 import HelpHint from "../../components/HelpHint";
 import ProductModal from "../../components/ProductModal";
+import ProductCategoriesPanel from "../../components/ProductCategoriesPanel";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import ForbiddenPage from "../../components/ForbiddenPage";
+import { unitLabel } from "../../utils/productUnits";
 
 const useStyles = makeStyles((theme) => ({
   mainPaper: {
@@ -44,6 +49,7 @@ const fmtBRL = (n) =>
 const Products = () => {
   const classes = useStyles();
   const { user } = useContext(AuthContext);
+  const [tab, setTab] = useState(0);
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -105,72 +111,98 @@ const Products = () => {
           Produtos
           <HelpHint areaKey="budgets" />
         </Title>
-        <MainHeaderButtonsWrapper>
-          <TextField
-            size="small"
-            placeholder="Buscar..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon fontSize="small" />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => {
-              setEditId(null);
-              setModalOpen(true);
-            }}
-          >
-            Novo produto
-          </Button>
-        </MainHeaderButtonsWrapper>
+        {tab === 0 && (
+          <MainHeaderButtonsWrapper>
+            <TextField
+              size="small"
+              placeholder="Buscar..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              onClick={() => {
+                setEditId(null);
+                setModalOpen(true);
+              }}
+            >
+              Novo produto
+            </Button>
+          </MainHeaderButtonsWrapper>
+        )}
       </MainHeader>
-      <Paper className={classes.mainPaper} variant="outlined">
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell>Código</TableCell>
-              <TableCell>Categoria</TableCell>
-              <TableCell align="right">Valor</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {products.map((p) => (
-              <TableRow key={p.id}>
-                <TableCell>{p.name}</TableCell>
-                <TableCell>{p.code || "—"}</TableCell>
-                <TableCell>{p.category || "—"}</TableCell>
-                <TableCell align="right">{fmtBRL(p.price)}</TableCell>
-                <TableCell>{p.status === "active" ? "Ativo" : "Inativo"}</TableCell>
-                <TableCell align="right">
-                  <IconButton
-                    size="small"
-                    onClick={() => {
-                      setEditId(p.id);
-                      setModalOpen(true);
-                    }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small" onClick={() => setDeleteId(p.id)}>
-                    <DeleteOutlineIcon fontSize="small" />
-                  </IconButton>
-                </TableCell>
+
+      <Tabs value={tab} onChange={(_, v) => setTab(v)} indicatorColor="primary">
+        <Tab label="Catálogo" />
+        <Tab label="Categorias" />
+      </Tabs>
+
+      {tab === 0 ? (
+        <Paper className={classes.mainPaper} variant="outlined">
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Nome</TableCell>
+                <TableCell>SKU</TableCell>
+                <TableCell>Categoria</TableCell>
+                <TableCell>Unidade</TableCell>
+                <TableCell align="right">Venda</TableCell>
+                <TableCell align="right">Custo</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell align="right">Ações</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
+            </TableHead>
+            <TableBody>
+              {products.map((p) => (
+                <TableRow key={p.id}>
+                  <TableCell>{p.name}</TableCell>
+                  <TableCell>{p.code || "—"}</TableCell>
+                  <TableCell>
+                    {p.productCategory?.name
+                      ? `${p.productCategory.name}${
+                          p.productSubcategory?.name
+                            ? ` / ${p.productSubcategory.name}`
+                            : ""
+                        }`
+                      : p.category || "—"}
+                  </TableCell>
+                  <TableCell>{unitLabel(p.unit)}</TableCell>
+                  <TableCell align="right">{fmtBRL(p.price)}</TableCell>
+                  <TableCell align="right">{fmtBRL(p.costPrice)}</TableCell>
+                  <TableCell>{p.status === "active" ? "Ativo" : "Inativo"}</TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      size="small"
+                      onClick={() => {
+                        setEditId(p.id);
+                        setModalOpen(true);
+                      }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" onClick={() => setDeleteId(p.id)}>
+                      <DeleteOutlineIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      ) : (
+        <Box className={classes.mainPaper}>
+          <ProductCategoriesPanel />
+        </Box>
+      )}
     </MainContainer>
   );
 };

@@ -213,6 +213,8 @@ export const mediaUpload = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
+  assertQuickMessagePermission(req.user, "edit");
+
   const { id } = req.params;
   const files = req.files as Express.Multer.File[];
   const file = head(files);
@@ -248,6 +250,8 @@ export const deleteMedia = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
+  assertQuickMessagePermission(req.user, "edit");
+
   const { id } = req.params;
   const { companyId } = req.user;
 

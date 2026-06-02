@@ -40,10 +40,12 @@ type FindParams = {
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
   const { searchParam, pageNumber, audience } = req.query as IndexQuery;
+  const { companyId } = req.user;
 
   const { records, count, hasMore } = await ListService({
     searchParam,
     pageNumber,
+    companyId,
     viewerAudience: audience || "internal"
   });
 
@@ -81,8 +83,9 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
 
 export const show = async (req: Request, res: Response): Promise<Response> => {
   const { id } = req.params;
+  const { companyId } = req.user;
 
-  const record = await ShowService(id);
+  const record = await ShowService(id, companyId);
 
   return res.status(200).json(record);
 };
@@ -107,7 +110,8 @@ export const update = async (
 
   const record = await UpdateService({
     ...data,
-    id
+    id,
+    companyId
   });
 
   const io = getIO();
@@ -127,7 +131,7 @@ export const remove = async (
   const { id } = req.params;
   const { companyId } = req.user;
 
-  await DeleteService(id);
+  await DeleteService(id, companyId);
 
   const io = getIO();
   io.of(String(companyId))
@@ -159,7 +163,12 @@ export const mediaUpload = async (
   const file = head(files);
 
   try {
-    const announcement = await Announcement.findByPk(id);
+    const announcement = await Announcement.findOne({
+      where: { id, companyId }
+    });
+    if (!announcement) {
+      throw new AppError("ERR_NO_ANNOUNCEMENT_FOUND", 404);
+    }
 
     await announcement.update({
       mediaPath: file.filename.replace('/', '-'),
@@ -187,7 +196,12 @@ export const deleteMedia = async (
   const { id } = req.params;
   const { companyId } = req.user;
   try {
-    const announcement = await Announcement.findByPk(id);
+    const announcement = await Announcement.findOne({
+      where: { id, companyId }
+    });
+    if (!announcement) {
+      throw new AppError("ERR_NO_ANNOUNCEMENT_FOUND", 404);
+    }
 
     const filePath = path.resolve("public", "announcements", announcement.mediaPath);
 

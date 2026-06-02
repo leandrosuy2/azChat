@@ -35,7 +35,13 @@ export const normalizePayloadLikeCreate = (
           description: String(it.description ?? ""),
           qty,
           unitPrice,
-          total
+          total,
+          productId:
+            it.productId != null && !Number.isNaN(Number(it.productId))
+              ? Number(it.productId)
+              : undefined,
+          unit: it.unit ? String(it.unit).trim() : undefined,
+          category: it.category ? String(it.category).trim() : undefined
         };
       })
     : [],

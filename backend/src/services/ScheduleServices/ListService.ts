@@ -29,8 +29,9 @@ const ListService = async ({
   scheduleKind = ""
 }: Request): Promise<Response> => {
   let whereCondition = {};
-  const limit = 20;
-  const offset = limit * (+pageNumber - 1);
+  const listAll = String(pageNumber) === "all";
+  const limit = listAll ? 500 : 20;
+  const offset = listAll ? 0 : limit * (+pageNumber - 1);
 
   if (searchParam) {
     whereCondition = {
@@ -101,7 +102,7 @@ const ListService = async ({
     ]
   });
 
-  const hasMore = count > offset + schedules.length;
+  const hasMore = !listAll && count > offset + schedules.length;
 
   return {
     schedules,

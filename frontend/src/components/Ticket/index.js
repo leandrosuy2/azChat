@@ -24,6 +24,7 @@ import { isNil } from 'lodash';
 import { EditMessageProvider } from "../../context/EditingMessage/EditingMessageContext";
 import { TicketsContext } from "../../context/Tickets/TicketsContext";
 import { isSocketClientReady } from "../../utils/socketClient";
+import canPerform, { isUiHidden } from "../../utils/permissions";
 
 const drawerWidth = 450;
 
@@ -86,6 +87,8 @@ const Ticket = () => {
   const classes = useStyles();
 
   const { user, socket } = useContext(AuthContext);
+  const hideQuickReplies =
+    isUiHidden(user, "showQuickReplies") || !canPerform(user, "quickMessages:view");
   const { setTabOpen } = useContext(TicketsContext);
 
   const rootRef = useRef(null);
@@ -317,6 +320,7 @@ const Ticket = () => {
         </div>
       </Paper>
 
+      {!hideQuickReplies && (
       <Drawer
         variant="temporary"
         anchor="right"
@@ -340,6 +344,7 @@ const Ticket = () => {
           onDraftQuickMessageConsumed={() => setQuickReplyDraft(null)}
         />
       </Drawer>
+      )}
 
       <ContactDrawer
         open={drawerOpen}
@@ -349,7 +354,7 @@ const Ticket = () => {
         ticket={ticket}
         refreshTicket={refreshTicket}
         quickRepliesOpen={quickRepliesOpen}
-        onToggleQuickReplies={handleToggleQuickReplies}
+        onToggleQuickReplies={hideQuickReplies ? undefined : handleToggleQuickReplies}
       />
 
     </div>

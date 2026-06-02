@@ -39,10 +39,15 @@ const isAuth = async (req: Request, res: Response, next: NextFunction): Promise<
 
     updateUser(id, companyId);
 
+    const user = await ShowUserService(id, companyId);
+
     req.user = {
       id,
-      profile,
-      companyId
+      profile: user.profile || profile,
+      companyId,
+      super: user.super || false,
+      permissions: user.permissions || null,
+      uiPreferences: user.uiPreferences || null
     };
   } catch (err: any) {
     if (err.message === "ERR_SESSION_EXPIRED" && err.statusCode === 401) {

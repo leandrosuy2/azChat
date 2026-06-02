@@ -4,6 +4,7 @@ import CreateStandaloneTicketQuadroService from "../services/QuadroServices/Crea
 import UpdateStandaloneQuadroLaneService from "../services/QuadroServices/UpdateStandaloneQuadroLaneService";
 import DeleteStandaloneTicketQuadroService from "../services/QuadroServices/DeleteStandaloneTicketQuadroService";
 import UpdateStandaloneQuadroLinkedContactService from "../services/QuadroServices/UpdateStandaloneQuadroLinkedContactService";
+import { assertKanbanPermission } from "../helpers/checkKanbanPermission";
 
 const emitKanbanRefresh = (companyId: number): void => {
   getIO().of(String(companyId)).emit(`company-${companyId}-ticket`, {
@@ -13,6 +14,7 @@ const emitKanbanRefresh = (companyId: number): void => {
 };
 
 export const store = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "create");
   const { companyId } = req.user;
   const { nomeProjeto, quadroGroupId, linkedContactId, kanbanTagId } = req.body;
 
@@ -42,6 +44,7 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const updateLane = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "moveCard");
   const { uuid } = req.params;
   const { companyId } = req.user;
   const { targetLaneId } = req.body;
@@ -58,6 +61,7 @@ export const updateLane = async (req: Request, res: Response): Promise<Response>
 };
 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "delete");
   const { uuid } = req.params;
   const { companyId } = req.user;
 
@@ -68,6 +72,7 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
 };
 
 export const updateLinkedContact = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { uuid } = req.params;
   const { companyId } = req.user;
   const { linkedContactId } = req.body;

@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { getIO } from "../libs/socket";
 import { head } from "lodash";
 
-import AppError from "../errors/AppError";
-
 import CreateService from "../services/ScheduledMessagesService/CreateService";
 import ListService from "../services/ScheduledMessagesService/ListService";
 import UpdateService from "../services/ScheduledMessagesService/UpdateService";
@@ -72,22 +70,25 @@ export const show = async (req: Request, res: Response): Promise<Response> => {
     const { scheduleId } = req.params;
     const { companyId } = req.user;
 
-    const schedule = await ShowService(scheduleId);
+    const schedule = await ShowService(scheduleId, companyId);
 
     return res.status(200).json(schedule);
 };
 
 export const update = async (req: Request, res: Response): Promise<Response> => {
-    if (req.user.profile !== "admin") {
-        throw new AppError("ERR_NO_PERMISSION", 403);
-    }
-
     const { scheduleId } = req.params;
     const scheduleData = req.body;
+    const { companyId } = req.user;
     const files = req.files as Express.Multer.File[];
     const file = head(files);
 
-    const schedule = await UpdateService({ scheduleData, id: scheduleId, mediaPath: !!file ? file?.filename : null, mediaName: !!file ? file?.originalname : null });
+    const schedule = await UpdateService({
+        scheduleData,
+        id: scheduleId,
+        companyId,
+        mediaPath: !!file ? file?.filename : null,
+        mediaName: !!file ? file?.originalname : null
+    });
 
     return res.status(200).json(schedule);
 };

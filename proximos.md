@@ -142,15 +142,62 @@ Refatoração de uma das áreas mais densas do sistema (`BudgetServices`, `Ticke
 
 ## Entrega 8 — Produtos e Financeiro (8 dias úteis)
 
-Produtos
-- Cadastro de produtos.
-- Ao criar orçamento, linkar item com produto cadastrado.
+> O módulo de Produtos **não** deve ser apenas um cadastro simples de nome e valor.
+> Precisa atender diferentes segmentos (gráfica, oficina, construção, serviços, confecção, etc.),
+> permitindo uma estrutura comercial completa e flexível por empresa.
 
-Financeiro (faturas e visão da empresa)
-- Visão financeira por cliente.
-- Faturamento geral da empresa.
-- Overview de vendas: usuário que mais vendeu, produto que mais saiu, ticket médio.
-- Integrar com módulo de Produtos para puxar dados de saída.
+### Produtos — Cadastro completo de produtos e serviços
+
+Implementar catálogo comercial por empresa, com campos mínimos:
+
+- [x] Nome do produto ou serviço
+- [x] Código/SKU
+- [x] Categoria e subcategoria (estrutura personalizada por empresa)
+- [x] Descrição
+- [x] Unidade de medida: unidade, metro, m², kg, litro, hora, serviço + unidades personalizáveis
+- [x] Valor de venda
+- [x] Valor de custo
+- [x] Status (ativo/inativo)
+- [x] Imagem do produto
+- [x] Observações internas
+
+**Situação atual (2026-06-01):** catálogo expandido implementado (migration `20260601150000`). Rodar `npm run db:migrate` no backend.
+
+### Categorias e organização
+
+- [x] Cadastro de categorias e subcategorias personalizadas por empresa
+- [x] Cada empresa cria sua própria estrutura (ex.: gráfica → cartões/folders; oficina → peças/serviços; construção → elétrica/hidráulica)
+
+### Integração com orçamentos
+
+- [x] Seleção de produto do catálogo no modal de orçamento
+- [x] Persistir `productId`, unidade e categoria no item do orçamento (backend)
+- [x] Preencher automaticamente descrição, unidade, valor unitário, categoria e quantidade
+- [x] Permitir alterar valores/quantidades no orçamento sem alterar o cadastro original
+
+### Indicadores e controle comercial
+
+- [x] Produtos mais vendidos
+- [x] Categorias mais vendidas
+- [x] Faturamento por categoria
+- [x] Quantidade vendida por período (via agregação de itens)
+- [x] Ticket médio por produto
+- [x] Ticket médio por categoria
+
+**Situação atual:** `CommercialMetricsService` agrega itens de OS/orçamentos aprovados. Dashboard BI exibe ranking de produtos e categorias.
+
+### Financeiro (faturas e visão da empresa)
+
+- [~] Visão financeira por cliente (`ContactFinancialService` + drawer do contato)
+- [~] Faturamento geral da empresa (dashboard comercial)
+- [~] Overview: top vendedor e ticket médio (implementado)
+- [x] Top produto e integração BI ↔ catálogo de produtos (join em `Products` + categorias quando `productId` presente; OS standalone integrada ao catálogo)
+- Nota: rota `/financeiro` = faturas SaaS da plataforma; financeiro comercial vem de `TicketBudgetOrders`
+
+### Resultado esperado
+
+Transformar o módulo de Produtos em catálogo comercial completo e flexível, base para orçamentos, OS, vendas, faturamento e indicadores gerenciais.
+Depende parcialmente da Entrega 6 (orçamento ↔ produto).
 
 ---
 

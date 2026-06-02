@@ -44,7 +44,6 @@ import QueueIntegration from "../pages/QueueIntegration";
 import Files from "../pages/Files";
 import ToDoList from "../pages/ToDoList";
 import Kanban from "../pages/Kanban";
-import TagsKanban from "../pages/TagsKanban";
 import ForgotPassword from "../pages/ForgetPassWord";
 import ResetPassword from "../pages/ResetPassword";
 import Tutoriais from "../pages/Tutoriais";
@@ -89,12 +88,12 @@ const Routes = () => {
                 <Route exact path="/tickets/:ticketId?" component={TicketResponsiveContainer} isPrivate />
                 <Route exact path="/notifications" component={NotificationsCenter} isPrivate />
                 <Route exact path="/connections" component={Connections} isPrivate />
-                <Route exact path="/quick-messages">
+                <Route exact path="/quick-messages" isPrivate>
                   <Redirect to="/tickets" />
                 </Route>
                 <Route exact path="/todolist" component={ToDoList} isPrivate />
                 <Route exact path="/schedules" component={Schedules} isPrivate />
-                <Route exact path="/tags">
+                <Route exact path="/tags" isPrivate>
                   <Redirect to="/tickets" />
                 </Route>
                 <Route exact path="/contacts" component={Contacts} isPrivate />
@@ -137,7 +136,9 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/kanban" component={Kanban} isPrivate />
                 <Route exact path="/quadro/:ticketUuid" component={Quadro} isPrivate />
-                <Route exact path="/TagsKanban" component={TagsKanban} isPrivate />
+                <Route exact path="/TagsKanban" isPrivate>
+                  <Redirect to="/tickets" />
+                </Route>
                 <Route exact path="/prompts" component={Prompts} isPrivate />
                 <Route exact path="/allConnections" component={AllConnections} isPrivate />
                 {showCampaigns && (

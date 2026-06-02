@@ -30,6 +30,7 @@ import UpdateMirrorKanbanLaneService from "../services/QuadroServices/UpdateMirr
 import DispatchKanbanLembreteService from "../services/TicketLembreteServices/DispatchKanbanLembreteService";
 import TicketQuadro from "../models/TicketQuadro";
 import QuadroGroup from "../models/QuadroGroup";
+import { assertKanbanPermission } from "../helpers/checkKanbanPermission";
 
 /** Dispara o mesmo evento do UpdateTicketService para o Kanban/chat atualizarem. */
 const emitTicketUpdateForKanban = async (
@@ -55,6 +56,7 @@ const emitKanbanCardsRefresh = (companyId: number): void => {
 };
 
 export const getQuadro = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "view");
   const { ticketUuid } = req.params;
   const { companyId } = req.user;
   const viewGid = parseViewQuadroGroupId((req.query as { viewQuadroGroupId?: unknown }).viewQuadroGroupId);
@@ -63,6 +65,7 @@ export const getQuadro = async (req: Request, res: Response): Promise<Response> 
 };
 
 export const updateStatus = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { ticketUuid } = req.params;
   const { companyId } = req.user;
   const { status, viewQuadroGroupId: viewRaw } = req.body;
@@ -100,6 +103,7 @@ export const updateStatus = async (req: Request, res: Response): Promise<Respons
 };
 
 export const updateDescription = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { ticketUuid } = req.params;
   const { companyId } = req.user;
   const { description, viewQuadroGroupId: viewRaw } = req.body;
@@ -331,6 +335,7 @@ export const createLog = async (req: Request, res: Response): Promise<Response> 
 };
 
 export const updateValues = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { ticketId } = req.params;
   const { companyId } = req.user;
   const {
@@ -402,6 +407,7 @@ export const updateValues = async (req: Request, res: Response): Promise<Respons
 };
 
 export const move = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "moveCard");
   const { ticketId } = req.params;
   const { companyId } = req.user;
   const { targetGroupId, targetTagId, userId } = req.body;
@@ -448,6 +454,7 @@ export const updateMirrorKanbanLane = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
+  assertKanbanPermission(req.user, "moveCard");
   const { ticketId } = req.params;
   const { companyId } = req.user;
   const { quadroGroupId, tagId } = req.body;
@@ -494,6 +501,7 @@ export const updateMirrorKanbanLane = async (
 };
 
 export const share = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { ticketId } = req.params;
   const { companyId } = req.user;
   const { groupIds, linkType, sharedStagesByGroup } = req.body;

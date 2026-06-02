@@ -7,6 +7,7 @@ import {
   DialogTitle,
   Grid,
   IconButton,
+  MenuItem,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -16,13 +17,18 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
 import { toast } from "react-toastify";
+import { fieldsFromCatalogProduct, serializeOrderItem } from "../../utils/catalogProduct";
+import { unitLabel } from "../../utils/productUnits";
 
 const emptyItem = () => ({
   code: "",
   description: "",
   qty: 1,
+  unit: "un",
   unitPrice: 0,
   total: 0,
+  productId: null,
+  category: "",
 });
 
 const recalcLine = (row) => {
@@ -35,6 +41,7 @@ const OrderServiceModal = ({ open, onClose, ticket, contact, onAfterSave }) => {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([emptyItem()]);
   const [notes, setNotes] = useState("");
+  const [catalogProducts, setCatalogProducts] = useState([]);
 
   const totals = useMemo(
     () => items.reduce((acc, it) => acc + (Number(it.total) || 0), 0),
@@ -47,18 +54,27 @@ const OrderServiceModal = ({ open, onClose, ticket, contact, onAfterSave }) => {
   }, []);
 
   useEffect(() => {
-    if (open) reset();
+    if (!open) return;
+    reset();
+    api
+      .get("/products/active")
+      .then(({ data }) => setCatalogProducts(Array.isArray(data) ? data : []))
+      .catch(() => setCatalogProducts([]));
   }, [open, reset]);
+
+  const applyCatalogProduct = (idx, productId) => {
+    if (!productId) return;
+    const p = catalogProducts.find((x) => String(x.id) === String(productId));
+    const fields = fieldsFromCatalogProduct(p);
+    if (!fields) return;
+    setItems((prev) =>
+      prev.map((r, i) => (i === idx ? recalcLine({ ...r, ...fields }) : r))
+    );
+  };
 
   const handleSave = async () => {
     const normalized = items
-      .map((it, i) =>
-        recalcLine({
-          ...it,
-          code: it.code || String(i + 1),
-          description: (it.description || "").trim(),
-        })
-      )
+      .map((it, i) => recalcLine(serializeOrderItem(it, i)))
       .filter((it) => it.description);
     if (!normalized.length) {
       toast.warning("Informe ao menos um item com descrição.");
@@ -89,8 +105,8 @@ const OrderServiceModal = ({ open, onClose, ticket, contact, onAfterSave }) => {
       </DialogTitle>
       <DialogContent dividers>
         <Typography variant="body2" color="textSecondary" paragraph>
-          Crie uma OS diretamente, sem orçamento prévio. Os itens abaixo compõem a ordem de
-          serviço do cliente.
+          Crie uma OS diretamente, sem orçamento prévio. Selecione produtos do catálogo ou
+          preencha os itens manualmente.
         </Typography>
         <TextField
           fullWidth
@@ -103,9 +119,41 @@ const OrderServiceModal = ({ open, onClose, ticket, contact, onAfterSave }) => {
           onChange={(e) => setNotes(e.target.value)}
           style={{ marginBottom: 16 }}
         />
+        {catalogProducts.length > 0 && (
+          <Typography variant="caption" color="textSecondary" display="block" style={{ marginBottom: 8 }}>
+            Vincule itens ao catálogo de produtos cadastrado ou preencha manualmente.
+          </Typography>
+        )}
         {items.map((row, idx) => (
           <Grid container spacing={1} key={idx} alignItems="center" style={{ marginBottom: 8 }}>
-            <Grid item xs={12} sm={5}>
+            {catalogProducts.length > 0 && (
+              <Grid item xs={12}>
+                <TextField
+                  select
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  label="Produto cadastrado"
+                  value={row.productId || ""}
+                  onChange={(e) => applyCatalogProduct(idx, e.target.value)}
+                >
+                  <MenuItem value="">
+                    <em>Selecionar do catálogo…</em>
+                  </MenuItem>
+                  {catalogProducts.map((p) => (
+                    <MenuItem key={p.id} value={p.id}>
+                      {p.name}
+                      {p.code ? ` (${p.code})` : ""} —{" "}
+                      {(Number(p.price) || 0).toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            )}
+            <Grid item xs={12} sm={4}>
               <TextField
                 fullWidth
                 size="small"
@@ -117,6 +165,16 @@ const OrderServiceModal = ({ open, onClose, ticket, contact, onAfterSave }) => {
                   next[idx] = recalcLine({ ...next[idx], description: e.target.value });
                   setItems(next);
                 }}
+              />
+            </Grid>
+            <Grid item xs={4} sm={1}>
+              <TextField
+                fullWidth
+                size="small"
+                variant="outlined"
+                label="Un."
+                value={unitLabel(row.unit)}
+                InputProps={{ readOnly: true }}
               />
             </Grid>
             <Grid item xs={4} sm={2}>

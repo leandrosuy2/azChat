@@ -2,6 +2,8 @@ import AppError from "../../errors/AppError";
 import Contact from "../../models/Contact";
 import ContactCustomField from "../../models/ContactCustomField";
 import ContactWallet from "../../models/ContactWallet";
+import { Op } from "sequelize";
+import { jidNormalizedUser } from "@whiskeysockets/baileys";
 
 interface ExtraInfo {
   id?: number;
@@ -116,6 +118,37 @@ const UpdateContactService = async ({
     await ContactWallet.bulkCreate(contactWallets);
   }
 
+  const normalizedRemoteJid =
+    remoteJid && String(remoteJid).includes("@")
+      ? jidNormalizedUser(String(remoteJid))
+      : remoteJid;
+
+  if (number) {
+    const numberExists = await Contact.findOne({
+      where: {
+        number,
+        companyId,
+        id: { [Op.ne]: contact.id }
+      }
+    });
+    if (numberExists) {
+      throw new AppError("ERR_DUPLICATED_CONTACT");
+    }
+  }
+
+  if (normalizedRemoteJid) {
+    const remoteJidExists = await Contact.findOne({
+      where: {
+        remoteJid: normalizedRemoteJid,
+        companyId,
+        id: { [Op.ne]: contact.id }
+      }
+    });
+    if (remoteJidExists) {
+      throw new AppError("ERR_DUPLICATED_CONTACT");
+    }
+  }
+
   const patch: Record<string, unknown> = {
     name,
     number,
@@ -123,7 +156,7 @@ const UpdateContactService = async ({
     acceptAudioMessage,
     active,
     disableBot,
-    remoteJid,
+    remoteJid: normalizedRemoteJid,
     country,
     city,
     state,

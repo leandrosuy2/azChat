@@ -140,6 +140,74 @@ const CommercialBiPanel = () => {
           </Paper>
 
           <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Produtos mais vendidos
+          </Typography>
+          <Paper sx={{ borderRadius: 2, overflow: "hidden", mb: 3 }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Produto</TableCell>
+                  <TableCell align="right">Qtd vendida</TableCell>
+                  <TableCell align="right">Receita</TableCell>
+                  <TableCell align="right">Ticket médio</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(data?.topProducts || []).length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      Sem dados no período
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  data.topProducts.map((row, idx) => (
+                    <TableRow key={`${row.productId || "x"}-${idx}`}>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell align="right">{row.qty}</TableCell>
+                      <TableCell align="right">{fmtBRL(row.revenue)}</TableCell>
+                      <TableCell align="right">{fmtBRL(row.avgTicket)}</TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </Paper>
+
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+            Faturamento por categoria
+          </Typography>
+          <Paper sx={{ borderRadius: 2, overflow: "hidden", mb: 3 }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Categoria</TableCell>
+                  <TableCell align="right">Qtd vendida</TableCell>
+                  <TableCell align="right">Receita</TableCell>
+                  <TableCell align="right">Ticket médio</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(data?.topCategories || []).length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      Sem dados no período
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  data.topCategories.map((row) => (
+                    <TableRow key={row.category}>
+                      <TableCell>{row.category}</TableCell>
+                      <TableCell align="right">{row.qty}</TableCell>
+                      <TableCell align="right">{fmtBRL(row.revenue)}</TableCell>
+                      <TableCell align="right">{fmtBRL(row.avgTicket)}</TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </Paper>
+
+          <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
             Faturamento por dia
           </Typography>
           <Paper sx={{ borderRadius: 2, overflow: "hidden" }}>

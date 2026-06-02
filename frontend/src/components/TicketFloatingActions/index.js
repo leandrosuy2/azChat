@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import {
   makeStyles,
   IconButton,
@@ -38,6 +38,7 @@ import DeleteOutline from "@material-ui/icons/DeleteOutline";
 import History from "@material-ui/icons/History";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 const SETORES = [
   { id: "consulta", name: "Consulta" },
@@ -164,6 +165,7 @@ function saveToStorage(ticketId, key, data) {
 
 export default function TicketFloatingActions({ ticketId }) {
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -180,6 +182,8 @@ export default function TicketFloatingActions({ ticketId }) {
   const [historicoTitulo, setHistoricoTitulo] = useState("");
   const [historicoDisparos, setHistoricoDisparos] = useState([]);
   const [loadingHistorico, setLoadingHistorico] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
 
   const [formEvento, setFormEvento] = useState({
     setor: "consulta",
@@ -199,6 +203,8 @@ export default function TicketFloatingActions({ ticketId }) {
     data: "",
     hora: "",
     addGoogle: false,
+    destinoTipo: "pessoal",
+    destinoId: "",
   });
   const [lembreteEventoId, setLembreteEventoId] = useState(null);
 
@@ -245,6 +251,27 @@ export default function TicketFloatingActions({ ticketId }) {
     if (!modalOpen || !ticketId || activeTab !== 2) return;
     fetchLembretes();
   }, [modalOpen, activeTab, ticketId, fetchLembretes]);
+
+  useEffect(() => {
+    if (!modalOpen || activeTab !== 2) return;
+    let mounted = true;
+    setLoadingUsers(true);
+    api
+      .get("/users/list")
+      .then(({ data }) => {
+        if (!mounted) return;
+        setUsers(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        if (mounted) toastError(err);
+      })
+      .finally(() => {
+        if (mounted) setLoadingUsers(false);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, [modalOpen, activeTab]);
 
   const openModal = (tab) => {
     setActiveTab(tab);
@@ -338,6 +365,14 @@ export default function TicketFloatingActions({ ticketId }) {
 
   const handleCriarLembrete = async () => {
     if (!(formLembrete.nome || "").trim() || !formLembrete.data || !formLembrete.hora) return;
+    const destinoTipo = formLembrete.destinoTipo || "pessoal";
+    const destinoId =
+      destinoTipo === "pessoal"
+        ? user?.id
+        : destinoTipo === "usuario"
+          ? formLembrete.destinoId
+          : null;
+    if ((destinoTipo === "pessoal" || destinoTipo === "usuario") && !destinoId) return;
     setSavingLembrete(true);
     try {
       await api.post(`/tickets/${ticketId}/lembretes`, {
@@ -350,9 +385,18 @@ export default function TicketFloatingActions({ ticketId }) {
         addGoogle: formLembrete.addGoogle,
         tipoGatilho: "agendado",
         ativo: true,
-        destinoTipo: "interno",
+        destinoTipo: destinoTipo === "geral" ? "interno" : "usuario",
+        destinoId,
       });
-      setFormLembrete({ nome: "", descricao: "", data: "", hora: "", addGoogle: false });
+      setFormLembrete({
+        nome: "",
+        descricao: "",
+        data: "",
+        hora: "",
+        addGoogle: false,
+        destinoTipo: "pessoal",
+        destinoId: "",
+      });
       setLembreteEventoId(null);
       await fetchLembretes();
     } catch (err) {
@@ -413,6 +457,22 @@ export default function TicketFloatingActions({ ticketId }) {
     .sort((a, b) => `${a.data} ${a.hora}`.localeCompare(`${b.data} ${b.hora}`))[0];
 
   const eventosPorSetor = (setorId) => eventos.filter((e) => e.setor === setorId);
+  const canCreateLembrete =
+    !savingLembrete &&
+    formLembrete.nome.trim() &&
+    formLembrete.data &&
+    formLembrete.hora &&
+    (formLembrete.destinoTipo !== "usuario" || formLembrete.destinoId);
+
+  const lembreteDestinoLabel = (lm) => {
+    const tipo = String(lm.destinoTipo || "interno").toLowerCase();
+    if (tipo === "usuario" || tipo === "responsavel") {
+      if (lm.destinoId && Number(lm.destinoId) === Number(user?.id)) return "Pessoal";
+      const target = users.find((u) => Number(u.id) === Number(lm.destinoId));
+      return target?.name ? `Usuário: ${target.name}` : "Usuário específico";
+    }
+    return "Geral";
+  };
 
   if (!ticketId) return null;
 
@@ -699,8 +759,43 @@ export default function TicketFloatingActions({ ticketId }) {
               <TextField fullWidth multiline rows={2} label="Mensagem do lembrete" value={formLembrete.descricao} onChange={(e) => setFormLembrete({ ...formLembrete, descricao: e.target.value })} className={classes.formField} />
               <TextField fullWidth type="date" label="Data" value={formLembrete.data} onChange={(e) => setFormLembrete({ ...formLembrete, data: e.target.value })} InputLabelProps={{ shrink: true }} className={classes.formField} />
               <TextField fullWidth type="time" label="Hora" value={formLembrete.hora} onChange={(e) => setFormLembrete({ ...formLembrete, hora: e.target.value })} InputLabelProps={{ shrink: true }} className={classes.formField} />
+              <FormControl fullWidth className={classes.formField}>
+                <InputLabel>Escopo da notificação</InputLabel>
+                <Select
+                  value={formLembrete.destinoTipo}
+                  onChange={(e) =>
+                    setFormLembrete({
+                      ...formLembrete,
+                      destinoTipo: e.target.value,
+                      destinoId: e.target.value === "usuario" ? formLembrete.destinoId : "",
+                    })
+                  }
+                  label="Escopo da notificação"
+                >
+                  <MenuItem value="pessoal">Pessoal</MenuItem>
+                  <MenuItem value="usuario">Usuário específico</MenuItem>
+                  <MenuItem value="geral">Geral</MenuItem>
+                </Select>
+              </FormControl>
+              {formLembrete.destinoTipo === "usuario" ? (
+                <FormControl fullWidth className={classes.formField}>
+                  <InputLabel>Usuário</InputLabel>
+                  <Select
+                    value={formLembrete.destinoId}
+                    onChange={(e) => setFormLembrete({ ...formLembrete, destinoId: e.target.value })}
+                    label="Usuário"
+                    disabled={loadingUsers}
+                  >
+                    {users.map((u) => (
+                      <MenuItem key={u.id} value={u.id}>
+                        {u.name || u.email || `Usuário #${u.id}`}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              ) : null}
               <FormControlLabel control={<Checkbox checked={formLembrete.addGoogle} onChange={(e) => setFormLembrete({ ...formLembrete, addGoogle: e.target.checked })} />} label="Adicionar ao calendário do Google" />
-              <Button variant="contained" color="primary" fullWidth startIcon={<Add />} onClick={handleCriarLembrete} disabled={savingLembrete || !formLembrete.nome.trim() || !formLembrete.data || !formLembrete.hora} style={{ marginTop: 8 }}>
+              <Button variant="contained" color="primary" fullWidth startIcon={<Add />} onClick={handleCriarLembrete} disabled={!canCreateLembrete} style={{ marginTop: 8 }}>
                 {savingLembrete ? <CircularProgress size={18} color="inherit" /> : "Criar lembrete"}
               </Button>
               <Divider style={{ margin: "24px 0 16px" }} />
@@ -771,6 +866,7 @@ export default function TicketFloatingActions({ ticketId }) {
                       <Box className={classes.reminderMeta}>
                         <Chip size="small" label={lm.ativo === false ? "Inativo" : "Ativo"} color={lm.ativo === false ? "default" : "primary"} />
                         <Chip size="small" label={`${lm.data || "sem data"} ${lm.hora || ""}`.trim()} />
+                        <Chip size="small" label={lembreteDestinoLabel(lm)} variant="outlined" />
                         <Chip size="small" label={lm.tipoGatilho || "agendado"} variant="outlined" />
                         {lm.addGoogle ? <Chip size="small" label="Google Calendar" variant="outlined" /> : null}
                         {lm.ultimoDisparoAt ? <Chip size="small" label={`Último disparo: ${new Date(lm.ultimoDisparoAt).toLocaleString("pt-BR")}`} variant="outlined" /> : null}

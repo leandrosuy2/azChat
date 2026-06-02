@@ -53,9 +53,10 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     intervalo = 1,
 		valorIntervalo = 0,
 		enviarQuantasVezes = 1,
-		tipoDias=  4,
+    tipoDias=  4,
     contadorEnvio = 0,
-    assinar = false
+    assinar = false,
+    scheduleCategory
   } = req.body;
   const { companyId } = req.user;
 
@@ -75,7 +76,8 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     enviarQuantasVezes,
     tipoDias,
     contadorEnvio,
-    assinar
+    assinar,
+    scheduleCategory
   });
 
   const io = getIO();
@@ -101,10 +103,6 @@ export const update = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  if (req.user.profile !== "admin") {
-    throw new AppError("ERR_NO_PERMISSION", 403);
-  }
-
   const { scheduleId } = req.params;
   const scheduleData = req.body;
   const { companyId } = req.user;
@@ -149,7 +147,10 @@ export const mediaUpload = async (
   const file = head(files);
 
   try {
-    const schedule = await Schedule.findByPk(id);
+    const schedule = await Schedule.findOne({ where: { id, companyId: req.user.companyId } });
+    if (!schedule) {
+      throw new AppError("ERR_NO_SCHEDULE_FOUND", 404);
+    }
     schedule.mediaPath = file.filename;
     schedule.mediaName = file.originalname;
 
@@ -165,9 +166,13 @@ export const deleteMedia = async (
   res: Response
 ): Promise<Response> => {
   const { id } = req.params;
+  const { companyId } = req.user;
 
   try {
-    const schedule = await Schedule.findByPk(id);
+    const schedule = await Schedule.findOne({ where: { id, companyId } });
+    if (!schedule) {
+      throw new AppError("ERR_NO_SCHEDULE_FOUND", 404);
+    }
     const filePath = path.resolve("public", schedule.mediaPath);
     const fileExists = fs.existsSync(filePath);
     if (fileExists) {

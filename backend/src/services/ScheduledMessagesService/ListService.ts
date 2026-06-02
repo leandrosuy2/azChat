@@ -19,8 +19,9 @@ const ListService = async ({
   companyId
 }: Request): Promise<Response> => {
   let whereCondition = {};
-  const limit = 20;
-  const offset = limit * (+pageNumber - 1);
+  const listAll = String(pageNumber) === "all";
+  const limit = listAll ? 500 : 20;
+  const offset = listAll ? 0 : limit * (+pageNumber - 1);
 
   if (!!searchParam) {
     whereCondition = {
@@ -57,7 +58,7 @@ const ListService = async ({
     order: [["createdAt", "DESC"]]
   });
 
-  const hasMore = count > offset + schedules.length;
+  const hasMore = !listAll && count > offset + schedules.length;
 
   return {
     schedules,

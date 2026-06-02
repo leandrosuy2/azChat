@@ -46,6 +46,18 @@ interface Response {
   profile: string;
 }
 
+const SELF_ALLOWED_KEYS = new Set([
+  "name",
+  "email",
+  "password",
+  "uiPreferences",
+  "defaultTheme",
+  "defaultMenu",
+  "profileImage",
+  "startWork",
+  "endWork"
+]);
+
 const UpdateUserService = async ({
   userData,
   userId,
@@ -53,11 +65,31 @@ const UpdateUserService = async ({
   requestUserId
 }: Request): Promise<Response | undefined> => {
   const user = await ShowUserService(userId, companyId);
-
   const requestUser = await User.findByPk(requestUserId);
 
-  if (requestUser.super === false && userData.companyId !== companyId) {
-    throw new AppError("O usuário não pertence à esta empresa");
+  if (!requestUser) {
+    throw new AppError("ERR_NO_USER_FOUND", 404);
+  }
+
+  if (requestUser.super === false && user.companyId !== companyId) {
+    throw new AppError("O usuario nao pertence a esta empresa");
+  }
+
+  const isPrivileged = requestUser.super || requestUser.profile === "admin";
+  if (!isPrivileged) {
+    if (Number(userId) !== Number(requestUserId)) {
+      throw new AppError("ERR_NO_PERMISSION", 403);
+    }
+  }
+
+  const safeUserData: UserData = isPrivileged ? userData : {};
+
+  if (!isPrivileged) {
+    Object.keys(userData).forEach(key => {
+      if (SELF_ALLOWED_KEYS.has(key)) {
+        (safeUserData as any)[key] = (userData as any)[key];
+      }
+    });
   }
 
   const schema = Yup.object().shape({
@@ -69,13 +101,13 @@ const UpdateUserService = async ({
   });
 
   const oldUserEmail = user.email;
-  
+
   const {
     email,
     password,
     profile,
     name,
-    queueIds = [],
+    queueIds,
     startWork,
     endWork,
     farewellMessage,
@@ -89,12 +121,12 @@ const UpdateUserService = async ({
     userClosePendingTicket,
     showDashboard,
     allowConnections,
-    defaultTicketsManagerWidth = 400,
+    defaultTicketsManagerWidth,
     allowRealTime,
     profileImage,
     permissions,
     uiPreferences
-  } = userData;
+  } = safeUserData;
 
   try {
     await schema.validate({ email, password, profile, name });
@@ -103,43 +135,45 @@ const UpdateUserService = async ({
   }
 
   await user.update({
-    email,
-    password,
-    profile,
-    name,
-    startWork,
-    endWork,
-    farewellMessage,
-    whatsappId: whatsappId || null,
-    allTicket,
-    defaultTheme,
-    defaultMenu,
-    allowGroup,
-    allHistoric,
-    allUserChat,
-    userClosePendingTicket,
-    showDashboard,
-    defaultTicketsManagerWidth,
-    allowRealTime,
-    profileImage,
-    allowConnections,
+    ...(email !== undefined ? { email } : {}),
+    ...(password !== undefined ? { password } : {}),
+    ...(profile !== undefined ? { profile } : {}),
+    ...(name !== undefined ? { name } : {}),
+    ...(startWork !== undefined ? { startWork } : {}),
+    ...(endWork !== undefined ? { endWork } : {}),
+    ...(farewellMessage !== undefined ? { farewellMessage } : {}),
+    ...(whatsappId !== undefined ? { whatsappId: whatsappId || null } : {}),
+    ...(allTicket !== undefined ? { allTicket } : {}),
+    ...(defaultTheme !== undefined ? { defaultTheme } : {}),
+    ...(defaultMenu !== undefined ? { defaultMenu } : {}),
+    ...(allowGroup !== undefined ? { allowGroup } : {}),
+    ...(allHistoric !== undefined ? { allHistoric } : {}),
+    ...(allUserChat !== undefined ? { allUserChat } : {}),
+    ...(userClosePendingTicket !== undefined ? { userClosePendingTicket } : {}),
+    ...(showDashboard !== undefined ? { showDashboard } : {}),
+    ...(defaultTicketsManagerWidth !== undefined ? { defaultTicketsManagerWidth } : {}),
+    ...(allowRealTime !== undefined ? { allowRealTime } : {}),
+    ...(profileImage !== undefined ? { profileImage } : {}),
+    ...(allowConnections !== undefined ? { allowConnections } : {}),
     ...(permissions !== undefined ? { permissions } : {}),
     ...(uiPreferences !== undefined ? { uiPreferences } : {})
   });
 
-  await user.$set("queues", queueIds);
+  if (queueIds !== undefined) {
+    await user.$set("queues", queueIds);
+  }
 
   await user.reload();
 
   const company = await Company.findByPk(user.companyId);
 
-  if (company.email === oldUserEmail) {
+  if (company && company.email === oldUserEmail && (email !== undefined || password !== undefined)) {
     await company.update({
-      email,
-      password
-    })
+      ...(email !== undefined ? { email } : {}),
+      ...(password !== undefined ? { password } : {})
+    });
   }
-  
+
   const serializedUser = {
     id: user.id,
     name: user.name,

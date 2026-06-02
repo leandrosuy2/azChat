@@ -17,6 +17,7 @@ import ShowLogTicketService from "../services/TicketServices/ShowLogTicketServic
 import FindOrCreateATicketTrakingService from "../services/TicketServices/FindOrCreateATicketTrakingService";
 import ListTicketsServiceReport from "../services/TicketServices/ListTicketsServiceReport";
 import SetTicketMessagesAsRead from "../helpers/SetTicketMessagesAsRead";
+import { assertKanbanPermission } from "../helpers/checkKanbanPermission";
 import { Mutex } from "async-mutex";
 
 type IndexQuery = {
@@ -217,6 +218,7 @@ export const report = async (req: Request, res: Response): Promise<Response> => 
 };
 
 export const kanban = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "view");
   const {
     pageNumber,
     status,
@@ -458,6 +460,7 @@ export const kanbanCardsReorder = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
+  assertKanbanPermission(req.user, "moveCard");
   const { companyId } = req.user;
   const { quadroGroupId, orderByLane } = req.body as {
     quadroGroupId?: string | number;

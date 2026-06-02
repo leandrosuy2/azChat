@@ -118,17 +118,53 @@ const ticketIdKey = (ticketOrId) => {
     return Number.isFinite(id) ? id : null;
 };
 
+const ticketConversationKey = (ticket) => {
+    if (!ticket || typeof ticket !== "object") return null;
+
+    const whatsappId = Number(ticket.whatsappId ?? ticket.whatsapp?.id);
+    const channel = ticket.channel || ticket.whatsapp?.channel || "whatsapp";
+    const groupFlag = ticket.isGroup ? "group" : "contact";
+    const connectionKey = Number.isFinite(whatsappId) ? whatsappId : "no-whatsapp";
+    const remoteJid = String(ticket.contact?.remoteJid || "").trim().toLowerCase();
+    const number = String(ticket.contact?.number || "").replace(/\D/g, "");
+    const contactId = Number(ticket.contactId ?? ticket.contact?.id);
+    const contactKey =
+        remoteJid ||
+        number ||
+        (Number.isFinite(contactId) ? `contact:${contactId}` : "");
+
+    if (!contactKey) return null;
+
+    return `${channel}:${connectionKey}:${groupFlag}:${contactKey}`;
+};
+
+const ticketMatchesConversation = (ticket, candidate) => {
+    const candidateConversationKey = ticketConversationKey(candidate);
+    if (candidateConversationKey) {
+        return ticketConversationKey(ticket) === candidateConversationKey;
+    }
+
+    const candidateId = ticketIdKey(candidate);
+    return candidateId != null && ticketIdKey(ticket) === candidateId;
+};
+
 const findTicketIndexById = (list, ticketOrId) => {
     const key = ticketIdKey(ticketOrId);
     if (key == null) return -1;
     return list.findIndex((t) => ticketIdKey(t) === key);
 };
 
-const dedupeTicketsById = (list) => {
+const findTicketIndexByConversation = (list, ticketOrId) => {
+    const conversationKey = ticketConversationKey(ticketOrId);
+    if (!conversationKey) return findTicketIndexById(list, ticketOrId);
+    return list.findIndex((t) => ticketConversationKey(t) === conversationKey);
+};
+
+const dedupeTicketsByConversation = (list) => {
     const seen = new Set();
     const out = [];
     for (const ticket of list) {
-        const key = ticketIdKey(ticket);
+        const key = ticketConversationKey(ticket) || ticketIdKey(ticket);
         if (key == null || seen.has(key)) continue;
         seen.add(key);
         out.push(ticket);
@@ -156,7 +192,7 @@ const reducer = (state, action) => {
         } else {
             next = [...state];
             newTickets.forEach((ticket) => {
-                const ticketIndex = findTicketIndexById(next, ticket);
+                const ticketIndex = findTicketIndexByConversation(next, ticket);
                 if (ticketIndex !== -1) {
                     next[ticketIndex] = ticket;
                     if (ticket.unreadMessages > 0) {
@@ -169,7 +205,7 @@ const reducer = (state, action) => {
             });
         }
 
-        return dedupeTicketsById(applySort(next, sortDir));
+        return dedupeTicketsByConversation(applySort(next, sortDir));
     }
 
     if (action.type === "RESET_UNREAD") {
@@ -181,13 +217,13 @@ const reducer = (state, action) => {
             next[ticketIndex] = { ...next[ticketIndex], unreadMessages: 0 };
         }
 
-        return dedupeTicketsById(applySort(next, sortDir));
+        return dedupeTicketsByConversation(applySort(next, sortDir));
     }
 
     if (action.type === "UPDATE_TICKET") {
         const ticket = action.payload;
         const next = [...state];
-        const ticketIndex = findTicketIndexById(next, ticket);
+        const ticketIndex = findTicketIndexByConversation(next, ticket);
 
         if (ticketIndex !== -1) {
             next[ticketIndex] = ticket;
@@ -195,13 +231,13 @@ const reducer = (state, action) => {
             next.unshift(ticket);
         }
 
-        return dedupeTicketsById(applySort(next, sortDir));
+        return dedupeTicketsByConversation(applySort(next, sortDir));
     }
 
     if (action.type === "UPDATE_TICKET_UNREAD_MESSAGES") {
         const ticket = action.payload;
         const next = [...state];
-        const ticketIndex = findTicketIndexById(next, ticket);
+        const ticketIndex = findTicketIndexByConversation(next, ticket);
 
         if (ticketIndex !== -1) {
             next[ticketIndex] = ticket;
@@ -211,7 +247,7 @@ const reducer = (state, action) => {
             next.unshift(ticket);
         }
 
-        return dedupeTicketsById(applySort(next, sortDir));
+        return dedupeTicketsByConversation(applySort(next, sortDir));
     }
 
     if (action.type === "UPDATE_TICKET_CONTACT") {
@@ -222,15 +258,17 @@ const reducer = (state, action) => {
         const next = state.map((t) =>
             Number(t.contactId) === contactKey ? { ...t, contact } : t
         );
-        return dedupeTicketsById(next);
+        return dedupeTicketsByConversation(next);
     }
 
     if (action.type === "DELETE_TICKET") {
-        const key = ticketIdKey(action.payload);
-        if (key == null) return state;
+        const candidate = action.payload;
+        const hasConversationKey = Boolean(ticketConversationKey(candidate));
+        const key = ticketIdKey(candidate);
+        if (!hasConversationKey && key == null) return state;
 
-        const next = state.filter((t) => ticketIdKey(t) !== key);
-        return dedupeTicketsById(applySort(next, sortDir));
+        const next = state.filter((t) => !ticketMatchesConversation(t, candidate));
+        return dedupeTicketsByConversation(applySort(next, sortDir));
     }
 
     if (action.type === "RESET") {
@@ -397,8 +435,20 @@ const TicketsListCustom = (props) => {
                     sortDir: sortTicketsRef.current
                 });
             }
-            if (data.action === "update" &&
-                shouldUpdateTicket(data.ticket) && data.ticket.status === status) {
+            if (data.action === "update" && status !== "search") {
+                const shouldKeepInThisList =
+                    shouldUpdateTicket(data.ticket) && data.ticket?.status === status;
+
+                if (!shouldKeepInThisList) {
+                    dispatch({
+                        type: "DELETE_TICKET",
+                        payload: data.ticket,
+                        status: status,
+                        sortDir: sortTicketsRef.current
+                    });
+                    return;
+                }
+
                 dispatch({
                     type: "UPDATE_TICKET",
                     payload: data.ticket,
@@ -409,7 +459,7 @@ const TicketsListCustom = (props) => {
 
             if (data.action === "update" && notBelongsToUserQueues(data.ticket)) {
                 dispatch({
-                    type: "DELETE_TICKET", payload: data.ticket?.id, status: status,
+                    type: "DELETE_TICKET", payload: data.ticket, status: status,
                     sortDir: sortTicketsRef.current
                 });
             }

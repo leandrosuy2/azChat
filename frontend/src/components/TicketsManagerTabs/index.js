@@ -45,6 +45,7 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 import { QueueSelectedContext } from "../../context/QueuesSelected/QueuesSelectedContext";
 
 import { TicketsContext } from "../../context/Tickets/TicketsContext";
+import { isUiHidden } from "../../utils/permissions";
 
 /** Referência estável: `users={[]}` no JSX gerava array novo a cada render e o `useEffect` do TicketsList fazia RESET apagando os tickets. */
 const EMPTY_FILTER_ARRAY = [];
@@ -315,6 +316,7 @@ const TicketsManagerTabs = () => {
   const [newTicketInitialContact, setNewTicketInitialContact] = useState(undefined);
 
   const { user } = useContext(AuthContext);
+  const hideInboxTagFolders = isUiHidden(user, "showInboxTagFolders");
   const { setSelectedQueuesMessage } = useContext(QueueSelectedContext);
   const { tabOpen, setTabOpen } = useContext(TicketsContext);
 
@@ -514,6 +516,7 @@ const TicketsManagerTabs = () => {
         </Box>
       </div>
 
+      {!hideInboxTagFolders && (
       <Paper elevation={0} variant="outlined" className={classes.inboxAndQueuesRow}>
         <Box className={classes.inboxFiltersCol} width="100%">
           {tab !== "search" || searchMode === "messages" ? (
@@ -529,6 +532,7 @@ const TicketsManagerTabs = () => {
           )}
         </Box>
       </Paper>
+      )}
 
       <TabPanel
         value={tab}

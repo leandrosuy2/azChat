@@ -41,12 +41,14 @@ import { i18n } from "../../translate/i18n";
 import { toast } from "react-toastify";
 import toastError from "../../errors/toastError";
 import api from "../../services/api";
+import canPerform from "../../utils/permissions";
 import SidebarQuickMessageEditorModal from "./SidebarQuickMessageEditorModal";
 import SidebarQuickMessagesLibraryModal from "./SidebarQuickMessagesLibraryModal";
 import SidebarQuickReplyPreviewModal from "./SidebarQuickReplyPreviewModal";
 import QuickReplySidebarScheduleDialog from "./QuickReplySidebarScheduleDialog";
 
 const UNCATEGORIZED_KEY = "__sem_categoria__";
+const CATEGORY_ORDER_STORAGE_PREFIX = "azchat_quick_reply_category_order";
 
 const contrastTextOn = (hexColor) => {
   const hex = String(hexColor || "#546E7A").replace("#", "");
@@ -205,6 +207,9 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.04em",
     paddingLeft: theme.spacing(0.5),
   },
+  categorySummaryDragging: {
+    opacity: 0.62,
+  },
   itemRow: {
     display: "flex",
     flexDirection: "column",
@@ -325,6 +330,9 @@ const QuickRepliesSidebar = ({
   const classes = useStyles();
   const { user, socket } = useContext(AuthContext);
   const { list: listQuickMessages, deleteRecord, update: updateQuickMessage } = useQuickMessages();
+  const canCreateQuickMessage = canPerform(user, "quickMessages:create");
+  const canEditQuickMessage = canPerform(user, "quickMessages:edit");
+  const canDeleteQuickMessage = canPerform(user, "quickMessages:delete");
 
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
@@ -350,6 +358,10 @@ const QuickRepliesSidebar = ({
   const [draggingMessageId, setDraggingMessageId] = useState(null);
   const [dragOverCategoryKey, setDragOverCategoryKey] = useState(null);
   const draggingMessageIdRef = useRef(null);
+  const categoryDragKeyRef = useRef(null);
+  const [draggingCategoryKey, setDraggingCategoryKey] = useState(null);
+  const [dragOverCategoryOrderKey, setDragOverCategoryOrderKey] = useState(null);
+  const [categoryOrder, setCategoryOrder] = useState([]);
   const [inlineEditId, setInlineEditId] = useState(null);
   const [inlineEditValue, setInlineEditValue] = useState("");
   const [inlineEditSaving, setInlineEditSaving] = useState(false);
@@ -378,6 +390,12 @@ const QuickRepliesSidebar = ({
         ? String(draftQuickMessage.message).trim()
         : "";
     if (!body) return;
+    if (!canCreateQuickMessage) {
+      if (typeof onDraftQuickMessageConsumed === "function") {
+        onDraftQuickMessageConsumed();
+      }
+      return;
+    }
     setEditorCreationKind("text");
     setEditorQuickId(null);
     setEditorInitialMessage(body);
@@ -385,7 +403,7 @@ const QuickRepliesSidebar = ({
     if (typeof onDraftQuickMessageConsumed === "function") {
       onDraftQuickMessageConsumed();
     }
-  }, [draftQuickMessage, onDraftQuickMessageConsumed]);
+  }, [draftQuickMessage, onDraftQuickMessageConsumed, canCreateQuickMessage]);
 
   useEffect(() => {
     if (!user?.companyId || !socket) return undefined;
@@ -400,6 +418,48 @@ const QuickRepliesSidebar = ({
     [items]
   );
 
+  const categoryOrderStorageKey = useMemo(
+    () =>
+      `${CATEGORY_ORDER_STORAGE_PREFIX}:${user?.companyId || "company"}:${user?.id || "user"}`,
+    [user?.companyId, user?.id]
+  );
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(categoryOrderStorageKey);
+      const parsed = raw ? JSON.parse(raw) : [];
+      setCategoryOrder(Array.isArray(parsed) ? parsed.map(String) : []);
+    } catch {
+      setCategoryOrder([]);
+    }
+  }, [categoryOrderStorageKey]);
+
+  const applyCategoryOrder = useCallback(
+    (list) => {
+      const pos = new Map(categoryOrder.map((key, index) => [String(key), index]));
+      return [...list].sort((a, b) => {
+        const ai = pos.has(String(a.key)) ? pos.get(String(a.key)) : Number.MAX_SAFE_INTEGER;
+        const bi = pos.has(String(b.key)) ? pos.get(String(b.key)) : Number.MAX_SAFE_INTEGER;
+        if (ai !== bi) return ai - bi;
+        return a.label.localeCompare(b.label, "pt");
+      });
+    },
+    [categoryOrder]
+  );
+
+  const persistCategoryOrder = useCallback(
+    (nextOrder) => {
+      const normalized = nextOrder.map(String);
+      setCategoryOrder(normalized);
+      try {
+        localStorage.setItem(categoryOrderStorageKey, JSON.stringify(normalized));
+      } catch {
+        /* ignore */
+      }
+    },
+    [categoryOrderStorageKey]
+  );
+
   const categoryOptions = useMemo(() => {
     const map = new Map();
     baseItems.forEach((m) => {
@@ -409,10 +469,8 @@ const QuickRepliesSidebar = ({
       const color = m.categoryColor || "#546E7A";
       if (!map.has(key)) map.set(key, { key, label, color });
     });
-    return Array.from(map.values()).sort((a, b) =>
-      a.label.localeCompare(b.label, "pt")
-    );
-  }, [baseItems]);
+    return applyCategoryOrder(Array.from(map.values()));
+  }, [baseItems, applyCategoryOrder]);
 
   const filtered = useMemo(() => {
     let rows = baseItems.slice();
@@ -453,9 +511,8 @@ const QuickRepliesSidebar = ({
       map.get(key).items.push(m);
     });
     const list = Array.from(map.values());
-    list.sort((a, b) => a.label.localeCompare(b.label, "pt"));
-    return list;
-  }, [filtered]);
+    return applyCategoryOrder(list);
+  }, [filtered, applyCategoryOrder]);
 
   const groupedKeySig = grouped.map((g) => g.key).join("|");
   useEffect(() => {
@@ -495,6 +552,7 @@ const QuickRepliesSidebar = ({
   const closePreview = () => setPreview(null);
 
   const handlePickNewCreationKind = (kind) => {
+    if (!canCreateQuickMessage) return;
     setCreateMenuAnchor(null);
     setEditorCreationKind(kind || "text");
     setEditorQuickId(null);
@@ -502,6 +560,7 @@ const QuickRepliesSidebar = ({
   };
 
   const openEditExisting = (id) => {
+    if (!canEditQuickMessage) return;
     setEditorCreationKind(null);
     setEditorQuickId(Number(id));
     setEditorOpen(true);
@@ -549,6 +608,7 @@ const QuickRepliesSidebar = ({
   };
 
   const saveInlineEdit = async (m) => {
+    if (!canEditQuickMessage) return;
     if (inlineEditSaving) return;
     const trimmed = String(inlineEditValue || "").trim();
     const hasMedia = Boolean(m.mediaPath);
@@ -572,11 +632,13 @@ const QuickRepliesSidebar = ({
   };
 
   const startInlineEdit = (m) => {
+    if (!canEditQuickMessage) return;
     setInlineEditId(m.id);
     setInlineEditValue(m.message != null ? String(m.message) : "");
   };
 
   const handleDuplicate = async (m) => {
+    if (!canCreateQuickMessage) return;
     try {
       const { data: src } = await api.get(`/quick-messages/${m.id}`);
       const suffix = Date.now().toString(36).slice(-5);
@@ -609,6 +671,7 @@ const QuickRepliesSidebar = ({
   };
 
   const confirmDelete = async () => {
+    if (!canDeleteQuickMessage) return;
     if (!deleteTarget?.id) return;
     try {
       await deleteRecord(deleteTarget.id);
@@ -625,6 +688,12 @@ const QuickRepliesSidebar = ({
     draggingMessageIdRef.current = null;
     setDraggingMessageId(null);
     setDragOverCategoryKey(null);
+  }, []);
+
+  const clearCategoryOrderDragUi = useCallback(() => {
+    categoryDragKeyRef.current = null;
+    setDraggingCategoryKey(null);
+    setDragOverCategoryOrderKey(null);
   }, []);
 
   const handleQuickMessageDragStart = useCallback((e, m) => {
@@ -687,6 +756,60 @@ const QuickRepliesSidebar = ({
       }
     },
     [items, updateQuickMessage, load, clearCategoryDragUi]
+  );
+
+  const handleCategoryOrderDragStart = useCallback((e, catKey) => {
+    e.stopPropagation();
+    const key = String(catKey);
+    categoryDragKeyRef.current = key;
+    setDraggingCategoryKey(key);
+    setDragOverCategoryOrderKey(null);
+    try {
+      e.dataTransfer.setData("application/x-azchat-qm-category", key);
+    } catch {
+      /* ignore */
+    }
+    e.dataTransfer.effectAllowed = "move";
+  }, []);
+
+  const handleCategoryOrderDragOver = useCallback((e, targetKey) => {
+    const sourceKey = categoryDragKeyRef.current;
+    if (!sourceKey || sourceKey === String(targetKey)) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setDragOverCategoryOrderKey(String(targetKey));
+  }, []);
+
+  const handleCategoryOrderDrop = useCallback(
+    (e, targetKey) => {
+      const sourceKey =
+        categoryDragKeyRef.current ||
+        e.dataTransfer.getData("application/x-azchat-qm-category");
+      if (!sourceKey || sourceKey === String(targetKey)) {
+        clearCategoryOrderDragUi();
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+
+      const visibleKeys = grouped.map((g) => String(g.key));
+      const knownKeys = categoryOrder.filter((key) => visibleKeys.includes(String(key)));
+      const missingKeys = visibleKeys.filter((key) => !knownKeys.includes(key));
+      const working = [...knownKeys, ...missingKeys];
+      const fromIdx = working.indexOf(String(sourceKey));
+      const toIdx = working.indexOf(String(targetKey));
+      if (fromIdx < 0 || toIdx < 0) {
+        clearCategoryOrderDragUi();
+        return;
+      }
+
+      const [removed] = working.splice(fromIdx, 1);
+      working.splice(toIdx, 0, removed);
+      const hiddenKeys = categoryOrder.filter((key) => !visibleKeys.includes(String(key)));
+      persistCategoryOrder([...working, ...hiddenKeys]);
+      clearCategoryOrderDragUi();
+    },
+    [categoryOrder, clearCategoryOrderDragUi, grouped, persistCategoryOrder]
   );
 
   const inDrawer = typeof onClose === "function";
@@ -753,19 +876,21 @@ const QuickRepliesSidebar = ({
                       <AppsIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipAdd")}>
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCreateMenuAnchor(e.currentTarget);
-                      }}
-                      aria-label="new quick reply"
-                    >
-                      <AddIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
+                  {canCreateQuickMessage ? (
+                    <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipAdd")}>
+                      <IconButton
+                        size="small"
+                        color="primary"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCreateMenuAnchor(e.currentTarget);
+                        }}
+                        aria-label="new quick reply"
+                      >
+                        <AddIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  ) : null}
                 </InputAdornment>
               ),
             }}
@@ -908,11 +1033,34 @@ const QuickRepliesSidebar = ({
                 classes.categoryDropRoot,
                 dragOverCategoryKey === cat.key &&
                   draggingMessageId != null &&
+                  classes.categoryDropActive,
+                dragOverCategoryOrderKey === cat.key &&
+                  draggingCategoryKey != null &&
                   classes.categoryDropActive
               )}
-              onDragOver={(e) => handleCategoryDragOver(e, cat.key)}
-              onDragLeave={(e) => handleCategoryDragLeave(e, cat.key)}
-              onDrop={(e) => handleCategoryDrop(e, cat)}
+              onDragOver={(e) => {
+                if (categoryDragKeyRef.current) {
+                  handleCategoryOrderDragOver(e, cat.key);
+                } else {
+                  handleCategoryDragOver(e, cat.key);
+                }
+              }}
+              onDragLeave={(e) => {
+                if (categoryDragKeyRef.current) {
+                  const rel = e.relatedTarget;
+                  if (rel && e.currentTarget.contains(rel)) return;
+                  setDragOverCategoryOrderKey(null);
+                } else {
+                  handleCategoryDragLeave(e, cat.key);
+                }
+              }}
+              onDrop={(e) => {
+                if (categoryDragKeyRef.current) {
+                  handleCategoryOrderDrop(e, cat.key);
+                } else {
+                  handleCategoryDrop(e, cat);
+                }
+              }}
             >
             <Accordion
               expanded={expandedCats.has(cat.key)}
@@ -930,6 +1078,23 @@ const QuickRepliesSidebar = ({
                   color: contrastTextOn(cat.color),
                 }}
               >
+                <Tooltip title={i18n.t("tickets.inbox.manageDragReorderTooltip")}>
+                  <Box
+                    component="span"
+                    className={clsx(
+                      classes.dragHandle,
+                      draggingCategoryKey === cat.key && classes.categorySummaryDragging
+                    )}
+                    draggable
+                    onClick={(e) => e.stopPropagation()}
+                    onFocus={(e) => e.stopPropagation()}
+                    onDragStart={(e) => handleCategoryOrderDragStart(e, cat.key)}
+                    onDragEnd={clearCategoryOrderDragUi}
+                    style={{ color: "inherit", paddingTop: 0 }}
+                  >
+                    <DragIndicatorIcon fontSize="small" />
+                  </Box>
+                </Tooltip>
                 <Typography
                   component="span"
                   className={classes.categoryTitle}
@@ -979,16 +1144,18 @@ const QuickRepliesSidebar = ({
                         </Typography>
                       </Box>
                       <Box className={classes.itemActions}>
-                        <Tooltip title={i18n.t("messagesInput.quickReplies.menuEdit")}>
-                          <IconButton
-                            size="small"
-                            onClick={() =>
-                              isEditing ? saveInlineEdit(m) : startInlineEdit(m)
-                            }
-                          >
-                            <EditIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
+                        {canEditQuickMessage ? (
+                          <Tooltip title={i18n.t("messagesInput.quickReplies.menuEdit")}>
+                            <IconButton
+                              size="small"
+                              onClick={() =>
+                                isEditing ? saveInlineEdit(m) : startInlineEdit(m)
+                              }
+                            >
+                              <EditIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        ) : null}
                         <Tooltip title={i18n.t("messagesInput.quickReplies.tooltipPreview")}>
                           <IconButton size="small" onClick={() => openPreview(m)}>
                             <VisibilityIcon fontSize="small" />
@@ -1043,8 +1210,11 @@ const QuickRepliesSidebar = ({
                     ) : (
                       <Typography
                         className={classes.snippet}
-                        style={{ whiteSpace: "normal", cursor: "text" }}
-                        onClick={() => startInlineEdit(m)}
+                        style={{
+                          whiteSpace: "normal",
+                          cursor: canEditQuickMessage ? "text" : "default",
+                        }}
+                        onClick={() => canEditQuickMessage && startInlineEdit(m)}
                       >
                         {quickMessageSnippet(m.message)}
                       </Typography>
@@ -1081,38 +1251,42 @@ const QuickRepliesSidebar = ({
             </Box>
           </Box>
         )}
-        <MenuItem
-          dense
-          className={classes.menuItemDense}
-          onClick={() => {
-            if (rowMenuMessage) handleDuplicate(rowMenuMessage);
-            closeRowMenu();
-          }}
-        >
-          <ListItemIcon className={classes.menuItemIcon}>
-            <FileCopyOutlinedIcon style={{ fontSize: 18 }} />
-          </ListItemIcon>
-          <ListItemText
-            primary={i18n.t("messagesInput.quickReplies.menuDuplicate")}
-            classes={{ primary: classes.menuPrimary }}
-          />
-        </MenuItem>
-        <MenuItem
-          dense
-          className={classes.menuItemDense}
-          onClick={() => {
-            if (rowMenuMessage) openEditExisting(rowMenuMessage.id);
-            closeRowMenu();
-          }}
-        >
-          <ListItemIcon className={classes.menuItemIcon}>
-            <EditIcon style={{ fontSize: 18 }} />
-          </ListItemIcon>
-          <ListItemText
-            primary={i18n.t("messagesInput.quickReplies.menuEdit")}
-            classes={{ primary: classes.menuPrimary }}
-          />
-        </MenuItem>
+        {canCreateQuickMessage ? (
+          <MenuItem
+            dense
+            className={classes.menuItemDense}
+            onClick={() => {
+              if (rowMenuMessage) handleDuplicate(rowMenuMessage);
+              closeRowMenu();
+            }}
+          >
+            <ListItemIcon className={classes.menuItemIcon}>
+              <FileCopyOutlinedIcon style={{ fontSize: 18 }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={i18n.t("messagesInput.quickReplies.menuDuplicate")}
+              classes={{ primary: classes.menuPrimary }}
+            />
+          </MenuItem>
+        ) : null}
+        {canEditQuickMessage ? (
+          <MenuItem
+            dense
+            className={classes.menuItemDense}
+            onClick={() => {
+              if (rowMenuMessage) openEditExisting(rowMenuMessage.id);
+              closeRowMenu();
+            }}
+          >
+            <ListItemIcon className={classes.menuItemIcon}>
+              <EditIcon style={{ fontSize: 18 }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={i18n.t("messagesInput.quickReplies.menuEdit")}
+              classes={{ primary: classes.menuPrimary }}
+            />
+          </MenuItem>
+        ) : null}
         <MenuItem
           dense
           className={classes.menuItemDense}
@@ -1129,22 +1303,24 @@ const QuickRepliesSidebar = ({
             classes={{ primary: classes.menuPrimary }}
           />
         </MenuItem>
-        <MenuItem
-          dense
-          className={classes.menuItemDense}
-          onClick={() => {
-            if (rowMenuMessage) setDeleteTarget(rowMenuMessage);
-            closeRowMenu();
-          }}
-        >
-          <ListItemIcon className={classes.menuItemIcon}>
-            <DeleteOutlineIcon style={{ fontSize: 18 }} color="error" />
-          </ListItemIcon>
-          <ListItemText
-            primary={i18n.t("messagesInput.quickReplies.menuDelete")}
-            classes={{ primary: classes.menuPrimary }}
-          />
-        </MenuItem>
+        {canDeleteQuickMessage ? (
+          <MenuItem
+            dense
+            className={classes.menuItemDense}
+            onClick={() => {
+              if (rowMenuMessage) setDeleteTarget(rowMenuMessage);
+              closeRowMenu();
+            }}
+          >
+            <ListItemIcon className={classes.menuItemIcon}>
+              <DeleteOutlineIcon style={{ fontSize: 18 }} color="error" />
+            </ListItemIcon>
+            <ListItemText
+              primary={i18n.t("messagesInput.quickReplies.menuDelete")}
+              classes={{ primary: classes.menuPrimary }}
+            />
+          </MenuItem>
+        ) : null}
       </Menu>
 
       {deleteTarget ? (
@@ -1194,14 +1370,22 @@ const QuickRepliesSidebar = ({
             open
             onClose={() => setLibraryOpen(false)}
             items={items.filter((m) => m.useInSlash !== false)}
-            onEdit={(id) => {
-              setLibraryOpen(false);
-              openEditExisting(id);
-            }}
-            onCreate={() => {
-              setLibraryOpen(false);
-              handlePickNewCreationKind("text");
-            }}
+            onEdit={
+              canEditQuickMessage
+                ? (id) => {
+                    setLibraryOpen(false);
+                    openEditExisting(id);
+                  }
+                : undefined
+            }
+            onCreate={
+              canCreateQuickMessage
+                ? () => {
+                    setLibraryOpen(false);
+                    handlePickNewCreationKind("text");
+                  }
+                : undefined
+            }
           />
         </Box>
       ) : null}

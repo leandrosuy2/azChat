@@ -10,6 +10,9 @@ export type OrderItemInput = {
   qty?: number;
   unitPrice?: number;
   total?: number | string;
+  productId?: number | null;
+  unit?: string;
+  category?: string;
 };
 
 const itemLineTotal = (it: OrderItemInput): number => {
@@ -69,7 +72,13 @@ const CreateStandaloneOrderService = async ({
       description: it.description || "",
       qty,
       unitPrice: unit,
-      total
+      total,
+      productId:
+        it.productId != null && !Number.isNaN(Number(it.productId))
+          ? Number(it.productId)
+          : undefined,
+      unit: it.unit ? String(it.unit).trim() : undefined,
+      category: it.category ? String(it.category).trim() : undefined
     };
   });
 

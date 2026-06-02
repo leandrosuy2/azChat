@@ -2,8 +2,8 @@ import AppError from "../../errors/AppError";
 import CompaniesSettings from "../../models/CompaniesSettings";
 import Contact from "../../models/Contact";
 import ContactCustomField from "../../models/ContactCustomField";
-import logger from "../../utils/logger";
 import ContactWallet from "../../models/ContactWallet";
+import { jidNormalizedUser } from "@whiskeysockets/baileys";
 
 interface ExtraInfo extends ContactCustomField {
   name: string;
@@ -64,12 +64,28 @@ const CreateContactService = async ({
   document
 }: Request): Promise<Contact> => {
 
-  const numberExists = await Contact.findOne({
-    where: { number, companyId }
-  });
+  const normalizedRemoteJid =
+    remoteJid && String(remoteJid).includes("@")
+      ? jidNormalizedUser(String(remoteJid))
+      : remoteJid;
+
+  const numberExists = number
+    ? await Contact.findOne({
+        where: { number, companyId }
+      })
+    : null;
   if (numberExists) {
 
     throw new AppError("ERR_DUPLICATED_CONTACT");
+  }
+
+  if (normalizedRemoteJid) {
+    const remoteJidExists = await Contact.findOne({
+      where: { remoteJid: normalizedRemoteJid, companyId }
+    });
+    if (remoteJidExists) {
+      throw new AppError("ERR_DUPLICATED_CONTACT");
+    }
   }
 
   const settings = await CompaniesSettings.findOne({
@@ -89,7 +105,7 @@ const CreateContactService = async ({
       active,
       extraInfo,
       companyId,
-      remoteJid,
+      remoteJid: normalizedRemoteJid,
       country,
       city,
       state,

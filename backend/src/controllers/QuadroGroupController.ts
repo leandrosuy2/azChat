@@ -3,8 +3,10 @@ import ListQuadroGroupsService from "../services/QuadroServices/ListQuadroGroups
 import CreateQuadroGroupService from "../services/QuadroServices/CreateQuadroGroupService";
 import UpdateQuadroGroupService from "../services/QuadroServices/UpdateQuadroGroupService";
 import DeleteQuadroGroupService from "../services/QuadroServices/DeleteQuadroGroupService";
+import { assertKanbanPermission } from "../helpers/checkKanbanPermission";
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "view");
   const { companyId } = req.user;
   const groups = await ListQuadroGroupsService(companyId);
   return res.status(200).json({
@@ -13,6 +15,7 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const store = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "create");
   const { companyId } = req.user;
   const { name } = req.body;
   const group = await CreateQuadroGroupService({ name, companyId });
@@ -20,6 +23,7 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const update = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "edit");
   const { companyId } = req.user;
   const { id } = req.params;
   const { name } = req.body;
@@ -28,6 +32,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 };
 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
+  assertKanbanPermission(req.user, "delete");
   const { companyId } = req.user;
   const { id } = req.params;
   await DeleteQuadroGroupService({ id: parseInt(id, 10), companyId });

@@ -42,6 +42,16 @@ const PREFS = [
     label: "Mostrar atalho de chat interno no menu",
     default: true,
   },
+  {
+    key: "showKanbanShortcut",
+    label: "Mostrar atalho de Kanban no menu",
+    default: true,
+  },
+  {
+    key: "showSchedulesShortcut",
+    label: "Mostrar atalho de agendamentos no menu",
+    default: true,
+  },
 ];
 
 const UserAccessibilityPreferences = () => {

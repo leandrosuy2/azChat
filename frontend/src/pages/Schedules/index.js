@@ -31,6 +31,7 @@ import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
 import ScheduleModal from "../../components/ScheduleModal";
+import MessageModal from "../../components/MessageModal";
 import HelpHint from "../../components/HelpHint";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import toastError from "../../errors/toastError";
@@ -207,7 +208,10 @@ const Schedules = () => {
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
   const [searchParam, setSearchParam] = useState("");
   const [schedules, dispatch] = useReducer(reducer, []);
+  const [scheduledMessages, setScheduledMessages] = useState([]);
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+  const [messageModalOpen, setMessageModalOpen] = useState(false);
+  const [selectedScheduledMessage, setSelectedScheduledMessage] = useState(null);
   const [contactId, setContactId] = useState(parseContactIdFromUrl);
 
   const [mainViewTab, setMainViewTab] = useState("calendar");
@@ -236,7 +240,7 @@ const Schedules = () => {
     try {
       const params = {
         searchParam,
-        pageNumber,
+        pageNumber: mainViewTab === "calendar" ? "all" : pageNumber,
         contactId: contactId !== "" && contactId != null ? contactId : undefined,
       };
       if (scheduleKindFilter === "withTicket") {
@@ -252,7 +256,19 @@ const Schedules = () => {
     } catch (err) {
       toastError(err);
     }
-  }, [searchParam, pageNumber, contactId, scheduleKindFilter]);
+  }, [searchParam, pageNumber, contactId, scheduleKindFilter, mainViewTab]);
+
+  const fetchScheduledMessages = useCallback(async () => {
+    try {
+      const { data } = await api.get("/schedules-message", {
+        params: { searchParam, pageNumber: "all" },
+      });
+      setScheduledMessages(Array.isArray(data.schedules) ? data.schedules : []);
+    } catch (err) {
+      toastError(err);
+      setScheduledMessages([]);
+    }
+  }, [searchParam]);
 
   useEffect(() => {
     const id = parseContactIdFromUrl();
@@ -271,9 +287,17 @@ const Schedules = () => {
     setLoading(true);
     const delayDebounceFn = setTimeout(() => {
       fetchSchedules();
+      fetchScheduledMessages();
     }, 500);
     return () => clearTimeout(delayDebounceFn);
-  }, [searchParam, pageNumber, contactId, scheduleKindFilter, fetchSchedules]);
+  }, [
+    searchParam,
+    pageNumber,
+    contactId,
+    scheduleKindFilter,
+    fetchSchedules,
+    fetchScheduledMessages,
+  ]);
 
   useEffect(() => {
     const onCompanySchedule = (data) => {
@@ -307,6 +331,16 @@ const Schedules = () => {
     setScheduleModalOpen(false);
   };
 
+  const handleEditScheduledMessage = (message) => {
+    setSelectedScheduledMessage(message);
+    setMessageModalOpen(true);
+  };
+
+  const handleCloseMessageModal = () => {
+    setSelectedScheduledMessage(null);
+    setMessageModalOpen(false);
+  };
+
   const handleSearch = (event) => {
     setSearchParam(event.target.value.toLowerCase());
   };
@@ -330,6 +364,19 @@ const Schedules = () => {
     setPageNumber(1);
     dispatch({ type: "RESET" });
     await fetchSchedules();
+  };
+
+  const handleDeleteScheduledMessage = async (messageId) => {
+    if (messageId == null) return;
+    try {
+      await api.delete(`/schedules-message/${messageId}`);
+      toast.success(i18n.t("schedules.toasts.deleted"));
+    } catch (err) {
+      toastError(err);
+    }
+    setDeletingSchedule(null);
+    setConfirmModalOpen(false);
+    await fetchScheduledMessages();
   };
 
   const loadMore = () => {
@@ -373,8 +420,12 @@ const Schedules = () => {
       const c = inferScheduleCategory(s);
       counts[c] = (counts[c] || 0) + 1;
     });
+    if (scheduledMessages.length > 0) {
+      counts.scheduled_message =
+        (counts.scheduled_message || 0) + scheduledMessages.length;
+    }
     return SCHEDULE_CATEGORIES.filter((cat) => (counts[cat.id] || 0) > 0);
-  }, [schedulesSortedBySendAt]);
+  }, [schedulesSortedBySendAt, scheduledMessages]);
 
   useEffect(() => {
     if (
@@ -387,10 +438,22 @@ const Schedules = () => {
 
   const listForCategory = useMemo(
     () =>
-      schedulesSortedBySendAt.filter(
-        (s) => inferScheduleCategory(s) === categoryTab
-      ),
+      schedulesSortedBySendAt.filter((s) => inferScheduleCategory(s) === categoryTab),
     [schedulesSortedBySendAt, categoryTab]
+  );
+
+  const scheduledMessagesSorted = useMemo(
+    () =>
+      [...scheduledMessages].sort((a, b) => {
+        const ta = a.data_mensagem_programada
+          ? new Date(a.data_mensagem_programada).getTime()
+          : 0;
+        const tb = b.data_mensagem_programada
+          ? new Date(b.data_mensagem_programada).getTime()
+          : 0;
+        return tb - ta;
+      }),
+    [scheduledMessages]
   );
 
   return (
@@ -403,7 +466,10 @@ const Schedules = () => {
         open={confirmModalOpen}
         onClose={() => setConfirmModalOpen(false)}
         onConfirm={() =>
-          deletingSchedule?.id != null && handleDeleteSchedule(deletingSchedule.id)
+          deletingSchedule?.id != null &&
+          (deletingSchedule.source === "scheduled-message"
+            ? handleDeleteScheduledMessage(deletingSchedule.id)
+            : handleDeleteSchedule(deletingSchedule.id))
         }
       >
         {i18n.t("schedules.confirmationModal.deleteMessage")}
@@ -416,6 +482,14 @@ const Schedules = () => {
           scheduleId={selectedSchedule ? selectedSchedule.id : null}
           contactId={contactId}
           cleanContact={cleanContact}
+        />
+      )}
+      {messageModalOpen && (
+        <MessageModal
+          open={messageModalOpen}
+          onClose={handleCloseMessageModal}
+          reload={fetchScheduledMessages}
+          messageId={selectedScheduledMessage ? selectedScheduledMessage.id : null}
         />
       )}
       <MainHeader>
@@ -520,13 +594,20 @@ const Schedules = () => {
             ) : null}
             <ScheduleCalendarPanel
               schedules={schedulesSortedBySendAt}
+              scheduledMessages={scheduledMessagesSorted}
               categoryTab={categoryTab}
               onEdit={handleEditSchedule}
               onDelete={(sch) => {
                 setDeletingSchedule(sch);
                 setConfirmModalOpen(true);
               }}
+              onEditScheduledMessage={handleEditScheduledMessage}
+              onDeleteScheduledMessage={(msg) => {
+                setDeletingSchedule({ ...msg, source: "scheduled-message" });
+                setConfirmModalOpen(true);
+              }}
               onReschedule={fetchSchedules}
+              onRescheduleScheduledMessage={fetchScheduledMessages}
               messages={defaultMessages}
               calendarClassName={classes.calendarToolbar}
             />
@@ -558,6 +639,43 @@ const Schedules = () => {
               </TableRow>
             </TableHead>
             <TableBody>
+              {categoryTab === "scheduled_message" &&
+                scheduledMessagesSorted.map((msg) => (
+                  <TableRow key={`scheduled-message-${msg.id}`}>
+                    <TableCell>
+                      {msg.data_mensagem_programada
+                        ? moment(msg.data_mensagem_programada).format("DD/MM/YYYY HH:mm")
+                        : "—"}
+                    </TableCell>
+                    <TableCell>{msg.nome || "Mensagem agendada"}</TableCell>
+                    <TableCell>
+                      <Chip size="small" label="Mensagem agendada" variant="outlined" />
+                    </TableCell>
+                    <TableCell>{truncate(String(msg.mensagem || ""), 80)}</TableCell>
+                    <TableCell>
+                      <Chip size="small" label="Programada" />
+                    </TableCell>
+                    <TableCell align="right">
+                      <IconButton
+                        size="small"
+                        onClick={() => handleEditScheduledMessage(msg)}
+                        aria-label="edit"
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setDeletingSchedule({ ...msg, source: "scheduled-message" });
+                          setConfirmModalOpen(true);
+                        }}
+                        aria-label="delete"
+                      >
+                        <DeleteOutlineIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
               {listForCategory.map((sch) => (
                 <TableRow key={sch.id}>
                   <TableCell>

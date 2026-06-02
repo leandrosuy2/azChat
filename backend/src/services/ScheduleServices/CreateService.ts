@@ -20,6 +20,7 @@ interface Request {
   tipoDias?: number;
   contadorEnvio?: number;
   assinar?: boolean;
+  scheduleCategory?: string;
 }
 
 const CreateService = async ({
@@ -38,7 +39,8 @@ const CreateService = async ({
   enviarQuantasVezes,
   tipoDias,
   assinar,
-  contadorEnvio
+  contadorEnvio,
+  scheduleCategory
 }: Request): Promise<Schedule> => {
   const schema = Yup.object().shape({
     body: Yup.string().required().min(5),
@@ -69,7 +71,8 @@ const CreateService = async ({
       enviarQuantasVezes,
       tipoDias,
       assinar,
-      contadorEnvio
+      contadorEnvio,
+      scheduleCategory: scheduleCategory || "contact"
     }
   );
 

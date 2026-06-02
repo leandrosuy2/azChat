@@ -65,6 +65,8 @@ import TicketLembreteDisparo from "../models/TicketLembreteDisparo";
 import TicketBudget from "../models/TicketBudget";
 import TicketBudgetOrder from "../models/TicketBudgetOrder";
 import Product from "../models/Product";
+import ProductCategory from "../models/ProductCategory";
+import ProductUnit from "../models/ProductUnit";
 import CompanyLifecycleEvent from "../models/CompanyLifecycleEvent";
 
 // eslint-disable-next-line
@@ -139,6 +141,8 @@ const models = [
   TicketBudget,
   TicketBudgetOrder,
   Product,
+  ProductCategory,
+  ProductUnit,
   CompanyLifecycleEvent
 ];
 

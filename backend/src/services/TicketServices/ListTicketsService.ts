@@ -56,17 +56,45 @@ interface Response {
   hasMore: boolean;
 }
 
-/** JOINs (tags, mensagens) podem repetir o mesmo ticket nas rows do Sequelize. */
-const dedupeTicketsById = (tickets: Ticket[]): Ticket[] => {
-  const byId = new Map<number, Ticket>();
+/** JOINs e tickets ativos reabertos podem repetir a mesma conversa na listagem. */
+const ticketConversationKey = (ticket: Ticket): string | null => {
+  const whatsappId = Number(ticket.whatsappId);
+  const channel = ticket.channel || "whatsapp";
+  const groupFlag = ticket.isGroup ? "group" : "contact";
+  const connectionKey = Number.isFinite(whatsappId) ? whatsappId : "no-whatsapp";
+  const contact = (ticket as any).contact;
+  const remoteJid =
+    typeof contact?.remoteJid === "string"
+      ? contact.remoteJid.trim().toLowerCase()
+      : "";
+  const number =
+    typeof contact?.number === "string"
+      ? contact.number.replace(/\D/g, "")
+      : "";
+  const contactId = Number(ticket.contactId);
+  const contactKey =
+    remoteJid ||
+    number ||
+    (Number.isFinite(contactId) ? `contact:${contactId}` : "");
+
+  if (!contactKey) return null;
+
+  return `${channel}:${connectionKey}:${groupFlag}:${contactKey}`;
+};
+
+const dedupeTicketsByConversation = (tickets: Ticket[]): Ticket[] => {
+  const byConversation = new Map<string | number, Ticket>();
   for (const ticket of tickets) {
-    const id = Number(ticket.id);
-    if (!Number.isFinite(id)) continue;
-    if (!byId.has(id)) {
-      byId.set(id, ticket);
+    const ticketId = Number(ticket.id);
+    const key =
+      ticketConversationKey(ticket) ||
+      (Number.isFinite(ticketId) ? ticketId : null);
+    if (key == null) continue;
+    if (!byConversation.has(key)) {
+      byConversation.set(key, ticket);
     }
   }
-  return Array.from(byId.values());
+  return Array.from(byConversation.values());
 };
 
 const ListTicketsService = async ({
@@ -125,7 +153,7 @@ const ListTicketsService = async ({
     {
       model: Contact,
       as: "contact",
-      attributes: ["id", "name", "number", "email", "profilePicUrl", "acceptAudioMessage", "active", "urlPicture", "companyId"],
+      attributes: ["id", "name", "number", "email", "profilePicUrl", "acceptAudioMessage", "active", "urlPicture", "companyId", "remoteJid"],
       include: ["extraInfo", "tags"]
     },
     {
@@ -581,7 +609,7 @@ const ListTicketsService = async ({
     subQuery: false
   });
 
-  const tickets = dedupeTicketsById(ticketRows);
+  const tickets = dedupeTicketsByConversation(ticketRows);
   const hasMore = count > offset + tickets.length;
 
   return {

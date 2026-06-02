@@ -57,6 +57,7 @@ import usePlans from "../hooks/usePlans";
 import { i18n } from "../translate/i18n";
 import { ShapeLine, Webhook } from "@mui/icons-material";
 import { isSocketClientReady } from "../utils/socketClient";
+import canPerform, { isUiHidden } from "../utils/permissions";
 
 const NOTIFICATIONS_CENTER_STORAGE_KEY = "azchat_notifications_center";
 const NOTIFICATIONS_READ_STORAGE_KEY = "azchat_notifications_read_ids";
@@ -323,11 +324,19 @@ const MainListItems = ({ collapsed, drawerClose }) => {
       const planConfigs = await getPlanCompany(undefined, companyId);
 
       setShowCampaigns(planConfigs.plan.useCampaigns);
-      setShowKanban(planConfigs.plan.useKanban);
+      setShowKanban(
+        planConfigs.plan.useKanban &&
+        canPerform(user, "kanban:view") &&
+        !isUiHidden(user, "showKanbanShortcut")
+      );
       setShowOpenAi(planConfigs.plan.useOpenAi);
       setShowIntegrations(planConfigs.plan.useIntegrations);
-      setShowSchedules(planConfigs.plan.useSchedules);
-      setShowInternalChat(planConfigs.plan.useInternalChat);
+      setShowSchedules(
+        planConfigs.plan.useSchedules && !isUiHidden(user, "showSchedulesShortcut")
+      );
+      setShowInternalChat(
+        planConfigs.plan.useInternalChat && !isUiHidden(user, "showInternalChat")
+      );
       setShowExternalApi(planConfigs.plan.useExternalApi);
     }
     fetchData();
