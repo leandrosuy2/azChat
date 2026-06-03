@@ -5,6 +5,7 @@ import AppError from "../../errors/AppError";
 import Whatsapp from "../../models/Whatsapp";
 import ShowWhatsAppService from "./ShowWhatsAppService";
 import AssociateWhatsappQueue from "./AssociateWhatsappQueue";
+import { randomBytes } from "crypto";
 
 interface WhatsappData {
   name?: string;
@@ -45,6 +46,9 @@ interface WhatsappData {
   queueIdImportMessages?: number;
   flowIdNotPhrase?: number;
   flowIdWelcome?: number;
+  metaAppId?: string;
+  metaAppSecret?: string;
+  metaVerifyToken?: string;
 }
 
 interface Request {
@@ -110,7 +114,10 @@ const UpdateWhatsAppService = async ({
     collectiveVacationStart,
     queueIdImportMessages,
     flowIdNotPhrase,
-    flowIdWelcome
+    flowIdWelcome,
+    metaAppId,
+    metaAppSecret,
+    metaVerifyToken
   } = whatsappData;
 
   try {
@@ -178,7 +185,15 @@ const UpdateWhatsAppService = async ({
     collectiveVacationStart,
     queueIdImportMessages: optionalForeignKey(queueIdImportMessages),
     flowIdNotPhrase,
-    flowIdWelcome
+    flowIdWelcome,
+    metaAppId,
+    ...(metaAppSecret && !String(metaAppSecret).includes("...") ? { metaAppSecret } : {}),
+    metaVerifyToken:
+      metaVerifyToken ||
+      whatsapp.metaVerifyToken ||
+      (["facebook", "instagram"].includes(whatsapp.channel)
+        ? randomBytes(24).toString("hex")
+        : null)
   });
 
   if (!requestQR) {

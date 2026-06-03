@@ -21,14 +21,15 @@ export const createFlow = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { name } = req.body;
+  const { name, channels } = req.body;
   const userId = parseInt(req.user.id);
   const { companyId } = req.user;
 
   const flow = await CreateFlowBuilderService({
     userId,
     name,
-    companyId
+    companyId,
+    channels: Array.isArray(channels) ? channels : undefined
   });
 
   if(flow === 'exist'){
@@ -43,9 +44,14 @@ export const updateFlow = async (
   res: Response
 ): Promise<Response> => {
   const { companyId } = req.user;
-  const { flowId, name } = req.body;
+  const { flowId, name, channels } = req.body;
 
-  const flow = await UpdateFlowBuilderService({ companyId, name, flowId });
+  const flow = await UpdateFlowBuilderService({
+    companyId,
+    name,
+    flowId,
+    channels: Array.isArray(channels) ? channels : undefined
+  });
 
   if(flow === 'exist'){
     return res.status(402).json('exist')

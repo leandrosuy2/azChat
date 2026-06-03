@@ -1,24 +1,28 @@
 import { FlowBuilderModel } from "../../models/FlowBuilder";
 import { WebhookModel } from "../../models/Webhook";
 import { randomString } from "../../utils/randomCode";
+import { Op } from "sequelize";
 
 interface Request {
   companyId: number;
   name: string;
   flowId: number;
+  channels?: string[];
 }
 
 const UpdateFlowBuilderService = async ({
   companyId,
   name,
-  flowId
+  flowId,
+  channels
 }: Request): Promise<String> => {
   try {
 
     const nameExist = await FlowBuilderModel.findOne({
       where: {
         name,
-        company_id: companyId
+        company_id: companyId,
+        id: { [Op.ne]: flowId }
       }
     })
 
@@ -28,7 +32,10 @@ const UpdateFlowBuilderService = async ({
       return 'exist'
     }
 
-    const flow = await FlowBuilderModel.update({ name }, {
+    const updateData: any = { name };
+    if (channels !== undefined) updateData.channels = channels;
+
+    const flow = await FlowBuilderModel.update(updateData, {
       where: {id: flowId, company_id: companyId}
     });
 

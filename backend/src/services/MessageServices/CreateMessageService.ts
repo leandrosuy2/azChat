@@ -73,7 +73,7 @@ const CreateMessageService = async ({
         include: [
           {
             model: Contact,
-            attributes: ["id", "name", "number", "email", "profilePicUrl", "acceptAudioMessage", "active", "urlPicture", "companyId"],
+            attributes: ["id", "name", "number", "email", "profilePicUrl", "acceptAudioMessage", "active", "urlPicture", "companyId", "channel", "whatsappId", "remoteJid"],
             include: ["extraInfo", "tags"]
           },
           {
@@ -82,7 +82,7 @@ const CreateMessageService = async ({
           },
           {
             model: Whatsapp,
-            attributes: ["id", "name", "groupAsTicket"]
+            attributes: ["id", "name", "channel", "groupAsTicket"]
           },
           {
             model: User,

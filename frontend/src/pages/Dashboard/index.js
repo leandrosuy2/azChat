@@ -207,28 +207,48 @@ const Dashboard = () => {
     }
   ];
 
+  const softShadow = "0 12px 34px rgba(15, 23, 42, 0.08)";
+  const panelBorder = "1px solid rgba(226, 232, 240, 0.9)";
+  const userInitial = (user?.name || "A").trim().charAt(0).toUpperCase();
+
   return (
-    <Box sx={{ backgroundColor: "#f5f7fa", minHeight: "100vh", py: 2 }}>
-      <Container maxWidth="xl">
+    <Box sx={{ backgroundColor: "#f7f8fc", minHeight: "100vh", py: { xs: 2, md: 3 } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: 1.5, sm: 2.5 } }}>
         {/* Header with filter button */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h4" fontWeight="bold" color="primary">
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, gap: 2, mb: 2.5, flexDirection: { xs: "column", sm: "row" } }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Typography variant="h4" fontWeight={800} color="#10162f" sx={{ letterSpacing: 0 }}>
               Painel operacional
             </Typography>
             <HelpHint areaKey="dashboard" />
           </Box>
-          <IconButton onClick={toggleShowFilter} color="primary" size="small">
+          <IconButton onClick={toggleShowFilter} color="primary" size="small" sx={{ width: 42, height: 42, borderRadius: 2, bgcolor: "#fff", border: panelBorder, boxShadow: "0 8px 20px rgba(15, 23, 42, 0.06)" }}>
             <FilterList />
           </IconButton>
         </Box>
 
-        <Paper sx={{ mb: 3, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>
+        <Paper sx={{ mb: 2.5, borderRadius: 2, boxShadow: "0 8px 22px rgba(15, 23, 42, 0.06)", border: panelBorder, overflow: "hidden" }}>
           <Tabs
             value={hubTab}
             onChange={(_, v) => setHubTab(v)}
             variant="scrollable"
             scrollButtons="auto"
+            textColor="primary"
+            indicatorColor="primary"
+            sx={{
+              minHeight: 58,
+              px: 1,
+              "& .MuiTab-root": {
+                minHeight: 58,
+                fontWeight: 700,
+                fontSize: 15,
+                textTransform: "uppercase",
+                color: "#4a5568",
+                px: { xs: 2, md: 3 }
+              },
+              "& .Mui-selected": { color: "#5b2be0" },
+              "& .MuiTabs-indicator": { height: 3, borderRadius: "3px 3px 0 0", background: "#5b2be0" }
+            }}
           >
             <Tab label="Indicadores" />
             <Tab label="Relatórios" />
@@ -270,6 +290,55 @@ const Dashboard = () => {
 
         {hubTab === 0 && (
         <>
+        <Paper
+          sx={{
+            mb: 2,
+            p: { xs: 2, md: 3 },
+            borderRadius: 2,
+            border: panelBorder,
+            boxShadow: softShadow,
+            overflow: "hidden",
+            position: "relative",
+            background: "linear-gradient(110deg, #ffffff 0%, #ffffff 58%, #efe8ff 100%)"
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              right: { xs: -30, md: 48 },
+              bottom: -10,
+              width: { xs: 130, md: 210 },
+              height: { xs: 80, md: 130 },
+              borderRadius: "48% 52% 0 0",
+              background: "linear-gradient(135deg, rgba(91,43,224,0.14), rgba(91,43,224,0.02))"
+            }}
+          />
+          <Stack direction="row" alignItems="center" spacing={2.5} sx={{ position: "relative" }}>
+            <Avatar
+              sx={{
+                width: { xs: 74, md: 104 },
+                height: { xs: 74, md: 104 },
+                bgcolor: "#5b2be0",
+                color: "#fff",
+                fontWeight: 800,
+                fontSize: { xs: 28, md: 40 },
+                border: "5px solid #eee7ff",
+                boxShadow: "0 12px 28px rgba(91, 43, 224, 0.18)"
+              }}
+            >
+              {userInitial}
+            </Avatar>
+            <Box sx={{ minWidth: 0 }}>
+              <Typography variant="h5" fontWeight={800} color="#10162f" sx={{ mb: 0.75 }}>
+                Bem-vindo, {user?.name || "Atendente"}
+              </Typography>
+              <Typography variant="body1" color="#596275" sx={{ maxWidth: 620, lineHeight: 1.55 }}>
+                Acompanhe seus atendimentos, metas e indicadores em um painel organizado para decisao rapida.
+              </Typography>
+            </Box>
+          </Stack>
+        </Paper>
+
         {/* Filters Section */}
         {showFilter && (
           <Paper 
@@ -300,21 +369,31 @@ const Dashboard = () => {
                 sx={{ 
                   height: "100%",
                   borderRadius: 2,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  border: panelBorder,
+                  boxShadow: "0 10px 28px rgba(15, 23, 42, 0.07)",
                   transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
                   "&:hover": {
-                    transform: "translateY(-3px)",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 14px 32px rgba(15, 23, 42, 0.12)"
                   }
                 }}
               >
-                <CardContent>
+                <CardContent sx={{ p: 2 }}>
                   <Stack
                     direction="row"
-                    justifyContent="space-between"
                     alignItems="center"
-                    spacing={1}
+                    spacing={1.5}
                   >
+                    <Avatar
+                      sx={{
+                        bgcolor: `${card.color}18`,
+                        color: card.color,
+                        width: 52,
+                        height: 52
+                      }}
+                    >
+                      <SvgIcon>{card.icon}</SvgIcon>
+                    </Avatar>
                     <Box>
                       <Typography 
                         variant="overline" 
@@ -327,24 +406,16 @@ const Dashboard = () => {
                         {card.title}
                       </Typography>
                       <Typography 
-                        variant="h4" 
+                        variant="h3"
                         sx={{ 
-                          fontWeight: "bold",
-                          color: "text.primary" 
+                          fontWeight: 800,
+                          color: card.color,
+                          lineHeight: 1
                         }}
                       >
                         {card.value}
                       </Typography>
                     </Box>
-                    <Avatar 
-                      sx={{ 
-                        bgcolor: card.color,
-                        width: 48,
-                        height: 48
-                      }}
-                    >
-                      <SvgIcon>{card.icon}</SvgIcon>
-                    </Avatar>
                   </Stack>
                 </CardContent>
               </Card>
@@ -356,13 +427,26 @@ const Dashboard = () => {
         <Paper sx={{ 
           mb: 3, 
           borderRadius: 2,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.08)" 
+          border: panelBorder,
+          boxShadow: "0 8px 22px rgba(15, 23, 42, 0.06)",
+          overflow: "hidden"
         }}>
           <Tabs 
             value={activeTab} 
             onChange={handleTabChange}
-            variant="fullWidth"
-            sx={{ borderBottom: 1, borderColor: 'divider' }}
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+              "& .MuiTab-root": {
+                minHeight: 54,
+                fontWeight: 700,
+                textTransform: "none"
+              },
+              "& .Mui-selected": { color: "#5b2be0" },
+              "& .MuiTabs-indicator": { height: 3, borderRadius: "3px 3px 0 0", background: "#5b2be0" }
+            }}
           >
             <Tab label={i18n.t("dashboard.tabs.performance")} />
             <Tab label={i18n.t("dashboard.tabs.assessments")} />

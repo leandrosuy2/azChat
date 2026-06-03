@@ -7,6 +7,7 @@ import {
   isInstagramDirectProvider,
   sendInstagramText
 } from "../InstagramServices/instagramAPI";
+import CreateMetaEventLogService from "../MetaServices/CreateMetaEventLogService";
 
 interface Request {
   body: string;
@@ -24,7 +25,7 @@ const sendFacebookMessage = async ({ body, ticket, quotedMsg }: Request): Promis
         ticket.whatsapp?.facebookUserToken
       )
     ) {
-      const send = await sendInstagramText(
+      const send: any = await sendInstagramText(
         ticket.whatsapp.facebookPageUserId,
         number,
         formatBody(body, ticket),
@@ -32,17 +33,37 @@ const sendFacebookMessage = async ({ body, ticket, quotedMsg }: Request): Promis
       );
 
       await ticket.update({ lastMessage: body });
+      await CreateMetaEventLogService({
+        companyId: ticket.companyId,
+        whatsappId: ticket.whatsappId,
+        channel: ticket.channel,
+        direction: "outbound",
+        eventType: "message",
+        externalId: send?.message_id || send?.recipient_id || null,
+        status: "sent",
+        payload: { response: send, body: formatBody(body, ticket) }
+      });
 
       return send;
     }
 
-    const send = await sendText(
+    const send: any = await sendText(
       number,
       formatBody(body, ticket),
       ticket.whatsapp.facebookUserToken
     );
 
     await ticket.update({ lastMessage: body });
+    await CreateMetaEventLogService({
+      companyId: ticket.companyId,
+      whatsappId: ticket.whatsappId,
+      channel: ticket.channel,
+      direction: "outbound",
+      eventType: "message",
+      externalId: send?.message_id || send?.recipient_id || null,
+      status: "sent",
+      payload: { response: send, body: formatBody(body, ticket) }
+    });
 
     return send;
 
@@ -55,6 +76,16 @@ const sendFacebookMessage = async ({ body, ticket, quotedMsg }: Request): Promis
       fbError
     });
     const detail = fbError?.message || err?.message || "unknown";
+    await CreateMetaEventLogService({
+      companyId: ticket.companyId,
+      whatsappId: ticket.whatsappId,
+      channel: ticket.channel,
+      direction: "outbound",
+      eventType: "message",
+      status: "error",
+      errorMessage: detail,
+      payload: { body }
+    });
     throw new AppError(`ERR_SENDING_FACEBOOK_MSG: ${detail}`);
   }
 };

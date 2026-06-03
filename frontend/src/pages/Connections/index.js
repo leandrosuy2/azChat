@@ -33,6 +33,8 @@ import {
   SignalCellular4Bar,
   CropFree,
   DeleteOutline,
+  CloudDone,
+  FileCopy,
   Facebook,
   Instagram,
   Sync,
@@ -580,7 +582,7 @@ const Connections = () => {
         {whatsApp.status === "DISCONNECTED" && (
           <CustomToolTip
             title={i18n.t("connections.toolTips.disconnected.title")}
-            content={i18n.t("connections.toolTips.disconnected.content")}
+            content={whatsApp.metaConnectionError || i18n.t("connections.toolTips.disconnected.content")}
           >
             <SignalCellularConnectedNoInternet0Bar color="secondary" />
           </CustomToolTip>
@@ -630,6 +632,45 @@ const Connections = () => {
       toast.info("Sincronização iniciada. Pode continuar usando a plataforma — vamos avisar quando terminar.");
     } catch (err) {
       setSyncingInstagramId(null);
+      toastError(err);
+    }
+  };
+
+  const handleCopyWebhookUrl = async (whatsApp) => {
+    const url = whatsApp.webhookUrl;
+    if (!url) {
+      toast.error("URL de webhook não disponível para esta conexão.");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("URL do webhook copiada.");
+    } catch (err) {
+      toast.error(url);
+    }
+  };
+
+  const handleCopyVerifyToken = async (whatsApp) => {
+    const token = whatsApp.metaVerifyToken;
+    if (!token) {
+      toast.error("Verify Token não disponível para esta conexão.");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(token);
+      toast.success("Verify Token copiado.");
+    } catch (err) {
+      toast.error(token);
+    }
+  };
+
+  const handleTestMetaConnection = async (whatsAppId) => {
+    try {
+      const { data } = await api.post(`/whatsapp/${whatsAppId}/test-meta`);
+      toast.success(`Conexão Meta validada: ${data.status}`);
+    } catch (err) {
       toastError(err);
     }
   };
@@ -873,6 +914,35 @@ const Connections = () => {
                             perform="connections-page:addConnection"
                             yes={() => (
                               <TableCell align="center">
+                                {["facebook", "instagram"].includes(whatsApp.channel) && (
+                                  <>
+                                    <Tooltip title="Testar conexão Meta" arrow>
+                                      <IconButton
+                                        size="small"
+                                        onClick={() => handleTestMetaConnection(whatsApp.id)}
+                                      >
+                                        <CloudDone />
+                                      </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Copiar URL do webhook" arrow>
+                                      <IconButton
+                                        size="small"
+                                        onClick={() => handleCopyWebhookUrl(whatsApp)}
+                                      >
+                                        <FileCopy />
+                                      </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Copiar Verify Token" arrow>
+                                      <IconButton
+                                        size="small"
+                                        onClick={() => handleCopyVerifyToken(whatsApp)}
+                                      >
+                                        <FileCopy />
+                                      </IconButton>
+                                    </Tooltip>
+                                  </>
+                                )}
+
                                 {whatsApp.channel === "instagram" && (
                                   <Tooltip
                                     title="Sincronizar DMs do Instagram (importa conversas e mensagens recentes da API)"

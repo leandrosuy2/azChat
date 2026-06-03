@@ -33,6 +33,9 @@ export class FlowBuilderModel extends Model<FlowBuilderModel> {
   @Column(DataType.JSON)
   flow: {} | null;
 
+  @Column(DataType.JSONB)
+  channels: string[] | null;
+
   @CreatedAt
   createdAt: Date;
 

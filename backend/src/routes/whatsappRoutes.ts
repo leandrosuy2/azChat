@@ -21,6 +21,8 @@ whatsappRoutes.post("/whatsapp/", isAuth, WhatsAppController.store);
 whatsappRoutes.post("/facebook/", isAuth, WhatsAppController.storeFacebook);
 whatsappRoutes.post("/instagram/direct-login", isAuth, WhatsAppController.storeInstagramDirect);
 whatsappRoutes.post("/instagram/:whatsappId/sync-dms", isAuth, WhatsAppController.syncInstagramDms);
+whatsappRoutes.post("/whatsapp/:whatsappId/test-meta", isAuth, WhatsAppController.testMetaConnection);
+whatsappRoutes.get("/whatsapp/:whatsappId/meta-logs", isAuth, WhatsAppController.metaLogs);
 whatsappRoutes.get("/whatsapp/:whatsappId", isAuth, WhatsAppController.show);
 whatsappRoutes.put("/whatsapp/:whatsappId", isAuth, WhatsAppController.update);
 whatsappRoutes.delete("/whatsapp/:whatsappId", isAuth, WhatsAppController.remove);

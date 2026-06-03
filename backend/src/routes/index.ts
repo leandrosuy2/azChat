@@ -49,6 +49,7 @@ import quadroRoutes from "./quadroRoutes";
 import ticketBudgetRoutes from "./ticketBudgetRoutes";
 import productRoutes from "./productRoutes";
 import metaRoutes from "./metaRoutes";
+import globalSearchRoutes from "./globalSearchRoutes";
 
 
 const routes = Router();
@@ -80,6 +81,7 @@ routes.use(announcementRoutes);
 routes.use(chatRoutes);
 routes.use(chatBotRoutes);
 routes.use("/webhook", webHookRoutes);
+routes.use("/webhooks", webHookRoutes);
 routes.use(subScriptionRoutes);
 routes.use(invoiceRoutes);
 routes.use(versionRouter);
@@ -105,5 +107,6 @@ routes.use(quadroRoutes);
 routes.use(ticketBudgetRoutes);
 routes.use(productRoutes);
 routes.use(metaRoutes);
+routes.use(globalSearchRoutes);
 
 export default routes;

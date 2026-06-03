@@ -26,11 +26,13 @@ import cacheLayer from "./cache";
 import ImportWhatsAppMessageService from "../services/WhatsappService/ImportWhatsAppMessageService";
 import { add } from "date-fns";
 import moment from "moment";
-import { getTypeMessage, isValidMsg } from "../services/WbotServices/wbotMessageListener";
+import { getTypeMessage, handleMessage, isValidMsg } from "../services/WbotServices/wbotMessageListener";
 import { addLogs } from "../helpers/addLogs";
 import NodeCache from "node-cache";
 import { Store } from "./store";
 import { setDefaultResultOrder } from "node:dns"; // Node >= 18
+import Message from "../models/Message";
+import Ticket from "../models/Ticket";
 
 const msgRetryCounterCache = new NodeCache({
   stdTTL: 600,
@@ -56,6 +58,15 @@ loggerBaileys.level = "silent";
  * Sem isso, importações grandes (messaging-history.set) crescem indefinidamente.
  */
 const IMPORT_BUFFER_MAX_PER_WPP = 20_000;
+const AUTO_HISTORY_MAX_PER_BATCH = Number(
+  process.env.WA_AUTO_HISTORY_MAX_PER_BATCH || 1000
+);
+const AUTO_HISTORY_LOOKBACK_HOURS = Number(
+  process.env.WA_AUTO_HISTORY_LOOKBACK_HOURS || 72
+);
+const AUTO_HISTORY_MARGIN_MINUTES = Number(
+  process.env.WA_AUTO_HISTORY_MARGIN_MINUTES || 5
+);
 
 // Força resolver IPv4 primeiro (evita handshakes quebrando em IPv6)
 setDefaultResultOrder?.("ipv4first");
@@ -72,6 +83,160 @@ const retriesQrCodeMap = new Map<number, number>();
 // Contador de tentativas de reconexão por whatsappId — usado para backoff
 // exponencial. Resetado ao receber connection "open".
 const reconnectAttempts = new Map<number, number>();
+const autoHistorySyncState = new Map<
+  number,
+  { cutoffMs: number; startedAt: number; processed: Set<string> }
+>();
+
+const getTimestampMs = (msg: any): number => {
+  const raw = msg?.messageTimestamp;
+  if (!raw) return 0;
+  if (typeof raw === "number") return raw * 1000;
+  if (typeof raw === "string") return Number(raw) * 1000;
+  if (typeof raw?.toNumber === "function") return raw.toNumber() * 1000;
+  if (typeof raw?.low === "number") return raw.low * 1000;
+  return 0;
+};
+
+const prepareAutoHistorySync = async (
+  whatsappId: number,
+  companyId: number,
+  name: string
+): Promise<void> => {
+  try {
+    const latestMessage = await Message.findOne({
+      where: { companyId },
+      include: [
+        {
+          model: Ticket,
+          required: true,
+          attributes: ["id"],
+          where: { companyId, whatsappId }
+        }
+      ],
+      order: [["createdAt", "DESC"]]
+    });
+
+    const fallbackCutoff = moment()
+      .subtract(AUTO_HISTORY_LOOKBACK_HOURS, "hours")
+      .valueOf();
+    const latestCutoff = latestMessage?.createdAt
+      ? moment(latestMessage.createdAt)
+          .subtract(AUTO_HISTORY_MARGIN_MINUTES, "minutes")
+          .valueOf()
+      : fallbackCutoff;
+
+    const cutoffMs = Math.max(latestCutoff, fallbackCutoff);
+    autoHistorySyncState.set(whatsappId, {
+      cutoffMs,
+      startedAt: Date.now(),
+      processed: new Set()
+    });
+
+    logger.info(
+      `[WhatsApp ${name} #${whatsappId}] sync offline preparado cutoff=${moment(cutoffMs).format("YYYY-MM-DD HH:mm:ss")}`
+    );
+  } catch (err: any) {
+    logger.error(
+      `[WhatsApp ${name} #${whatsappId}] erro preparando sync offline: ${err?.message || err}`
+    );
+  }
+};
+
+const processAutoHistorySet = async ({
+  messageSet,
+  wsocket,
+  whatsappId,
+  companyId,
+  allowGroup,
+  name
+}: {
+  messageSet: any;
+  wsocket: Session;
+  whatsappId: number;
+  companyId: number;
+  allowGroup: boolean;
+  name: string;
+}): Promise<void> => {
+  const historyMessages = Array.isArray(messageSet?.messages)
+    ? messageSet.messages
+    : [];
+
+  if (historyMessages.length === 0) return;
+
+  if (!autoHistorySyncState.has(whatsappId)) {
+    await prepareAutoHistorySync(whatsappId, companyId, name);
+  }
+
+  const state = autoHistorySyncState.get(whatsappId);
+  if (!state) return;
+
+  const candidates = historyMessages
+    .filter((msg: any) => {
+      const wid = msg?.key?.id;
+      const remoteJid = msg?.key?.remoteJid || "";
+      const timestampMs = getTimestampMs(msg);
+      if (!wid || state.processed.has(wid)) return false;
+      if (!timestampMs || timestampMs < state.cutoffMs) return false;
+      if (timestampMs > Date.now() + 5 * 60 * 1000) return false;
+      if (remoteJid === "status@broadcast") return false;
+      if (!allowGroup && remoteJid.endsWith("@g.us")) return false;
+      return isValidMsg(msg);
+    })
+    .sort((a: any, b: any) => getTimestampMs(a) - getTimestampMs(b))
+    .slice(0, AUTO_HISTORY_MAX_PER_BATCH);
+
+  if (candidates.length === 0) return;
+
+  let imported = 0;
+  let skipped = 0;
+  let failed = 0;
+
+  logger.info(
+    `[WhatsApp ${name} #${whatsappId}] sync offline recebeu ${historyMessages.length} mensagens de historico; ${candidates.length} candidatas`
+  );
+
+  for (const msg of candidates) {
+    const wid = msg?.key?.id;
+    try {
+      state.processed.add(wid);
+      const exists = await Message.count({
+        where: { wid, companyId }
+      });
+
+      if (exists > 0) {
+        skipped += 1;
+        continue;
+      }
+
+      await handleMessage(msg, wsocket, companyId);
+      imported += 1;
+    } catch (err: any) {
+      failed += 1;
+      state.processed.delete(wid);
+      logger.error(
+        `[WhatsApp ${name} #${whatsappId}] erro sync offline wid=${wid}: ${err?.message || err}`
+      );
+    }
+  }
+
+  const freshWhatsapp = await Whatsapp.findByPk(whatsappId);
+  getIO()
+    .of(String(companyId))
+    .emit(`company-${companyId}-whatsappSession`, {
+      action: "update",
+      session: freshWhatsapp
+    });
+  getIO()
+    .of(String(companyId))
+    .emit(`company-${companyId}-ticket`, {
+      action: "sync"
+    });
+
+  logger.info(
+    `[WhatsApp ${name} #${whatsappId}] sync offline finalizado lote imported=${imported} skipped=${skipped} failed=${failed}`
+  );
+};
 
 export default function msg() {
   return {
@@ -208,6 +373,24 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
           shouldSyncHistoryMessage: () => true,
           syncFullHistory: true,
           getMessage: msgDB.get
+        });
+        wsocket.id = whatsapp.id;
+
+        wsocket.ev.on("messaging-history.set", async (messageSet: any) => {
+          try {
+            await processAutoHistorySet({
+              messageSet,
+              wsocket,
+              whatsappId: id,
+              companyId,
+              allowGroup,
+              name
+            });
+          } catch (err: any) {
+            logger.error(
+              `[WhatsApp ${name} #${id}] erro geral no sync offline: ${err?.message || err}`
+            );
+          }
         });
 
         setTimeout(async () => {
@@ -484,6 +667,8 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
                   action: "update",
                   session: whatsapp
                 });
+
+              await prepareAutoHistorySync(id, companyId, name);
 
               const sessionIndex = sessions.findIndex(
                 s => s.id === whatsapp.id

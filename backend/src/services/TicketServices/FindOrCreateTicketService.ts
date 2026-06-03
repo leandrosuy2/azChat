@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { col, fn, Op, where } from "sequelize";
 import { sub } from "date-fns";
 
 import Contact from "../../models/Contact";
@@ -15,6 +15,105 @@ import AppError from "../../errors/AppError";
 import UpdateTicketService from "./UpdateTicketService";
 import ContactTag from "../../models/ContactTag";
 import Tag from "../../models/Tag";
+
+const ACTIVE_TICKET_STATUSES = ["open", "pending", "group", "nps", "lgpd"];
+const ticketCreationLocks = new Map<string, Promise<void>>();
+
+const normalizeRemoteJid = (value?: string | null): string => {
+  return String(value || "").trim().toLowerCase();
+};
+
+const normalizeNumber = (value?: string | null): string => {
+  return String(value || "").replace(/\D/g, "");
+};
+
+const getContactIdentityKey = (contact: Contact): string => {
+  const remoteJid = normalizeRemoteJid((contact as any).remoteJid);
+  const number = normalizeNumber((contact as any).number);
+  return remoteJid || number || `contact:${contact.id}`;
+};
+
+const withTicketCreationLock = async <T>(
+  key: string,
+  fn: () => Promise<T>
+): Promise<T> => {
+  const previous = ticketCreationLocks.get(key);
+  if (previous) {
+    await previous.catch(() => undefined);
+  }
+
+  let release: () => void = () => undefined;
+  const current = new Promise<void>(resolve => {
+    release = resolve;
+  });
+  ticketCreationLocks.set(key, current);
+
+  try {
+    return await fn();
+  } finally {
+    release();
+    if (ticketCreationLocks.get(key) === current) {
+      ticketCreationLocks.delete(key);
+    }
+  }
+};
+
+const buildContactIdentityWhere = (contact: Contact): any => {
+  const or: any[] = [{ id: contact.id }];
+  const remoteJid = normalizeRemoteJid((contact as any).remoteJid);
+  const number = normalizeNumber((contact as any).number);
+
+  if (remoteJid) {
+    or.push({ remoteJid: { [Op.iLike]: remoteJid } });
+  }
+
+  if (number) {
+    or.push(
+      where(
+        fn("REGEXP_REPLACE", col("contact.number"), "\\D", "", "g"),
+        number
+      )
+    );
+  }
+
+  return { [Op.or]: or };
+};
+
+const findActiveTicketByConversation = async ({
+  contact,
+  whatsappId,
+  companyId,
+  includeRecentClosed = false
+}: {
+  contact: Contact;
+  whatsappId: number;
+  companyId: number;
+  includeRecentClosed?: boolean;
+}): Promise<Ticket | null> => {
+  const statuses = includeRecentClosed
+    ? [...ACTIVE_TICKET_STATUSES, "closed"]
+    : ACTIVE_TICKET_STATUSES;
+
+  return Ticket.findOne({
+    where: {
+      status: { [Op.or]: statuses },
+      companyId,
+      whatsappId
+    },
+    include: [
+      {
+        model: Contact,
+        as: "contact",
+        required: true,
+        where: {
+          companyId,
+          ...buildContactIdentityWhere(contact)
+        }
+      }
+    ],
+    order: [["id", "DESC"]]
+  });
+};
 
 // interface Response {
 //   ticket: Ticket;
@@ -36,6 +135,10 @@ const FindOrCreateTicketService = async (
   isTransfered?: boolean,
   isCampaign: boolean = false
 ): Promise<Ticket> => {
+  const identityContact = groupContact || contact;
+  const lockKey = `${companyId}:${whatsapp.id}:${getContactIdentityKey(identityContact)}`;
+
+  return withTicketCreationLock(lockKey, async () => {
   // try {
   // let isCreated = false;
 
@@ -58,16 +161,27 @@ const FindOrCreateTicketService = async (
   let ticket = await Ticket.findOne({
     where: {
       status: {
-        [Op.or]: ["open", "pending", "group", "nps", "lgpd"]
+        [Op.or]: ACTIVE_TICKET_STATUSES
       },
-      contactId: groupContact ? groupContact.id : contact.id,
+      contactId: identityContact.id,
       companyId,
       whatsappId: whatsapp.id
     },
     order: [["id", "DESC"]]
   });
 
-
+  if (!ticket) {
+    ticket = await findActiveTicketByConversation({
+      contact: identityContact,
+      whatsappId: whatsapp.id,
+      companyId
+    });
+    if (ticket && Number(ticket.contactId) !== Number(identityContact.id)) {
+      logger.warn(
+        `[Tickets] conversa ativa reaproveitada por identidade company=${companyId} whatsapp=${whatsapp.id} incomingContact=${identityContact.id} existingTicket=${ticket.id} existingContact=${ticket.contactId}`
+      );
+    }
+  }
 
 
   if (ticket) {
@@ -114,7 +228,7 @@ const FindOrCreateTicketService = async (
               +new Date()
             ]
           },
-          contactId: contact.id,
+          contactId: identityContact.id,
           companyId,
           whatsappId: whatsapp.id
         },
@@ -166,10 +280,27 @@ const FindOrCreateTicketService = async (
       }
     }
 
-    ticket = await Ticket.create(
-      ticketData
-    );
-    createdTicket = true;
+    try {
+      ticket = await Ticket.create(ticketData);
+      createdTicket = true;
+    } catch (err: any) {
+      const errText = `${err?.message || ""} ${err?.original?.message || ""}`;
+      if (!errText.includes("ERR_DUPLICATED_ACTIVE_TICKET")) {
+        throw err;
+      }
+
+      logger.warn(
+        `[Tickets] tentativa duplicada bloqueada pelo banco company=${companyId} whatsapp=${whatsapp.id} contact=${identityContact.id}. Reaproveitando ticket ativo.`
+      );
+      ticket = await findActiveTicketByConversation({
+        contact: identityContact,
+        whatsappId: whatsapp.id,
+        companyId
+      });
+      if (!ticket) {
+        throw err;
+      }
+    }
 
     // await FindOrCreateATicketTrakingService({
     //   ticketId: ticket.id,
@@ -215,6 +346,7 @@ const FindOrCreateTicketService = async (
 
 
   return ticket;
+  });
 };
 
 export default FindOrCreateTicketService;

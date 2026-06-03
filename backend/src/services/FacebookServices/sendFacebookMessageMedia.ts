@@ -5,6 +5,7 @@ import {
   isInstagramDirectProvider,
   sendInstagramAttachmentFromUrl
 } from "../InstagramServices/instagramAPI";
+import CreateMetaEventLogService from "../MetaServices/CreateMetaEventLogService";
 // import { verifyMessage } from "./facebookMessageListener";
 
 interface Request {
@@ -45,7 +46,7 @@ export const sendFacebookMessageMedia = async ({
         ticket.whatsapp?.facebookUserToken
       )
     ) {
-      const sendMessage = await sendInstagramAttachmentFromUrl(
+      const sendMessage: any = await sendInstagramAttachmentFromUrl(
         ticket.whatsapp.facebookPageUserId,
         ticket.contact.number,
         domain,
@@ -54,11 +55,21 @@ export const sendFacebookMessageMedia = async ({
       );
 
       await ticket.update({ lastMessage: media.filename });
+      await CreateMetaEventLogService({
+        companyId: ticket.companyId,
+        whatsappId: ticket.whatsappId,
+        channel: ticket.channel,
+        direction: "outbound",
+        eventType: "media",
+        externalId: sendMessage?.message_id || sendMessage?.recipient_id || null,
+        status: "sent",
+        payload: { response: sendMessage, media: media.filename, type }
+      });
 
       return sendMessage;
     }
 
-    const sendMessage = await sendAttachmentFromUrl(
+    const sendMessage: any = await sendAttachmentFromUrl(
       ticket.contact.number,
       domain,
       type,
@@ -66,9 +77,29 @@ export const sendFacebookMessageMedia = async ({
     );
 
     await ticket.update({ lastMessage: media.filename });
+    await CreateMetaEventLogService({
+      companyId: ticket.companyId,
+      whatsappId: ticket.whatsappId,
+      channel: ticket.channel,
+      direction: "outbound",
+      eventType: "media",
+      externalId: sendMessage?.message_id || sendMessage?.recipient_id || null,
+      status: "sent",
+      payload: { response: sendMessage, media: media.filename, type }
+    });
 
     return sendMessage;
   } catch (err) {
+    await CreateMetaEventLogService({
+      companyId: ticket.companyId,
+      whatsappId: ticket.whatsappId,
+      channel: ticket.channel,
+      direction: "outbound",
+      eventType: "media",
+      status: "error",
+      errorMessage: err?.message || "ERR_SENDING_FACEBOOK_MSG",
+      payload: { media: media?.filename }
+    });
     throw new AppError("ERR_SENDING_FACEBOOK_MSG");
   }
 };

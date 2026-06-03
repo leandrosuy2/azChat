@@ -57,6 +57,7 @@ import { getBackendUrl } from "../config";
 import useSettings from "../hooks/useSettings";
 import VersionControl from "../components/VersionControl";
 import { isSocketClientReady } from "../utils/socketClient";
+import GlobalSearch from "../components/GlobalSearch";
 
 // import { SocketContext } from "../context/Socket/SocketContext";
 
@@ -94,6 +95,13 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 24, // keep right padding when drawer closed
     color: theme.palette.dark.main,
     background: theme.palette.barraSuperior,
+    gap: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      flexWrap: "wrap",
+      minHeight: 98,
+      alignContent: "center",
+      paddingRight: theme.spacing(1),
+    },
   },
   toolbarIcon: {
     display: "flex",
@@ -135,6 +143,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     fontSize: 14,
     color: "white",
+    minWidth: 180,
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   drawerPaper: {
     position: "relative",
@@ -164,6 +176,9 @@ const useStyles = makeStyles((theme) => ({
 
   appBarSpacer: {
     minHeight: "48px",
+    [theme.breakpoints.down("sm")]: {
+      minHeight: "98px",
+    },
   },
   content: {
     flex: 1,
@@ -522,6 +537,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
               label={i18n.t("mainDrawer.appBar.user.token")}
             />
           )}
+          <GlobalSearch />
           <VersionControl />
 
           {/* DESABILITADO POIS TEM BUGS */}

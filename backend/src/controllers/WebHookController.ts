@@ -4,6 +4,7 @@ import { Op } from "sequelize";
 import Whatsapp from "../models/Whatsapp";
 import { handleMessage } from "../services/FacebookServices/facebookMessageListener";
 import logger from "../utils/logger";
+import CreateMetaEventLogService from "../services/MetaServices/CreateMetaEventLogService";
 
 const matchesSignature = (
   signature: string,
@@ -53,6 +54,24 @@ const isWebhookSignatureValid = (req: Request): boolean => {
   return secrets.some(secret =>
     matchesSignature(signature, rawBody, secret)
   );
+};
+
+const isWebhookSignatureValidForSecret = (
+  req: Request,
+  secret?: string | null
+): boolean => {
+  const requireSignature =
+    process.env.META_REQUIRE_WEBHOOK_SIGNATURE === "true" ||
+    process.env.FACEBOOK_VALIDATE_WEBHOOK_SIGNATURE === "true";
+
+  if (!requireSignature) return true;
+  if (!secret) return false;
+
+  const signature = req.header("x-hub-signature-256");
+  const rawBody = (req as any).rawBody;
+  if (!signature || !rawBody) return false;
+
+  return matchesSignature(signature, rawBody, secret);
 };
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
@@ -124,6 +143,16 @@ export const webHook = async (
         );
 
         messagingItems.forEach((data: any) => {
+          CreateMetaEventLogService({
+            companyId: getTokenPage.companyId,
+            whatsappId: getTokenPage.id,
+            channel,
+            direction: "inbound",
+            eventType: data?.message ? "message" : "webhook",
+            externalId: data?.message?.mid || data?.postback?.mid || null,
+            status: "received",
+            payload: data
+          });
           handleMessage(getTokenPage, data, channel, getTokenPage.companyId);
         });
       }
@@ -143,5 +172,130 @@ export const webHook = async (
     return res.status(500).json({
       message: error
     });
+  }
+};
+
+export const metaVerify = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { companyId, integrationId } = req.params;
+  const mode = req.query["hub.mode"];
+  const token = req.query["hub.verify_token"];
+  const challenge = req.query["hub.challenge"];
+
+  const integration = await Whatsapp.findOne({
+    where: {
+      id: integrationId,
+      companyId,
+      channel: { [Op.in]: ["facebook", "instagram"] }
+    }
+  });
+
+  if (
+    integration &&
+    mode === "subscribe" &&
+    token === integration.metaVerifyToken
+  ) {
+    await integration.update({
+      status: "CONNECTED",
+      metaConnectionError: null
+    });
+    logger.info(
+      `[Meta Webhook] validado company=${companyId} integration=${integrationId}`
+    );
+    return res.status(200).send(challenge);
+  }
+
+  logger.warn(
+    `[Meta Webhook] falha validacao company=${companyId} integration=${integrationId}`
+  );
+  return res.status(403).json({ message: "Forbidden" });
+};
+
+export const metaWebHook = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const { companyId, integrationId } = req.params;
+    const integration = await Whatsapp.findOne({
+      where: {
+        id: integrationId,
+        companyId,
+        channel: { [Op.in]: ["facebook", "instagram"] }
+      }
+    });
+
+    if (!integration) {
+      await CreateMetaEventLogService({
+        companyId: Number(companyId),
+        whatsappId: null,
+        channel: "meta",
+        direction: "inbound",
+        eventType: "webhook",
+        status: "integration_not_found",
+        errorMessage: `Integration ${integrationId} not found`,
+        payload: req.body
+      });
+      return res.status(404).json({ message: "Integration not found" });
+    }
+
+    if (!isWebhookSignatureValidForSecret(req, integration.metaAppSecret)) {
+      await integration.update({
+        metaConnectionError: "Invalid webhook signature"
+      });
+      await CreateMetaEventLogService({
+        companyId: integration.companyId,
+        whatsappId: integration.id,
+        channel: integration.channel,
+        direction: "inbound",
+        eventType: "webhook_signature",
+        status: "error",
+        errorMessage: "Invalid webhook signature",
+        payload: req.body
+      });
+      return res.status(403).json({ message: "Invalid webhook signature" });
+    }
+
+    const { body } = req;
+    const channel = integration.channel;
+    const messagingItems = (body.entry || []).flatMap((entry: any) => [
+      ...(entry.messaging || []),
+      ...((entry.changes || [])
+        .map((change: any) => change?.value || change)
+        .filter(Boolean))
+    ]);
+
+    logger.info(
+      `[Meta Webhook] integration company=${companyId} integration=${integrationId} channel=${channel} eventos=${messagingItems.length}`
+    );
+
+    messagingItems.forEach((data: any) => {
+      CreateMetaEventLogService({
+        companyId: integration.companyId,
+        whatsappId: integration.id,
+        channel,
+        direction: "inbound",
+        eventType: data?.message ? "message" : "webhook",
+        externalId: data?.message?.mid || data?.postback?.mid || null,
+        status: "received",
+        payload: data
+      });
+      handleMessage(integration, data, channel, integration.companyId);
+    });
+
+    await integration.update({
+      metaLastSyncAt: new Date(),
+      status: "CONNECTED",
+      metaConnectionError: null
+    });
+
+    return res.status(200).json({ message: "EVENT_RECEIVED" });
+  } catch (error) {
+    logger.error(
+      `[Meta Webhook] erro endpoint dedicado: ${error?.message || error}`
+    );
+    return res.status(500).json({ message: error });
   }
 };

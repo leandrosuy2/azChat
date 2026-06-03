@@ -59,9 +59,18 @@ interface Response {
 /** JOINs e tickets ativos reabertos podem repetir a mesma conversa na listagem. */
 const ticketConversationKey = (ticket: Ticket): string | null => {
   const whatsappId = Number(ticket.whatsappId);
-  const channel = ticket.channel || "whatsapp";
+  const channel = ticket.channel || (ticket as any).contact?.channel || (ticket as any).whatsapp?.channel || "whatsapp";
   const groupFlag = ticket.isGroup ? "group" : "contact";
-  const connectionKey = Number.isFinite(whatsappId) ? whatsappId : "no-whatsapp";
+  const companyId = Number(ticket.companyId || (ticket as any).contact?.companyId);
+  const contactWhatsappId = Number((ticket as any).contact?.whatsappId);
+  const whatsappAssociationId = Number((ticket as any).whatsapp?.id);
+  const effectiveWhatsappId = Number.isFinite(whatsappId)
+    ? whatsappId
+    : Number.isFinite(whatsappAssociationId)
+      ? whatsappAssociationId
+      : contactWhatsappId;
+  const companyKey = Number.isFinite(companyId) ? companyId : "no-company";
+  const connectionKey = Number.isFinite(effectiveWhatsappId) ? effectiveWhatsappId : "no-whatsapp";
   const contact = (ticket as any).contact;
   const remoteJid =
     typeof contact?.remoteJid === "string"
@@ -79,7 +88,7 @@ const ticketConversationKey = (ticket: Ticket): string | null => {
 
   if (!contactKey) return null;
 
-  return `${channel}:${connectionKey}:${groupFlag}:${contactKey}`;
+  return `${companyKey}:${channel}:${connectionKey}:${groupFlag}:${contactKey}`;
 };
 
 const dedupeTicketsByConversation = (tickets: Ticket[]): Ticket[] => {
@@ -153,7 +162,7 @@ const ListTicketsService = async ({
     {
       model: Contact,
       as: "contact",
-      attributes: ["id", "name", "number", "email", "profilePicUrl", "acceptAudioMessage", "active", "urlPicture", "companyId", "remoteJid"],
+      attributes: ["id", "name", "number", "email", "profilePicUrl", "acceptAudioMessage", "active", "urlPicture", "companyId", "channel", "whatsappId", "remoteJid"],
       include: ["extraInfo", "tags"]
     },
     {
@@ -174,7 +183,7 @@ const ListTicketsService = async ({
     {
       model: Whatsapp,
       as: "whatsapp",
-      attributes: ["id", "name", "expiresTicket", "groupAsTicket"]
+      attributes: ["id", "name", "channel", "expiresTicket", "groupAsTicket"]
     },
   ];
 
@@ -601,7 +610,7 @@ const ListTicketsService = async ({
   const { count, rows: ticketRows } = await Ticket.findAndCountAll({
     where: whereCondition,
     include: includeCondition,
-    attributes: ["id", "uuid", "userId", "queueId", "isGroup", "channel", "status", "contactId", "useIntegration", "lastMessage", "updatedAt", "unreadMessages"],
+    attributes: ["id", "uuid", "userId", "queueId", "isGroup", "channel", "status", "contactId", "whatsappId", "companyId", "useIntegration", "lastMessage", "updatedAt", "unreadMessages"],
     distinct: true,
     limit,
     offset,

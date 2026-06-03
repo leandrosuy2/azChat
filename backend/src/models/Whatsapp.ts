@@ -129,6 +129,18 @@ class Whatsapp extends Model<Whatsapp> {
   tokenMetaExpiresAt: Date;
 
   @Column(DataType.TEXT)
+  metaAppId: string;
+
+  @Column(DataType.TEXT)
+  metaAppSecret: string;
+
+  @Column(DataType.TEXT)
+  metaVerifyToken: string;
+
+  @Column(DataType.DATE)
+  metaLastSyncAt: Date;
+
+  @Column(DataType.TEXT)
   metaConnectionError: string;
 
   @Column(DataType.TEXT)

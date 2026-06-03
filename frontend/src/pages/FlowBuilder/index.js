@@ -192,6 +192,8 @@ const FlowBuilder = () => {
 
   const handleOpenContactModal = () => {
     setSelectedContactId(null);
+    setSelectedWebhookName(null);
+    setDeletingContact(null);
     setContactModalOpen(true);
   };
 
@@ -265,6 +267,20 @@ const FlowBuilder = () => {
     history.push(`/flowbuilder/${deletingContact.id}`)
   }
 
+  const channelLabel = (channels) => {
+    const list = Array.isArray(channels) && channels.length
+      ? channels
+      : ["whatsapp", "facebook", "instagram"];
+    return list
+      .map((channel) => {
+        if (channel === "whatsapp") return "WhatsApp";
+        if (channel === "facebook") return "Facebook";
+        if (channel === "instagram") return "Instagram";
+        return channel;
+      })
+      .join(", ");
+  };
+
   return (
     <MainContainer className={classes.mainContainer}>
       <NewTicketModal
@@ -280,6 +296,7 @@ const FlowBuilder = () => {
         aria-labelledby="form-dialog-title"
         flowId={selectedContactId}
         nameWebhook={selectedWebhookName}
+        initialValues={deletingContact || null}
         onSave={() => setReloadData(old => !old)}
       ></FlowBuilderModal>
       <ConfirmationModal
@@ -361,7 +378,7 @@ const FlowBuilder = () => {
               {i18n.t("contacts.table.name")}
             </Grid>
             <Grid item xs={4} style={{ color: colorTopTable() }} align="center">
-              Status
+              Canais
             </Grid>
             <Grid item xs={4} align="end" style={{ color: colorTopTable() }}>
               {i18n.t("contacts.table.actions")}
@@ -398,7 +415,7 @@ const FlowBuilder = () => {
                 </Grid>
                 <Grid item xs={4} align="center" style={{ color: "#ededed" }}  onClick={() => history.push(`/flowbuilder/${contact.id}`)}>
                   <Stack justifyContent={"center"} height={"100%"}>
-                    {contact.active ? "Ativo" : "Desativado"}
+                    {channelLabel(contact.channels)}
                   </Stack>
                 </Grid>
                 <Grid item xs={4} align="end">

@@ -44,6 +44,7 @@ import { get } from "http";
 import { WebhookModel } from "../../models/Webhook";
 import { is } from "bluebird";
 import ShowTicketService from "../TicketServices/ShowTicketService";
+import CreateMetaEventLogService from "../MetaServices/CreateMetaEventLogService";
 
 interface IMe {
   name: string;
@@ -935,6 +936,17 @@ export const handleMessage = async (
 
     return;
   } catch (error) {
+    await CreateMetaEventLogService({
+      companyId: Number(companyId),
+      whatsappId: token?.id || null,
+      channel,
+      direction: "inbound",
+      eventType: "message_processing",
+      externalId: webhookEvent?.message?.mid || null,
+      status: "error",
+      errorMessage: error?.message || String(error),
+      payload: webhookEvent
+    });
     throw new Error(error);
   }
 };

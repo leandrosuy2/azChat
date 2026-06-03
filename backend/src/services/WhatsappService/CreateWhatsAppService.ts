@@ -5,6 +5,7 @@ import Whatsapp from "../../models/Whatsapp";
 import Company from "../../models/Company";
 import Plan from "../../models/Plan";
 import AssociateWhatsappQueue from "./AssociateWhatsappQueue";
+import { randomBytes } from "crypto";
 
 interface Request {
   name: string;
@@ -50,6 +51,9 @@ interface Request {
   queueIdImportMessages?: number;
   flowIdNotPhrase?: number;
   flowIdWelcome?: number;
+  metaAppId?: string;
+  metaAppSecret?: string;
+  metaVerifyToken?: string;
 }
 
 interface Response {
@@ -103,7 +107,10 @@ const CreateWhatsAppService = async ({
   collectiveVacationStart,
   queueIdImportMessages,
   flowIdNotPhrase,
-  flowIdWelcome
+  flowIdWelcome,
+  metaAppId,
+  metaAppSecret,
+  metaVerifyToken
 }: Request): Promise<Response> => {
   const company = await Company.findOne({
     where: {
@@ -238,7 +245,14 @@ const CreateWhatsAppService = async ({
       collectiveVacationStart,
       queueIdImportMessages: optionalForeignKey(queueIdImportMessages),
       flowIdNotPhrase,
-      flowIdWelcome
+      flowIdWelcome,
+      metaAppId,
+      metaAppSecret,
+      metaVerifyToken:
+        metaVerifyToken ||
+        (["facebook", "instagram"].includes(channel)
+          ? randomBytes(24).toString("hex")
+          : null)
     },
     { include: ["queues"] }
   );

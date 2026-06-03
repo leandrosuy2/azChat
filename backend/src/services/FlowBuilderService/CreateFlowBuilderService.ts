@@ -5,13 +5,15 @@ import { randomString } from "../../utils/randomCode";
 interface Request {
   userId: number;
   name: string;
-  companyId: number
+  companyId: number;
+  channels?: string[];
 }
 
 const CreateFlowBuilderService = async ({
   userId,
   name,
-  companyId
+  companyId,
+  channels = ["whatsapp", "facebook", "instagram"]
 }: Request): Promise<FlowBuilderModel | string> => {
   try {
     
@@ -31,6 +33,7 @@ const CreateFlowBuilderService = async ({
       user_id: userId,
       company_id: companyId,
       name: name,
+      channels,
     });
 
     return flow;

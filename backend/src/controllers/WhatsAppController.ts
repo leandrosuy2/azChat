@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { randomBytes } from "crypto";
+import { Op } from "sequelize";
 import { getIO } from "../libs/socket";
 import cacheLayer from "../libs/cache";
 import { removeWbot, restartWbot } from "../libs/wbot";
@@ -30,6 +32,11 @@ import {
   getInstagramMe,
   subscribeInstagramDirectApp
 } from "../services/InstagramServices/instagramAPI";
+import serializeWhatsapp, { serializeWhatsapps } from "../helpers/SerializeWhatsapp";
+import { getInstagramMe as validateInstagramToken } from "../services/InstagramServices/instagramAPI";
+import { validateFacebookToken } from "../services/FacebookServices/graphAPI";
+import MetaEventLog from "../models/MetaEventLog";
+import CreateMetaEventLogService from "../services/MetaServices/CreateMetaEventLogService";
 
 interface WhatsappData {
   name: string;
@@ -68,6 +75,9 @@ interface WhatsappData {
   queueIdImportMessages?: number;
   flowIdNotPhrase?: number;
   flowIdWelcome?: number;
+  metaAppId?: string;
+  metaAppSecret?: string;
+  metaVerifyToken?: string;
 }
 
 interface QueryParams {
@@ -80,7 +90,7 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
   const { session } = req.query as QueryParams;
   const whatsapps = await ListWhatsAppsService({ companyId, session });
 
-  return res.status(200).json(whatsapps);
+  return res.status(200).json(serializeWhatsapps(whatsapps));
 };
 
 export const indexFilter = async (req: Request, res: Response): Promise<Response> => {
@@ -89,7 +99,7 @@ export const indexFilter = async (req: Request, res: Response): Promise<Response
 
   const whatsapps = await ListFilterWhatsAppsService({ companyId, session, channel });
 
-  return res.status(200).json(whatsapps);
+  return res.status(200).json(serializeWhatsapps(whatsapps));
 };
 
 export const store = async (req: Request, res: Response): Promise<Response> => {
@@ -128,7 +138,10 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     collectiveVacationStart,
     queueIdImportMessages,
     flowIdNotPhrase,
-    flowIdWelcome
+    flowIdWelcome,
+    metaAppId,
+    metaAppSecret,
+    metaVerifyToken
   }: WhatsappData = req.body;
   const { companyId } = req.user;
 
@@ -181,7 +194,10 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     collectiveVacationStart,
     queueIdImportMessages,
     flowIdNotPhrase,
-    flowIdWelcome
+    flowIdWelcome,
+    metaAppId,
+    metaAppSecret,
+    metaVerifyToken
   });
 
   StartWhatsAppSession(whatsapp, companyId);
@@ -190,18 +206,18 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
   io.of(String(companyId))
     .emit(`company-${companyId}-whatsapp`, {
       action: "update",
-      whatsapp
+      whatsapp: serializeWhatsapp(whatsapp)
     });
 
   if (oldDefaultWhatsapp) {
     io.of(String(companyId))
       .emit(`company-${companyId}-whatsapp`, {
         action: "update",
-        whatsapp: oldDefaultWhatsapp
+        whatsapp: serializeWhatsapp(oldDefaultWhatsapp)
       });
   }
 
-  return res.status(200).json(whatsapp);
+  return res.status(200).json(serializeWhatsapp(whatsapp));
 
 };
 
@@ -245,6 +261,18 @@ export const storeFacebook = async (
 
     const pages = [];
     let instagramConnections = 0;
+    const buildMetaFields = (channel: "facebook" | "instagram") => ({
+      metaAppId:
+        channel === "instagram"
+          ? process.env.INSTAGRAM_APP_ID || process.env.FACEBOOK_APP_ID
+          : process.env.FACEBOOK_APP_ID,
+      metaAppSecret:
+        channel === "instagram"
+          ? process.env.INSTAGRAM_APP_SECRET || process.env.FACEBOOK_APP_SECRET
+          : process.env.FACEBOOK_APP_SECRET,
+      metaVerifyToken: randomBytes(24).toString("hex")
+    });
+
     for await (const page of data) {
       const { name, access_token, id, instagram_business_account } = page;
 
@@ -262,6 +290,7 @@ export const storeFacebook = async (
           tokenMeta: longLivedUserToken,
           isDefault: false,
           channel: "instagram",
+          ...buildMetaFields("instagram"),
           status: "CONNECTED",
           greetingMessage: "",
           farewellMessage: "",
@@ -280,6 +309,7 @@ export const storeFacebook = async (
         tokenMeta: longLivedUserToken,
         isDefault: false,
         channel: "facebook",
+        ...buildMetaFields("facebook"),
         status: "CONNECTED",
         greetingMessage: "",
         farewellMessage: "",
@@ -312,7 +342,10 @@ export const storeFacebook = async (
           facebookUserToken: pageConection.facebookUserToken,
           tokenMeta: pageConection.tokenMeta,
           status: "CONNECTED",
-          channel: pageConection.channel
+          channel: pageConection.channel,
+          metaAppId: pageConection.metaAppId,
+          metaAppSecret: pageConection.metaAppSecret || exist.metaAppSecret,
+          metaVerifyToken: exist.metaVerifyToken || pageConection.metaVerifyToken
         });
         connection = exist;
       } else {
@@ -350,7 +383,7 @@ export const storeFacebook = async (
 
       io.of(String(companyId)).emit(`company-${companyId}-whatsapp`, {
         action: "update",
-        whatsapp: connection
+        whatsapp: serializeWhatsapp(connection)
       });
     }
     return res.status(200).json({ ok: true });
@@ -464,6 +497,9 @@ export const storeInstagramDirect = async (
       tokenMeta: shortLivedToken,
       tokenMetaExpiresAt,
       provider: "instagram_direct",
+      metaAppId: process.env.INSTAGRAM_APP_ID,
+      metaAppSecret: process.env.INSTAGRAM_APP_SECRET,
+      metaVerifyToken: randomBytes(24).toString("hex"),
       isDefault: false,
       channel: "instagram",
       status: "CONNECTED",
@@ -490,7 +526,10 @@ export const storeInstagramDirect = async (
         tokenMetaExpiresAt: pageConection.tokenMetaExpiresAt,
         provider: pageConection.provider,
         status: "CONNECTED",
-        channel: pageConection.channel
+        channel: pageConection.channel,
+        metaAppId: pageConection.metaAppId,
+        metaAppSecret: pageConection.metaAppSecret || exist.metaAppSecret,
+        metaVerifyToken: exist.metaVerifyToken || pageConection.metaVerifyToken
       });
       connection = exist;
     } else {
@@ -501,10 +540,10 @@ export const storeInstagramDirect = async (
     const io = getIO();
     io.of(String(companyId)).emit(`company-${companyId}-whatsapp`, {
       action: "update",
-      whatsapp: connection
+      whatsapp: serializeWhatsapp(connection)
     });
 
-    return res.status(200).json({ ok: true, whatsapp: connection });
+    return res.status(200).json({ ok: true, whatsapp: serializeWhatsapp(connection) });
   } catch (error) {
     console.log(error);
     const metaError = error?.response?.data?.error;
@@ -568,6 +607,124 @@ export const syncInstagramDms = async (
   return res.status(202).json({ accepted: true, whatsappId: whatsapp.id });
 };
 
+export const testMetaConnection = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { whatsappId } = req.params;
+  const { companyId } = req.user;
+
+  const whatsapp = await Whatsapp.findOne({
+    where: {
+      id: whatsappId,
+      companyId,
+      channel: { [Op.in]: ["facebook", "instagram"] }
+    }
+  });
+
+  if (!whatsapp) {
+    return res.status(404).json({ error: "Meta connection not found" });
+  }
+
+  try {
+    let profile: any;
+    if (whatsapp.channel === "instagram") {
+      profile = await validateInstagramToken(whatsapp.facebookUserToken);
+    } else {
+      profile = await validateFacebookToken(whatsapp.facebookUserToken);
+    }
+
+    await whatsapp.update({
+      status: "CONNECTED",
+      metaConnectionError: null,
+      metaLastSyncAt: new Date()
+    });
+
+    await CreateMetaEventLogService({
+      companyId,
+      whatsappId: whatsapp.id,
+      channel: whatsapp.channel,
+      direction: "system",
+      eventType: "connection_test",
+      status: "ok",
+      payload: { profile }
+    });
+
+    const io = getIO();
+    io.of(String(companyId)).emit(`company-${companyId}-whatsapp`, {
+      action: "update",
+      whatsapp: serializeWhatsapp(whatsapp)
+    });
+
+    return res.status(200).json({
+      ok: true,
+      status: "CONNECTED",
+      profile,
+      webhookUrl: serializeWhatsapp(whatsapp).webhookUrl
+    });
+  } catch (error) {
+    const metaError = error?.response?.data?.error;
+    const message =
+      metaError?.message || error?.message || "Falha ao testar conexão Meta";
+
+    await whatsapp.update({
+      status: "DISCONNECTED",
+      metaConnectionError: message
+    });
+
+    await CreateMetaEventLogService({
+      companyId,
+      whatsappId: whatsapp.id,
+      channel: whatsapp.channel,
+      direction: "system",
+      eventType: "connection_test",
+      status: "error",
+      errorMessage: message,
+      payload: { code: metaError?.code, type: metaError?.type }
+    });
+
+    return res.status(400).json({
+      ok: false,
+      status: "DISCONNECTED",
+      error: message,
+      code: metaError?.code,
+      type: metaError?.type
+    });
+  }
+};
+
+export const metaLogs = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { whatsappId } = req.params;
+  const { companyId } = req.user;
+  const limit = Math.min(Math.max(Number(req.query.limit) || 80, 1), 200);
+
+  const whatsapp = await Whatsapp.findOne({
+    where: {
+      id: whatsappId,
+      companyId,
+      channel: { [Op.in]: ["facebook", "instagram"] }
+    }
+  });
+
+  if (!whatsapp) {
+    return res.status(404).json({ message: "Meta integration not found" });
+  }
+
+  const logs = await MetaEventLog.findAll({
+    where: {
+      companyId,
+      whatsappId: whatsapp.id
+    },
+    order: [["createdAt", "DESC"]],
+    limit
+  });
+
+  return res.status(200).json({ logs });
+};
+
 export const show = async (req: Request, res: Response): Promise<Response> => {
   const { whatsappId } = req.params;
   const { companyId } = req.user;
@@ -577,7 +734,7 @@ export const show = async (req: Request, res: Response): Promise<Response> => {
   const whatsapp = await ShowWhatsAppService(whatsappId, companyId, session);
 
 
-  return res.status(200).json(whatsapp);
+  return res.status(200).json(serializeWhatsapp(whatsapp));
 };
 
 export const update = async (
@@ -598,18 +755,18 @@ export const update = async (
   io.of(String(companyId))
     .emit(`company-${companyId}-whatsapp`, {
       action: "update",
-      whatsapp
+      whatsapp: serializeWhatsapp(whatsapp)
     });
 
   if (oldDefaultWhatsapp) {
     io.of(String(companyId))
       .emit(`company-${companyId}-whatsapp`, {
         action: "update",
-        whatsapp: oldDefaultWhatsapp
+        whatsapp: serializeWhatsapp(oldDefaultWhatsapp)
       });
   }
 
-  return res.status(200).json(whatsapp);
+  return res.status(200).json(serializeWhatsapp(whatsapp));
 
 };
 
@@ -701,7 +858,7 @@ export const listAll = async (req: Request, res: Response): Promise<Response> =>
   const { companyId } = req.user;
   const { session } = req.query as QueryParams;
   const whatsapps = await ListAllWhatsAppsService({ session });
-  return res.status(200).json(whatsapps);
+  return res.status(200).json(serializeWhatsapps(whatsapps));
 };
 
 export const updateAdmin = async (

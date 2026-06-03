@@ -16,6 +16,9 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Box from "@material-ui/core/Box";
 
 import { i18n } from "../../translate/i18n";
 
@@ -65,6 +68,7 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 
 	const [contact, setContact] = useState({
 		name: nameWebhook,
+		channels: initialValues?.channels || ["whatsapp", "facebook", "instagram"],
 	});
 
 	useEffect(() => {
@@ -73,10 +77,19 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 		};
 	}, []);
 
+	useEffect(() => {
+		if (!open) return;
+		setContact({
+			name: nameWebhook || "",
+			channels: initialValues?.channels || ["whatsapp", "facebook", "instagram"],
+		});
+	}, [open, nameWebhook, initialValues]);
+
 	const handleClose = () => {
 		onClose();
 		setContact({
 			name: "",
+			channels: ["whatsapp", "facebook", "instagram"],
 		});
 	};
 
@@ -85,7 +98,8 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 			try {
 				await api.put("/flowbuilder", {
 					name: values.name,
-					flowId
+					flowId,
+					channels: values.channels?.length ? values.channels : ["whatsapp", "facebook", "instagram"]
 				  });
 				  onSave(values.name)
 				  handleClose()
@@ -97,6 +111,7 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 		try {
 			await api.post("/flowbuilder", {
 				name: values.name,
+				channels: values.channels?.length ? values.channels : ["whatsapp", "facebook", "instagram"]
 			  });
 			  onSave(values.name)
 			  handleClose()
@@ -126,7 +141,16 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 						}, 400);
 					}}
 				>
-					{({ values, errors, touched, isSubmitting }) => (
+					{({ values, errors, touched, isSubmitting, setFieldValue }) => {
+						const toggleChannel = (channel) => {
+							const current = Array.isArray(values.channels) ? values.channels : [];
+							const next = current.includes(channel)
+								? current.filter((item) => item !== channel)
+								: [...current, channel];
+							setFieldValue("channels", next);
+						};
+
+						return (
 						<Form>
 							<DialogContent dividers>
 								<Field
@@ -142,6 +166,26 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 									className={classes.textField}
 									style={{width: '95%'}}
 								/>
+								<Box mt={2}>
+									<Typography variant="subtitle2">Canais permitidos</Typography>
+									{[
+										["whatsapp", "WhatsApp"],
+										["facebook", "Facebook"],
+										["instagram", "Instagram"],
+									].map(([channel, label]) => (
+										<FormControlLabel
+											key={channel}
+											control={
+												<Checkbox
+													color="primary"
+													checked={(values.channels || []).includes(channel)}
+													onChange={() => toggleChannel(channel)}
+												/>
+											}
+											label={label}
+										/>
+									))}
+								</Box>
 							
 							</DialogContent>
 							<DialogActions>
@@ -172,7 +216,8 @@ const FlowBuilderModal = ({ open, onClose, flowId, nameWebhook = "", initialValu
 								</Button>
 							</DialogActions>
 						</Form>
-					)}
+					);
+					}}
 				</Formik>
 			</Dialog>
 		</div>

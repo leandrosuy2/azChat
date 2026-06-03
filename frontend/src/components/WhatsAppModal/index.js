@@ -143,7 +143,12 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     collectiveVacationEnd: "",
     collectiveVacationStart: "",
     collectiveVacationMessage: "",
-    queueIdImportMessages: null
+    queueIdImportMessages: null,
+    channel: "whatsapp",
+    metaAppId: "",
+    metaAppSecret: "",
+    metaVerifyToken: "",
+    webhookUrl: ""
   };
   const [whatsApp, setWhatsApp] = useState(initialState);
   const [selectedQueueIds, setSelectedQueueIds] = useState([]);
@@ -449,6 +454,15 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
     setCopied(true); // Define o estado de cópia como verdadeiro
   };
 
+  const handleCopyText = (text, label = "Conteúdo") => {
+    if (!text) {
+      toast.error(`${label} não disponível.`);
+      return;
+    }
+    navigator.clipboard.writeText(text);
+    toast.success(`${label} copiado.`);
+  };
+
   const handleSaveSchedules = async (values) => {
     toast.success("Clique em salvar para registar as alterações");
     setSchedules(values);
@@ -505,7 +519,17 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
             }, 400);
           }}
         >
-          {({ values, touched, errors, isSubmitting }) => (
+          {({ values, touched, errors, isSubmitting }) => {
+            const currentChannel = values.channel || whatsApp.channel || "whatsapp";
+            const isMetaChannel = ["facebook", "instagram"].includes(currentChannel);
+            const compatibleWebhooks = webhooks.filter((webhook) => {
+              const channels = Array.isArray(webhook.channels) && webhook.channels.length
+                ? webhook.channels
+                : ["whatsapp", "facebook", "instagram"];
+              return channels.includes(currentChannel);
+            });
+
+            return (
             <Form>
               <Paper className={classes.mainPaper} elevation={1}>
                 <Tabs
@@ -961,6 +985,77 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                         </Select>
                       </FormControl>
                     )}
+                    {isMetaChannel && (
+                      <>
+                        <Divider style={{ margin: "16px 0" }} />
+                        <Typography variant="subtitle1" gutterBottom>
+                          Meta / {currentChannel === "instagram" ? "Instagram" : "Facebook"}
+                        </Typography>
+                        <Grid container spacing={1}>
+                          <Grid item xs={12} md={6}>
+                            <Field
+                              as={TextField}
+                              label="Meta App ID"
+                              fullWidth
+                              name="metaAppId"
+                              variant="outlined"
+                              margin="dense"
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={6}>
+                            <Field
+                              as={TextField}
+                              label="Meta App Secret"
+                              fullWidth
+                              name="metaAppSecret"
+                              type="password"
+                              variant="outlined"
+                              margin="dense"
+                              helperText="Deixe mascarado/em branco para manter o segredo atual."
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={6}>
+                            <Field
+                              as={TextField}
+                              label="Verify Token"
+                              fullWidth
+                              name="metaVerifyToken"
+                              variant="outlined"
+                              margin="dense"
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={6}>
+                            <TextField
+                              label="URL do webhook"
+                              fullWidth
+                              value={values.webhookUrl || ""}
+                              variant="outlined"
+                              margin="dense"
+                              InputProps={{ readOnly: true }}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Button
+                              variant="outlined"
+                              color="primary"
+                              startIcon={<FileCopy />}
+                              onClick={() => handleCopyText(values.webhookUrl, "URL do webhook")}
+                              style={{ marginRight: 8 }}
+                            >
+                              Copiar webhook
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              color="primary"
+                              startIcon={<FileCopy />}
+                              onClick={() => handleCopyText(values.metaVerifyToken, "Verify Token")}
+                            >
+                              Copiar token
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </>
+                    )}
                   </DialogContent>
                 </TabPanel>
                 <TabPanel
@@ -1310,7 +1405,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                             margin="dense"
                             labelId="flowIdWelcome-selection-label"                        >
                             <MenuItem value={null} >{"Desabilitado"}</MenuItem>
-                            {webhooks.map(webhook => (
+                            {compatibleWebhooks.map(webhook => (
                               <MenuItem key={webhook.id} value={webhook.id}>
                                 {webhook.name}
                               </MenuItem>
@@ -1338,7 +1433,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                             margin="dense"
                             labelId="flowNotIdPhrase-selection-label"                        >
                             <MenuItem value={null} >{"Desabilitado"}</MenuItem>
-                            {webhooks.map(webhook => (
+                            {compatibleWebhooks.map(webhook => (
                               <MenuItem key={webhook.id} value={webhook.id}>
                                 {webhook.name}
                               </MenuItem>
@@ -1395,7 +1490,8 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
                 </Button>
               </DialogActions>
             </Form>
-          )}
+          );
+          }}
         </Formik>
       </Dialog>
     </div>
