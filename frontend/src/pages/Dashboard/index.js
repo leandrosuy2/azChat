@@ -49,8 +49,10 @@ import MomentsUser from "../../components/MomentsUser";
 import Reports from "../Reports";
 import CommercialBiPanel from "../../components/Dashboard/CommercialBiPanel";
 import CompanyFinancePanel from "../../components/Dashboard/CompanyFinancePanel";
+import { getBackendUrl } from "../../config";
 
 const HUB_KEYS = ["indicators", "reports", "live", "commercial", "finance"];
+const backendUrl = getBackendUrl();
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -210,14 +212,17 @@ const Dashboard = () => {
   const softShadow = "0 12px 34px rgba(15, 23, 42, 0.08)";
   const panelBorder = "1px solid rgba(226, 232, 240, 0.9)";
   const userInitial = (user?.name || "A").trim().charAt(0).toUpperCase();
+  const userProfileUrl = user?.profileImage
+    ? `${backendUrl}/public/company${user.companyId}/user/${user.profileImage}`
+    : undefined;
 
   return (
     <Box sx={{ backgroundColor: "#f7f8fc", minHeight: "100vh", py: { xs: 2, md: 3 } }}>
       <Container maxWidth="xl" sx={{ px: { xs: 1.5, sm: 2.5 } }}>
         {/* Header with filter button */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, gap: 2, mb: 2.5, flexDirection: { xs: "column", sm: "row" } }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, gap: 1.5, mb: 2, flexDirection: { xs: "column", sm: "row" } }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="h4" fontWeight={800} color="#10162f" sx={{ letterSpacing: 0 }}>
+            <Typography variant="h5" fontWeight={800} color="#10162f" sx={{ letterSpacing: 0 }}>
               Painel operacional
             </Typography>
             <HelpHint areaKey="dashboard" />
@@ -292,8 +297,8 @@ const Dashboard = () => {
         <>
         <Paper
           sx={{
-            mb: 2,
-            p: { xs: 2, md: 3 },
+            mb: 1.75,
+            p: { xs: 1.5, sm: 2 },
             borderRadius: 2,
             border: panelBorder,
             boxShadow: softShadow,
@@ -307,32 +312,34 @@ const Dashboard = () => {
               position: "absolute",
               right: { xs: -30, md: 48 },
               bottom: -10,
-              width: { xs: 130, md: 210 },
-              height: { xs: 80, md: 130 },
+              width: { xs: 110, md: 170 },
+              height: { xs: 64, md: 96 },
               borderRadius: "48% 52% 0 0",
               background: "linear-gradient(135deg, rgba(91,43,224,0.14), rgba(91,43,224,0.02))"
             }}
           />
-          <Stack direction="row" alignItems="center" spacing={2.5} sx={{ position: "relative" }}>
+          <Stack direction="row" alignItems="center" spacing={{ xs: 1.5, sm: 2 }} sx={{ position: "relative" }}>
             <Avatar
+              src={userProfileUrl}
+              alt={user?.name || "Atendente"}
               sx={{
-                width: { xs: 74, md: 104 },
-                height: { xs: 74, md: 104 },
+                width: { xs: 52, sm: 64, md: 72 },
+                height: { xs: 52, sm: 64, md: 72 },
                 bgcolor: "#5b2be0",
                 color: "#fff",
                 fontWeight: 800,
-                fontSize: { xs: 28, md: 40 },
-                border: "5px solid #eee7ff",
+                fontSize: { xs: 22, sm: 26, md: 30 },
+                border: "4px solid #eee7ff",
                 boxShadow: "0 12px 28px rgba(91, 43, 224, 0.18)"
               }}
             >
               {userInitial}
             </Avatar>
             <Box sx={{ minWidth: 0 }}>
-              <Typography variant="h5" fontWeight={800} color="#10162f" sx={{ mb: 0.75 }}>
+              <Typography variant="h6" fontWeight={800} color="#10162f" sx={{ mb: 0.25, fontSize: { xs: 18, sm: 20 } }}>
                 Bem-vindo, {user?.name || "Atendente"}
               </Typography>
-              <Typography variant="body1" color="#596275" sx={{ maxWidth: 620, lineHeight: 1.55 }}>
+              <Typography variant="body2" color="#596275" sx={{ maxWidth: 620, lineHeight: 1.4, fontSize: { xs: 12.5, sm: 13.5 } }}>
                 Acompanhe seus atendimentos, metas e indicadores em um painel organizado para decisao rapida.
               </Typography>
             </Box>
@@ -362,9 +369,9 @@ const Dashboard = () => {
         )}
 
         {/* Statistics Cards */}
-        <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid container spacing={1.5} sx={{ mb: 2.25 }}>
           {statCards.map((card, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
+            <Grid item xs={6} sm={4} md={3} lg={2} key={index}>
               <Card 
                 sx={{ 
                   height: "100%",
@@ -378,39 +385,43 @@ const Dashboard = () => {
                   }
                 }}
               >
-                <CardContent sx={{ p: 2 }}>
+                <CardContent sx={{ p: { xs: 1.25, sm: 1.5 } }}>
                   <Stack
                     direction="row"
                     alignItems="center"
-                    spacing={1.5}
+                    spacing={{ xs: 1, sm: 1.25 }}
                   >
                     <Avatar
                       sx={{
                         bgcolor: `${card.color}18`,
                         color: card.color,
-                        width: 52,
-                        height: 52
+                        width: { xs: 38, sm: 44 },
+                        height: { xs: 38, sm: 44 }
                       }}
                     >
-                      <SvgIcon>{card.icon}</SvgIcon>
+                      <SvgIcon sx={{ fontSize: { xs: 20, sm: 24 } }}>{card.icon}</SvgIcon>
                     </Avatar>
-                    <Box>
+                    <Box sx={{ minWidth: 0 }}>
                       <Typography 
                         variant="overline" 
                         sx={{ 
                           fontWeight: 600,
-                          fontSize: "0.7rem",
-                          color: "text.secondary" 
+                          fontSize: { xs: "0.62rem", sm: "0.68rem" },
+                          color: "text.secondary",
+                          lineHeight: 1.15,
+                          display: "block",
+                          whiteSpace: "normal"
                         }}
                       >
                         {card.title}
                       </Typography>
                       <Typography 
-                        variant="h3"
+                        variant="h4"
                         sx={{ 
                           fontWeight: 800,
                           color: card.color,
-                          lineHeight: 1
+                          lineHeight: 1,
+                          fontSize: { xs: 24, sm: 30 }
                         }}
                       >
                         {card.value}
