@@ -257,6 +257,18 @@ const useStyles = makeStyles((theme) => ({
     color: "#25d366",
     backgroundColor: alpha("#25d366", 0.16),
   },
+  phoneStartButton: {
+    width: 32,
+    height: 32,
+    padding: 0,
+    flexShrink: 0,
+    color: theme.palette.primary.main,
+    backgroundColor: alpha(theme.palette.primary.main, 0.12),
+    borderRadius: 6,
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.primary.main, 0.2),
+    },
+  },
 
   customBadge: {
     right: "-10px",
@@ -351,6 +363,7 @@ const TicketsManagerTabs = () => {
   const narrowInnerTabs = useMediaQuery(theme.breakpoints.down("md"));
 
   const [searchParam, setSearchParam] = useState("");
+  const [rawSearchParam, setRawSearchParam] = useState("");
   const [tab, setTab] = useState("open");
 
   const searchInputRef = useRef();
@@ -436,7 +449,7 @@ const TicketsManagerTabs = () => {
   };
 
   const handleStartConversationWithPhone = () => {
-    const digits = onlyDigits(searchParam);
+    const digits = onlyDigits(rawSearchParam || searchParam);
     if (!isValidPhoneSearch(digits)) return;
     setNewTicketInitialContact(undefined);
     setNewTicketInitialPhone(digits);
@@ -447,11 +460,13 @@ const TicketsManagerTabs = () => {
 
   const handleSearch = (e) => {
     const searchedTerm = e.target.value.toLowerCase();
+    setRawSearchParam(searchedTerm);
 
     clearTimeout(searchTimeout);
 
     if (searchedTerm === "") {
       setSearchParam(searchedTerm);
+      setRawSearchParam(searchedTerm);
       setForceSearch(!forceSearch);
       if (searchMode === "contacts") {
         setTab("search");
@@ -475,6 +490,7 @@ const TicketsManagerTabs = () => {
       setSearchContacts([]);
       setLoadingSearchContacts(false);
       setSearchParam("");
+      setRawSearchParam("");
       setTab("open");
       setForceSearch((current) => !current);
       if (searchInputRef.current) {
@@ -515,6 +531,7 @@ const TicketsManagerTabs = () => {
   const inboxActiveListTab =
     rawInboxTab === "group" && !user.allowGroup ? "open" : rawInboxTab;
   const searchDigits = onlyDigits(searchParam);
+  const quickPhoneRaw = rawSearchParam || searchParam;
   const hasExactContactByNumber = searchContacts.some(
     (contact) => onlyDigits(contact?.number) === searchDigits
   );
@@ -522,6 +539,9 @@ const TicketsManagerTabs = () => {
     searchMode === "contacts" &&
     isValidPhoneSearch(searchParam) &&
     !hasExactContactByNumber;
+  const canStartPhoneFromHeader =
+    searchMode === "messages" &&
+    isValidPhoneSearch(quickPhoneRaw);
 
   useEffect(() => {
     tdlog("TicketsManagerTabs: qual lista de conversas está visível", {
@@ -576,6 +596,18 @@ const TicketsManagerTabs = () => {
               <NewMessageIcon style={{ fontSize: 26 }} />
             </IconButton>
           </Tooltip>
+          {canStartPhoneFromHeader && (
+            <Tooltip placement="top" title="Iniciar conversa com este número">
+              <IconButton
+                size="small"
+                className={classes.phoneStartButton}
+                onClick={handleStartConversationWithPhone}
+                aria-label="Iniciar conversa com este número"
+              >
+                <PhoneIcon style={{ fontSize: 22 }} />
+              </IconButton>
+            </Tooltip>
+          )}
           <HelpHint areaKey="tickets" />
         </Box>
       </div>

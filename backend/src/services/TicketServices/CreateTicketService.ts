@@ -1,4 +1,5 @@
 import AppError from "../../errors/AppError";
+import { Op } from "sequelize";
 
 import GetDefaultWhatsApp from "../../helpers/GetDefaultWhatsApp";
 import GetDefaultWhatsAppByUser from "../../helpers/GetDefaultWhatsAppByUser";
@@ -105,6 +106,22 @@ const CreateTicketService = async ({
   // Se no futuro precisarem bloquear/reaproveitar, isso deve ser opt-in explícito por tela.
 
   const { isGroup } = await ShowContactService(contactId, companyId);
+
+  if (!forceNewTicket) {
+    const activeTicket = await Ticket.findOne({
+      where: {
+        contactId,
+        companyId,
+        whatsappId: defaultWhatsapp.id,
+        status: { [Op.in]: ["open", "pending", "group"] }
+      },
+      order: [["updatedAt", "DESC"]]
+    });
+
+    if (activeTicket) {
+      return ShowTicketService(activeTicket.id, companyId);
+    }
+  }
 
   let ticket = await Ticket.create({
     contactId,

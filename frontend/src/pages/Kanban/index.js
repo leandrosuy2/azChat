@@ -445,11 +445,18 @@ const useStyles = makeStyles((theme) => ({
   columnCards: {
     flex: 1,
     minHeight: 0,
-    padding: theme.spacing(1.5),
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.grey[900]
         : "#f5f5f5",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+  },
+  cardList: {
+    flex: 1,
+    minHeight: 0,
+    padding: theme.spacing(1.5),
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing(1.5),
@@ -495,13 +502,14 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     padding: 0,
+    flex: "0 0 auto",
     borderRadius: 10,
     boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.primary,
     display: "flex",
     flexDirection: "column",
-    overflow: "hidden",
+    overflow: "visible",
     cursor: "grab",
     transition: "box-shadow 0.2s ease",
     "&:hover": {
@@ -2927,6 +2935,7 @@ const Kanban = () => {
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, lane.id)}
             >
+              <div className={classes.cardList}>
               {filteredLaneTickets.length === 0 && columnSearchNorm ? (
                 <Typography variant="caption" color="textSecondary" style={{ textAlign: "center", padding: 8 }}>
                   Nenhum cartão encontrado para esta pesquisa.
@@ -3119,6 +3128,7 @@ const Kanban = () => {
                 );
               })
               )}
+              </div>
             </div>
           </div>
           );

@@ -176,8 +176,10 @@ const NewTicketModal = ({
 
   const handleSaveTicket = async (keepOpen = false) => {
     let contactToUse = selectedContact;
+    const startedByTypedPhone =
+      !isKanbanArea && !selectedContact?.id && (phoneInput || "").trim();
 
-    if (!isKanbanArea && !contactToUse?.id && (phoneInput || "").trim()) {
+    if (startedByTypedPhone) {
       try {
         const digits = (phoneInput || "").replace(/\D/g, "");
         const nid = await findOrCreateContactForQuadro(
@@ -229,7 +231,7 @@ const NewTicketModal = ({
           whatsappId: payloadWhatsappId,
           userId: user.id,
           status: "open",
-          forceNewTicket: true,
+          forceNewTicket: !startedByTypedPhone,
         };
         if (isKanbanArea) {
           const n = Number(quadroGroupId);
