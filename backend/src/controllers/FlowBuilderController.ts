@@ -44,13 +44,14 @@ export const updateFlow = async (
   res: Response
 ): Promise<Response> => {
   const { companyId } = req.user;
-  const { flowId, name, channels } = req.body;
+  const { flowId, name, channels, active } = req.body;
 
   const flow = await UpdateFlowBuilderService({
     companyId,
     name,
     flowId,
-    channels: Array.isArray(channels) ? channels : undefined
+    channels: Array.isArray(channels) ? channels : undefined,
+    active: typeof active === "boolean" ? active : undefined
   });
 
   if(flow === 'exist'){
@@ -78,9 +79,11 @@ export const myFlows = async (
   res: Response
 ): Promise<Response> => {
   const { companyId } = req.user;
+  const { channel } = req.query;
 
   const flows = await ListFlowBuilderService({
-    companyId
+    companyId,
+    channel: typeof channel === "string" ? channel : undefined
   });
 
   return res.status(200).json(flows);

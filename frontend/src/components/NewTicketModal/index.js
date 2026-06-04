@@ -53,6 +53,7 @@ const NewTicketModal = ({
   modalOpen,
   onClose,
   initialContact,
+  initialPhoneNumber = "",
   quadroGroupId,
   /** Coluna Kanban onde o cartão será criado (id da tag ou `lane0`); só usado com `quadroGroupId`. */
   kanbanLaneId = null,
@@ -94,6 +95,15 @@ const NewTicketModal = ({
       }
     }
   }, [initialContact]);
+
+  useEffect(() => {
+    if (!modalOpen || !initialPhoneNumber) return;
+    const digits = String(initialPhoneNumber).replace(/\D/g, "");
+    setSelectedContact(null);
+    setSearchParam(digits);
+    setPhoneInput(digits);
+    setOptions([]);
+  }, [modalOpen, initialPhoneNumber]);
 
   useEffect(() => {
     if (!modalOpen) return;
@@ -465,6 +475,23 @@ const NewTicketModal = ({
             )}
             {/* CONTATO */}
             {renderContactAutocomplete()}
+            {!isKanbanArea && !selectedContact?.id && phoneInput && (
+              <Grid xs={12} item>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  label="Número para iniciar conversa"
+                  value={phoneInput}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setPhoneInput(value);
+                    setSearchParam(value);
+                  }}
+                  helperText="O sistema vai localizar este número ou criar o vínculo mínimo para abrir o atendimento."
+                />
+              </Grid>
+            )}
             {/* FILA / CONEXÃO: só para tíquete com contato (API /tickets) */}
             {(!isKanbanArea || selectedContact) && (
             <>
@@ -598,7 +625,7 @@ const NewTicketModal = ({
             type="button"
             disabled={
               loading ||
-              (!isKanbanArea && !selectedContact?.id)
+              (!isKanbanArea && !selectedContact?.id && !(phoneInput || "").trim())
             }
             onClick={() => handleSaveTicket(false)}
             color="primary"
@@ -650,6 +677,7 @@ async function findOrCreateContactForQuadro(apiClient, phoneRaw, defaultName) {
     const { data } = await apiClient.post("/contacts", {
       name: defaultName || `Contato ${digits.slice(-4)}`,
       number: digits,
+      validateContact: false,
     });
     return data?.id || null;
   } catch (err) {

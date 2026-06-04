@@ -8,13 +8,15 @@ interface Request {
   name: string;
   flowId: number;
   channels?: string[];
+  active?: boolean;
 }
 
 const UpdateFlowBuilderService = async ({
   companyId,
   name,
   flowId,
-  channels
+  channels,
+  active
 }: Request): Promise<String> => {
   try {
 
@@ -34,6 +36,7 @@ const UpdateFlowBuilderService = async ({
 
     const updateData: any = { name };
     if (channels !== undefined) updateData.channels = channels;
+    if (active !== undefined) updateData.active = active;
 
     const flow = await FlowBuilderModel.update(updateData, {
       where: {id: flowId, company_id: companyId}

@@ -52,6 +52,8 @@ import PublicOrcamentoPage from "../pages/PublicOrcamentoPage";
 import { PrivacyPolicy, TermsOfService, MetaCallback, DataDeletion } from "../pages/PublicLegal";
 import NotificationsCenter from "../pages/NotificationsCenter";
 import Products from "../pages/Products";
+import MetaHub from "../pages/MetaHub";
+import WhatsappStatuses from "../pages/WhatsappStatuses";
 
 
 const Routes = () => {
@@ -109,6 +111,8 @@ const Routes = () => {
                   <Redirect to="/?hub=reports" />
                 </Route>
                 <Route exact path="/products" component={Products} isPrivate />
+                <Route exact path="/meta" component={MetaHub} isPrivate />
+                <Route exact path="/whatsapp-statuses" component={WhatsappStatuses} isPrivate />
                 <Route exact path="/queue-integration" component={QueueIntegration} isPrivate />
                 <Route exact path="/announcements" component={Annoucements} isPrivate />
                 <Route

@@ -50,6 +50,7 @@ import ticketBudgetRoutes from "./ticketBudgetRoutes";
 import productRoutes from "./productRoutes";
 import metaRoutes from "./metaRoutes";
 import globalSearchRoutes from "./globalSearchRoutes";
+import whatsappStatusRoutes from "./whatsappStatusRoutes";
 
 
 const routes = Router();
@@ -108,5 +109,6 @@ routes.use(ticketBudgetRoutes);
 routes.use(productRoutes);
 routes.use(metaRoutes);
 routes.use(globalSearchRoutes);
+routes.use(whatsappStatusRoutes);
 
 export default routes;

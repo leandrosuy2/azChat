@@ -34,6 +34,10 @@ import ForumIcon from "@material-ui/icons/Forum";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import BusinessIcon from "@material-ui/icons/Business";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import LinkIcon from "@material-ui/icons/Link";
+import ImageIcon from "@material-ui/icons/Image";
+import HistoryIcon from "@material-ui/icons/History";
 import {
   AllInclusive,
   AttachFile,
@@ -232,7 +236,9 @@ const MainListItems = ({ collapsed, drawerClose }) => {
 
   const [connectionWarning, setConnectionWarning] = useState(false);
   const [openCampaignSubmenu, setOpenCampaignSubmenu] = useState(false);
+  const [openWhatsappSubmenu, setOpenWhatsappSubmenu] = useState(false);
   const [openFlowSubmenu, setOpenFlowSubmenu] = useState(false);
+  const [openMetaSubmenu, setOpenMetaSubmenu] = useState(false);
   const [openDashboardSubmenu, setOpenDashboardSubmenu] = useState(false);
   const [showCampaigns, setShowCampaigns] = useState(false);
   const [showKanban, setShowKanban] = useState(false);
@@ -249,8 +255,10 @@ const MainListItems = ({ collapsed, drawerClose }) => {
   const [searchParam] = useState("");
   const [chats, dispatch] = useReducer(reducer, []);
   const [managementHover, setManagementHover] = useState(false);
+  const [whatsappHover, setWhatsappHover] = useState(false);
   const [campaignHover, setCampaignHover] = useState(false);
   const [flowHover, setFlowHover] = useState(false);
+  const [metaHover, setMetaHover] = useState(false);
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
   const isManagementActive =
     location.pathname === "/" || location.pathname.startsWith("/reports") || location.pathname.startsWith("/moments");
@@ -263,6 +271,12 @@ const MainListItems = ({ collapsed, drawerClose }) => {
   const isFlowbuilderRouteActive =
     location.pathname.startsWith("/phrase-lists") ||
     location.pathname.startsWith("/flowbuilders");
+
+  const isMetaRouteActive = location.pathname.startsWith("/meta");
+  const isWhatsAppRouteActive =
+    location.pathname.startsWith("/tickets") ||
+    location.pathname.startsWith("/whatsapp-statuses") ||
+    location.pathname.startsWith("/campaigns");
 
   useEffect(() => {
     if (location.pathname.startsWith("/tickets")) {
@@ -505,12 +519,72 @@ const MainListItems = ({ collapsed, drawerClose }) => {
           </>
         )}
       />
-      <ListItemLink
-        to="/tickets"
-        primary={i18n.t("mainDrawer.listItems.tickets")}
-        icon={<WhatsAppIcon />}
-        tooltip={collapsed}
-      />
+      <Tooltip title={collapsed ? "WhatsApp" : ""} placement="right">
+        <ListItem
+          dense
+          button
+          onClick={() => setOpenWhatsappSubmenu((prev) => !prev)}
+          onMouseEnter={() => setWhatsappHover(true)}
+          onMouseLeave={() => setWhatsappHover(false)}
+        >
+          <ListItemIcon>
+            <Avatar className={`${classes.iconHoverActive} ${isWhatsAppRouteActive || whatsappHover ? "active" : ""}`}>
+              <WhatsAppIcon />
+            </Avatar>
+          </ListItemIcon>
+          <ListItemText primary={<Typography className={classes.listItemText}>WhatsApp</Typography>} />
+          {openWhatsappSubmenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItem>
+      </Tooltip>
+      <Collapse
+        in={openWhatsappSubmenu}
+        timeout="auto"
+        unmountOnExit
+        style={{
+          backgroundColor: theme.mode === "light" ? "rgba(120,120,120,0.1)" : "rgba(120,120,120,0.5)",
+        }}
+      >
+        <List dense component="div" disablePadding>
+          <ListItemLink
+            to="/tickets"
+            primary={i18n.t("mainDrawer.listItems.tickets")}
+            icon={<WhatsAppIcon />}
+            tooltip={collapsed}
+          />
+          {showCampaigns && (
+            <ListItemLink
+              to="/campaigns"
+              primary="Campanhas"
+              icon={<EventAvailableIcon />}
+              tooltip={collapsed}
+            />
+          )}
+          <ListItemLink
+            to="/flowbuilders"
+            primary="Fluxos"
+            icon={<ShapeLine />}
+            tooltip={collapsed}
+          />
+          <ListItemLink
+            to="/whatsapp-statuses"
+            primary="Status"
+            icon={<ImageIcon />}
+            tooltip={collapsed}
+          />
+          <ListItemLink
+            to="/whatsapp-statuses?status=scheduled"
+            primary="Status Agendados"
+            icon={<Schedule />}
+            tooltip={collapsed}
+          />
+          <ListItemLink
+            to="/whatsapp-statuses?status=published"
+            primary="Histórico de Publicações"
+            icon={<HistoryIcon />}
+            tooltip={collapsed}
+          />
+        </List>
+      </Collapse>
 
       <ListItemLink
         to="/notifications"
@@ -705,6 +779,62 @@ const MainListItems = ({ collapsed, drawerClose }) => {
                         primary={'Fluxo de conversa'}
                         icon={<ShapeLine />}
                       />
+                    </List>
+                  </Collapse>
+                </>
+              )}
+            />
+
+
+            {/* INSTAGRAM / FACEBOOK */}
+            <Can
+              role={user.profile}
+              perform="dashboard:view"
+              yes={() => (
+                <>
+                  <Tooltip title={collapsed ? "Instagram/Facebook" : ""} placement="right">
+                    <ListItem
+                      dense
+                      button
+                      onClick={() => setOpenMetaSubmenu((prev) => !prev)}
+                      onMouseEnter={() => setMetaHover(true)}
+                      onMouseLeave={() => setMetaHover(false)}
+                    >
+                      <ListItemIcon>
+                        <Avatar
+                          className={`${classes.iconHoverActive} ${isMetaRouteActive || metaHover ? "active" : ""}`}
+                        >
+                          <InstagramIcon />
+                        </Avatar>
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          <Typography className={classes.listItemText}>
+                            Instagram/Facebook
+                          </Typography>
+                        }
+                      />
+                      {openMetaSubmenu ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </ListItem>
+                  </Tooltip>
+
+                  <Collapse
+                    in={openMetaSubmenu}
+                    timeout="auto"
+                    unmountOnExit
+                    style={{
+                      backgroundColor: theme.mode === "light" ? "rgba(120,120,120,0.1)" : "rgba(120,120,120,0.5)",
+                    }}
+                  >
+                    <List dense component="div" disablePadding>
+                      <ListItemLink to="/meta?tab=0" primary="Dashboard" icon={<DashboardOutlinedIcon />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=1" primary="Contas conectadas" icon={<LinkIcon />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=2" primary="Instagram Direct" icon={<InstagramIcon />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=3" primary="Flowbuilder Instagram" icon={<ShapeLine />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=4" primary="Chatbot" icon={<ForumIcon />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=5" primary="Automações" icon={<DeviceHubOutlined />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=6" primary="Webhooks" icon={<Webhook />} tooltip={collapsed} />
+                      <ListItemLink to="/meta?tab=7" primary="Configurações" icon={<SettingsOutlinedIcon />} tooltip={collapsed} />
                     </List>
                   </Collapse>
                 </>

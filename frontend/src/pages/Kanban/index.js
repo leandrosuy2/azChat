@@ -66,8 +66,16 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "1400px",
     margin: "0 auto",
     boxSizing: "border-box",
+    minHeight: 0,
     [theme.breakpoints.down("xs")]: {
       padding: theme.spacing(1),
+    },
+  },
+  boardRoot: {
+    height: "calc(100vh - 96px)",
+    overflow: "hidden",
+    [theme.breakpoints.down("xs")]: {
+      height: "calc(100vh - 80px)",
     },
   },
   // ===== LANDING PAGE: Seleção de Áreas =====
@@ -272,21 +280,26 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
   columnsWrapper: {
+    flex: "1 1 auto",
+    minHeight: 0,
     display: "flex",
     gap: theme.spacing(2),
     overflowX: "auto",
+    overflowY: "hidden",
     paddingBottom: theme.spacing(1),
-    minHeight: 520,
     WebkitOverflowScrolling: "touch",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       overflowX: "visible",
+      overflowY: "auto",
       minHeight: 0,
     },
   },
   column: {
     flex: "0 0 260px",
     minWidth: 260,
+    minHeight: 0,
+    maxHeight: "100%",
     display: "flex",
     flexDirection: "column",
     borderRadius: 8,
@@ -301,6 +314,7 @@ const useStyles = makeStyles((theme) => ({
       flex: "1 1 auto",
       minWidth: 0,
       width: "100%",
+      maxHeight: "calc(100vh - 230px)",
     },
   },
   columnDragging: {
@@ -430,6 +444,7 @@ const useStyles = makeStyles((theme) => ({
   },
   columnCards: {
     flex: 1,
+    minHeight: 0,
     padding: theme.spacing(1.5),
     backgroundColor:
       theme.palette.type === "dark"
@@ -438,7 +453,23 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing(1.5),
-    minHeight: 120,
+    overflowY: "auto",
+    overflowX: "hidden",
+    overscrollBehavior: "contain",
+    WebkitOverflowScrolling: "touch",
+    "&::-webkit-scrollbar": {
+      width: 8,
+    },
+    "&::-webkit-scrollbar-thumb": {
+      borderRadius: 8,
+      backgroundColor:
+        theme.palette.type === "dark"
+          ? "rgba(255,255,255,0.22)"
+          : "rgba(0,0,0,0.22)",
+    },
+    "&::-webkit-scrollbar-track": {
+      backgroundColor: "transparent",
+    },
   },
   columnCardsDragOver: {
     backgroundColor:
@@ -2608,7 +2639,7 @@ const Kanban = () => {
 
   // ===== QUADRO KANBAN (área selecionada) =====
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} ${classes.boardRoot}`}>
       {/* BARRA SUPERIOR DO QUADRO */}
       <div className={classes.boardTopBar}>
         <Button

@@ -1,9 +1,11 @@
 import { WebhookModel } from "../../models/Webhook";
 import User from "../../models/User";
 import { FlowBuilderModel } from "../../models/FlowBuilder";
+import { Op } from "sequelize";
 
 interface Request {
   companyId: number;
+  channel?: string;
 }
 
 interface Response {
@@ -12,15 +14,19 @@ interface Response {
 
 const ListFlowBuilderService = async ({
   companyId,
+  channel,
 }: Request): Promise<Response> => {
   
     try {
     
         // Realiza a consulta com paginação usando findAndCountAll
+        const whereCondition: any = { company_id: companyId };
+        if (channel) {
+          whereCondition.channels = { [Op.contains]: [channel] };
+        }
+
         const { count, rows } = await FlowBuilderModel.findAndCountAll({
-          where: {
-            company_id: companyId
-          }
+          where: whereCondition
         });
     
         const flowResult = []

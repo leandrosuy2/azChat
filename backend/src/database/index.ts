@@ -69,6 +69,7 @@ import ProductCategory from "../models/ProductCategory";
 import ProductUnit from "../models/ProductUnit";
 import CompanyLifecycleEvent from "../models/CompanyLifecycleEvent";
 import MetaEventLog from "../models/MetaEventLog";
+import WhatsappStatusPublication from "../models/WhatsappStatusPublication";
 
 // eslint-disable-next-line
 const dbConfig = require("../config/database");
@@ -145,7 +146,8 @@ const models = [
   ProductCategory,
   ProductUnit,
   CompanyLifecycleEvent,
-  MetaEventLog
+  MetaEventLog,
+  WhatsappStatusPublication
 ];
 
 sequelize.addModels(models);

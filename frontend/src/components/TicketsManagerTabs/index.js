@@ -30,6 +30,7 @@ import {
   Search as SearchIcon,
   PersonAdd as PersonAddIcon,
   AddCommentOutlined as NewMessageIcon,
+  PhoneAndroid as PhoneIcon,
 } from "@material-ui/icons";
 
 import api from "../../services/api";
@@ -296,8 +297,52 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     color: theme.palette.text.secondary,
   },
+  startPhoneConversation: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    margin: theme.spacing(1),
+    padding: theme.spacing(1, 1.25),
+    borderRadius: 8,
+    border: `1px solid ${alpha(theme.palette.primary.main, 0.28)}`,
+    background: alpha(theme.palette.primary.main, 0.06),
+    color: theme.palette.text.primary,
+    cursor: "pointer",
+    transition: "background 0.15s ease, border-color 0.15s ease",
+    "&:hover": {
+      background: alpha(theme.palette.primary.main, 0.1),
+      borderColor: alpha(theme.palette.primary.main, 0.45),
+    },
+  },
+  startPhoneIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 8,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    color: theme.palette.primary.main,
+    background: alpha(theme.palette.primary.main, 0.12),
+  },
 
 }));
+
+const onlyDigits = (value) => String(value || "").replace(/\D/g, "");
+const isValidPhoneSearch = (value) => {
+  const digits = onlyDigits(value);
+  return digits.length >= 10 && digits.length <= 15;
+};
+
+const formatPhoneSearchLabel = (value) => {
+  const digits = onlyDigits(value);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `+${digits.slice(0, 2)} ${digits.slice(2)}`;
+  if (digits.length <= 10) {
+    return `+${digits.slice(0, 2)} ${digits.slice(2, 4)} ${digits.slice(4)}`;
+  }
+  return `+${digits.slice(0, 2)} ${digits.slice(2, 4)} ${digits.slice(4, -4)}-${digits.slice(-4)}`;
+};
 
 const TicketsManagerTabs = () => {
   const theme = useTheme();
@@ -314,6 +359,7 @@ const TicketsManagerTabs = () => {
   const [searchContacts, setSearchContacts] = useState([]);
   const [loadingSearchContacts, setLoadingSearchContacts] = useState(false);
   const [newTicketInitialContact, setNewTicketInitialContact] = useState(undefined);
+  const [newTicketInitialPhone, setNewTicketInitialPhone] = useState("");
 
   const { user } = useContext(AuthContext);
   const hideInboxTagFolders = isUiHidden(user, "showInboxTagFolders");
@@ -385,6 +431,15 @@ const TicketsManagerTabs = () => {
 
   const handleStartConversationWithContact = (contact) => {
     setNewTicketInitialContact(contact);
+    setNewTicketInitialPhone("");
+    setNewTicketModalOpen(true);
+  };
+
+  const handleStartConversationWithPhone = () => {
+    const digits = onlyDigits(searchParam);
+    if (!isValidPhoneSearch(digits)) return;
+    setNewTicketInitialContact(undefined);
+    setNewTicketInitialPhone(digits);
     setNewTicketModalOpen(true);
   };
 
@@ -440,6 +495,7 @@ const TicketsManagerTabs = () => {
   const handleCloseNewTicketModal = (ticket) => {
     setNewTicketModalOpen(false);
     setNewTicketInitialContact(undefined);
+    setNewTicketInitialPhone("");
     if (ticket && !ticket.standalone && (ticket.uuid || ticket.id)) {
       history.push(`/tickets/${ticket.uuid != null ? ticket.uuid : ticket.id}`);
     }
@@ -458,6 +514,14 @@ const TicketsManagerTabs = () => {
   const rawInboxTab = inboxSubTabs.includes(tabOpen) ? tabOpen : "open";
   const inboxActiveListTab =
     rawInboxTab === "group" && !user.allowGroup ? "open" : rawInboxTab;
+  const searchDigits = onlyDigits(searchParam);
+  const hasExactContactByNumber = searchContacts.some(
+    (contact) => onlyDigits(contact?.number) === searchDigits
+  );
+  const canStartPhoneConversation =
+    searchMode === "contacts" &&
+    isValidPhoneSearch(searchParam) &&
+    !hasExactContactByNumber;
 
   useEffect(() => {
     tdlog("TicketsManagerTabs: qual lista de conversas está visível", {
@@ -756,9 +820,37 @@ const TicketsManagerTabs = () => {
               )}
             </Box>
             <Box className={classes.searchContactsBox}>
+              {canStartPhoneConversation && (
+                <Box
+                  role="button"
+                  tabIndex={0}
+                  className={classes.startPhoneConversation}
+                  onClick={handleStartConversationWithPhone}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      handleStartConversationWithPhone();
+                    }
+                  }}
+                >
+                  <span className={classes.startPhoneIcon}>
+                    <PhoneIcon fontSize="small" />
+                  </span>
+                  <Box minWidth={0}>
+                    <Typography variant="body2" style={{ fontWeight: 700 }}>
+                      Iniciar conversa com este número
+                    </Typography>
+                    <Typography variant="caption" color="textSecondary" component="div">
+                      {formatPhoneSearchLabel(searchParam)}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
               {!loadingSearchContacts && searchContacts.length === 0 ? (
                 <Typography variant="caption" color="textSecondary" className={classes.searchContactsEmpty} component="div">
-                  Nenhum contato encontrado.
+                  {canStartPhoneConversation
+                    ? "Nenhum contato cadastrado com este número."
+                    : "Nenhum contato encontrado."}
                 </Typography>
               ) : (
                 <List dense disablePadding>
@@ -821,6 +913,7 @@ const TicketsManagerTabs = () => {
         modalOpen={newTicketModalOpen}
         onClose={handleCloseNewTicketModal}
         initialContact={newTicketInitialContact}
+        initialPhoneNumber={newTicketInitialPhone}
       />
     </Paper >
   );

@@ -45,6 +45,8 @@ import TicketTag from "./models/TicketTag";
 import Tag from "./models/Tag";
 import { delay } from "@whiskeysockets/baileys";
 import Plan from "./models/Plan";
+import WhatsappStatusPublication from "./models/WhatsappStatusPublication";
+import PublishWhatsappStatusService from "./services/WhatsappStatusService/PublishWhatsappStatusService";
 
 const connection = process.env.REDIS_URI || "";
 const limiterMax = process.env.REDIS_OPT_LIMITER_MAX || 1;
@@ -80,6 +82,7 @@ export const scheduleMonitor = new BullQueue("ScheduleMonitor", connection);
 export const sendScheduledMessages = new BullQueue("SendSacheduledMessages", connection);
 export const campaignQueue = new BullQueue("CampaignQueue", connection);
 export const queueMonitor = new BullQueue("QueueMonitor", connection);
+export const whatsappStatusMonitor = new BullQueue("WhatsappStatusMonitor", connection);
 
 export const messageQueue = new BullQueue("MessageQueue", connection, {
   limiter: {
@@ -147,6 +150,41 @@ async function handleVerifySchedules(job) {
   } catch (e: any) {
     Sentry.captureException(e);
     logger.error("SendScheduledMessage -> Verify: error", e.message);
+    throw e;
+  }
+}
+
+async function handleVerifyWhatsappStatuses(job) {
+  try {
+    const records = await WhatsappStatusPublication.findAll({
+      where: {
+        status: "scheduled",
+        scheduledAt: {
+          [Op.lte]: moment().toDate()
+        }
+      },
+      limit: 30,
+      order: [["scheduledAt", "ASC"]]
+    });
+
+    for (const record of records) {
+      try {
+        await PublishWhatsappStatusService(record.id);
+        const updated = await WhatsappStatusPublication.findByPk(record.id);
+        if (updated) {
+          const io = getIO();
+          io.of(String(updated.companyId)).emit(`company-${updated.companyId}-whatsapp-status`, {
+            action: "update",
+            record: updated
+          });
+        }
+      } catch (err: any) {
+        logger.error(`WhatsappStatusMonitor -> error id=${record.id}: ${err?.message || err}`);
+      }
+    }
+  } catch (e: any) {
+    Sentry.captureException(e);
+    logger.error("WhatsappStatusMonitor -> Verify: error", e.message);
     throw e;
   }
 }
@@ -1761,6 +1799,8 @@ export async function startQueueProcess() {
 
   queueMonitor.process("VerifyQueueStatus", handleVerifyQueue);
 
+  whatsappStatusMonitor.process("VerifyWhatsappStatuses", handleVerifyWhatsappStatuses);
+
   scheduleMonitor.add(
     "Verify",
     {},
@@ -1793,6 +1833,15 @@ export async function startQueueProcess() {
     {},
     {
       repeat: { cron: "0 * * * * *", key: "verify-queue" },
+      removeOnComplete: true
+    }
+  );
+
+  whatsappStatusMonitor.add(
+    "VerifyWhatsappStatuses",
+    {},
+    {
+      repeat: { cron: "*/30 * * * * *", key: "verify-whatsapp-statuses" },
       removeOnComplete: true
     }
   );
