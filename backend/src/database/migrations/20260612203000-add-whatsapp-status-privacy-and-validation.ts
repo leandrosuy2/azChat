@@ -1,11 +1,14 @@
 import { QueryInterface, DataTypes } from "sequelize";
 
+const TABLE = "WhatsappStatusPublications";
+type TableColumns = Record<string, unknown>;
+
 module.exports = {
   up: async (queryInterface: QueryInterface): Promise<void> => {
-    const table = await queryInterface.describeTable("WhatsappStatusPublications");
+    const table = (await queryInterface.describeTable(TABLE)) as TableColumns;
 
     if (!table.privacyMode) {
-      await queryInterface.addColumn("WhatsappStatusPublications", "privacyMode", {
+      await queryInterface.addColumn(TABLE, "privacyMode", {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "contacts"
@@ -13,14 +16,14 @@ module.exports = {
     }
 
     if (!table.privacyContactIds) {
-      await queryInterface.addColumn("WhatsappStatusPublications", "privacyContactIds", {
+      await queryInterface.addColumn(TABLE, "privacyContactIds", {
         type: DataTypes.JSONB,
         allowNull: true
       });
     }
 
     if (!table.recipientCount) {
-      await queryInterface.addColumn("WhatsappStatusPublications", "recipientCount", {
+      await queryInterface.addColumn(TABLE, "recipientCount", {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
@@ -28,7 +31,7 @@ module.exports = {
     }
 
     if (!table.whatsappMessageId) {
-      await queryInterface.addColumn("WhatsappStatusPublications", "whatsappMessageId", {
+      await queryInterface.addColumn(TABLE, "whatsappMessageId", {
         type: DataTypes.STRING,
         allowNull: true
       });
@@ -53,10 +56,10 @@ module.exports = {
       DROP INDEX IF EXISTS "whatsapp_status_publications_company_privacy_mode";
     `);
 
-    const table = await queryInterface.describeTable("WhatsappStatusPublications");
-    if (table.whatsappMessageId) await queryInterface.removeColumn("WhatsappStatusPublications", "whatsappMessageId");
-    if (table.recipientCount) await queryInterface.removeColumn("WhatsappStatusPublications", "recipientCount");
-    if (table.privacyContactIds) await queryInterface.removeColumn("WhatsappStatusPublications", "privacyContactIds");
-    if (table.privacyMode) await queryInterface.removeColumn("WhatsappStatusPublications", "privacyMode");
+    const table = (await queryInterface.describeTable(TABLE)) as TableColumns;
+    if (table.whatsappMessageId) await queryInterface.removeColumn(TABLE, "whatsappMessageId");
+    if (table.recipientCount) await queryInterface.removeColumn(TABLE, "recipientCount");
+    if (table.privacyContactIds) await queryInterface.removeColumn(TABLE, "privacyContactIds");
+    if (table.privacyMode) await queryInterface.removeColumn(TABLE, "privacyMode");
   }
 };
