@@ -7,8 +7,8 @@ import * as CommercialMetricsController from "../controllers/CommercialMetricsCo
 const routes = express.Router();
 
 routes.get("/dashboard", isAuth, DashboardController.index);
-routes.get("/dashboard/ticketsUsers", DashboardController.reportsUsers);
-routes.get("/dashboard/ticketsDay", DashboardController.reportsDay);
+routes.get("/dashboard/ticketsUsers", isAuth, DashboardController.reportsUsers);
+routes.get("/dashboard/ticketsDay", isAuth, DashboardController.reportsDay);
 routes.get("/dashboard/moments",isAuth, DashboardController.DashTicketsQueues);
 routes.get(
   "/dashboard/commercial-metrics",

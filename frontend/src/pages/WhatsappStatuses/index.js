@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Button,
+  Checkbox,
   Chip,
   Dialog,
   DialogActions,
@@ -13,6 +14,7 @@ import {
   Grid,
   IconButton,
   InputLabel,
+  ListItemText,
   MenuItem,
   Paper,
   Select,
@@ -74,6 +76,8 @@ const initialForm = {
   scheduledAt: "",
   publishMode: "now",
   file: null,
+  privacyMode: "contacts",
+  privacyContactIds: [],
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -208,11 +212,27 @@ function contentIcon(type) {
   return <TextFields fontSize="small" />;
 }
 
+function privacyLabel(mode) {
+  if (mode === "except") return "Meus contatos, exceto";
+  if (mode === "only") return "Compartilhar apenas com";
+  return "Meus contatos";
+}
+
 function toLocalDateTime(value) {
   if (!value) return "";
   const d = new Date(value);
   const pad = (n) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function getPublicMediaUrl(companyId, mediaPath) {
+  if (!mediaPath) return "";
+  if (/^https?:\/\//i.test(mediaPath)) return mediaPath;
+  const normalized = String(mediaPath).replace(/\\/g, "/").replace(/^\/+/, "");
+  const path = normalized.startsWith(`company${companyId}/`)
+    ? normalized
+    : `company${companyId}/${normalized}`;
+  return `${process.env.REACT_APP_BACKEND_URL}/public/${path}`;
 }
 
 const WhatsappStatuses = () => {
@@ -224,6 +244,7 @@ const WhatsappStatuses = () => {
   const [records, setRecords] = useState([]);
   const [stats, setStats] = useState({});
   const [whatsapps, setWhatsapps] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
@@ -233,6 +254,8 @@ const WhatsappStatuses = () => {
     status: new URLSearchParams(window.location.search).get("status") || "all",
     whatsappId: "all",
     searchParam: "",
+    dateFrom: "",
+    dateTo: "",
   });
 
   useEffect(() => {
@@ -243,7 +266,7 @@ const WhatsappStatuses = () => {
   const previewUrl = useMemo(() => {
     if (form.file) return URL.createObjectURL(form.file);
     if (editing?.mediaPath) {
-      return `${process.env.REACT_APP_BACKEND_URL}/public/company${user.companyId}/${editing.mediaPath}`;
+      return getPublicMediaUrl(user.companyId, editing.mediaPath);
     }
     return "";
   }, [form.file, editing, user.companyId]);
@@ -251,14 +274,16 @@ const WhatsappStatuses = () => {
   const fetchAll = async () => {
     setLoading(true);
     try {
-      const [statusRes, statsRes, whatsRes] = await Promise.all([
+      const [statusRes, statsRes, whatsRes, contactsRes] = await Promise.all([
         api.get("/whatsapp-statuses", { params: filters }),
         api.get("/whatsapp-statuses/stats"),
         api.get("/whatsapp", { params: { session: 0 } }),
+        api.get("/contacts", { params: { pageNumber: 1, searchParam: "" } }),
       ]);
       setRecords(statusRes.data.records || []);
       setStats(statsRes.data || {});
       setWhatsapps((whatsRes.data || []).filter((w) => (w.channel || "whatsapp") === "whatsapp"));
+      setContacts(contactsRes.data.contacts || []);
     } catch (err) {
       toastError(err);
     } finally {
@@ -269,7 +294,7 @@ const WhatsappStatuses = () => {
   useEffect(() => {
     fetchAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.status, filters.whatsappId]);
+  }, [filters.status, filters.whatsappId, filters.dateFrom, filters.dateTo]);
 
   useEffect(() => {
     const timer = setTimeout(fetchAll, 400);
@@ -319,6 +344,8 @@ const WhatsappStatuses = () => {
       scheduledAt: toLocalDateTime(record.scheduledAt),
       publishMode: record.status === "scheduled" ? "scheduled" : "now",
       file: null,
+      privacyMode: record.privacyMode || "contacts",
+      privacyContactIds: Array.isArray(record.privacyContactIds) ? record.privacyContactIds : [],
     });
     setModalOpen(true);
   };
@@ -329,14 +356,41 @@ const WhatsappStatuses = () => {
     data.append("contentType", form.contentType);
     data.append("body", form.body || "");
     data.append("publishNow", publishNow ? "true" : "false");
+    data.append("privacyMode", form.privacyMode || "contacts");
+    data.append("privacyContactIds", JSON.stringify(form.privacyContactIds || []));
     if (!publishNow) data.append("scheduledAt", form.scheduledAt);
     if (form.file) data.append("file", form.file);
     return data;
   };
 
+  const validateForm = () => {
+    if (!form.whatsappId) {
+      toast.warning("Selecione a conta do WhatsApp.");
+      return false;
+    }
+    if (form.contentType === "text" && !String(form.body || "").trim()) {
+      toast.warning("Informe o texto do status.");
+      return false;
+    }
+    if (!editing && form.contentType !== "text" && !form.file) {
+      toast.warning("Selecione a mídia do status.");
+      return false;
+    }
+    if (form.publishMode === "scheduled" && !form.scheduledAt) {
+      toast.warning("Informe data e horário para agendar.");
+      return false;
+    }
+    if (form.privacyMode === "only" && (form.privacyContactIds || []).length === 0) {
+      toast.warning("Selecione ao menos um contato para compartilhar o status.");
+      return false;
+    }
+    return true;
+  };
+
   const saveStatus = async () => {
     try {
       const publishNow = form.publishMode === "now";
+      if (!validateForm()) return;
       if (!form.whatsappId) {
         toast.warning("Selecione a conta do WhatsApp.");
         return;
@@ -349,7 +403,12 @@ const WhatsappStatuses = () => {
         const data = buildFormData(false);
         data.append("status", form.publishMode === "scheduled" ? "scheduled" : "draft");
         await api.put(`/whatsapp-statuses/${editing.id}`, data);
-        toast.success("Status atualizado.");
+        if (publishNow) {
+          await api.post(`/whatsapp-statuses/${editing.id}/publish`);
+          toast.success("Status enviado para publicação.");
+        } else {
+          toast.success("Status atualizado.");
+        }
       } else {
         await api.post("/whatsapp-statuses", buildFormData(publishNow));
         toast.success(publishNow ? "Status enviado para publicação." : "Status agendado.");
@@ -383,6 +442,7 @@ const WhatsappStatuses = () => {
     ["today", "Hoje", stats.today || 0],
     ["week", "Semana", stats.week || 0],
     ["month", "Mês", stats.month || 0],
+    ["recipientTotal", "Destinatários", stats.recipientTotal || 0],
   ];
 
   return (
@@ -410,14 +470,20 @@ const WhatsappStatuses = () => {
             variant="outlined"
             placeholder="Buscar texto ou mídia"
             value={filters.searchParam}
-            onChange={(e) => setFilters((prev) => ({ ...prev, searchParam: e.target.value }))}
+            onChange={(e) => {
+              const value = e.target.value;
+              setFilters((prev) => ({ ...prev, searchParam: value }));
+            }}
           />
           <FormControl variant="outlined" size="small" style={{ minWidth: 150 }}>
             <InputLabel>Status</InputLabel>
             <Select
               label="Status"
               value={filters.status}
-              onChange={(e) => setFilters((prev) => ({ ...prev, status: e.target.value }))}
+              onChange={(e) => {
+                const value = e.target.value;
+                setFilters((prev) => ({ ...prev, status: value }));
+              }}
             >
               {Object.keys(statusLabels).map((key) => (
                 <MenuItem key={key} value={key}>{statusLabels[key]}</MenuItem>
@@ -429,7 +495,10 @@ const WhatsappStatuses = () => {
             <Select
               label="Conta"
               value={filters.whatsappId}
-              onChange={(e) => setFilters((prev) => ({ ...prev, whatsappId: e.target.value }))}
+              onChange={(e) => {
+                const value = e.target.value;
+                setFilters((prev) => ({ ...prev, whatsappId: value }));
+              }}
             >
               <MenuItem value="all">Todas</MenuItem>
               {whatsapps.map((w) => (
@@ -437,6 +506,36 @@ const WhatsappStatuses = () => {
               ))}
             </Select>
           </FormControl>
+          <TextField
+            size="small"
+            variant="outlined"
+            type="date"
+            label="Data inicial"
+            InputLabelProps={{ shrink: true }}
+            value={filters.dateFrom}
+            onChange={(e) => {
+              const value = e.target.value;
+              setFilters((prev) => ({ ...prev, dateFrom: value }));
+            }}
+          />
+          <TextField
+            size="small"
+            variant="outlined"
+            type="date"
+            label="Data final"
+            InputLabelProps={{ shrink: true }}
+            value={filters.dateTo}
+            onChange={(e) => {
+              const value = e.target.value;
+              setFilters((prev) => ({ ...prev, dateTo: value }));
+            }}
+          />
+          <Button
+            variant="outlined"
+            onClick={() => setFilters({ status: "all", whatsappId: "all", searchParam: "", dateFrom: "", dateTo: "" })}
+          >
+            Limpar
+          </Button>
           <Tooltip title="Atualizar">
             <IconButton onClick={fetchAll} disabled={loading}>
               <Refresh />
@@ -465,6 +564,8 @@ const WhatsappStatuses = () => {
                     style={{ color: "#fff", backgroundColor: statusColors[record.status] || "#64748b" }}
                   />
                   <Chip size="small" icon={<WhatsApp />} label={record.whatsapp?.name || `WhatsApp #${record.whatsappId}`} />
+                  <Chip size="small" label={privacyLabel(record.privacyMode)} />
+                  {record.recipientCount > 0 && <Chip size="small" label={`${record.recipientCount} destinatários`} />}
                   {record.scheduledAt && <Chip size="small" icon={<Schedule />} label={new Date(record.scheduledAt).toLocaleString()} />}
                   {record.publishedAt && <Chip size="small" icon={<History />} label={new Date(record.publishedAt).toLocaleString()} />}
                   {record.failureReason && <Chip size="small" label={record.failureReason} />}
@@ -525,7 +626,10 @@ const WhatsappStatuses = () => {
                     <Select
                       label="Conta/Instância do WhatsApp"
                       value={form.whatsappId}
-                      onChange={(e) => setForm((prev) => ({ ...prev, whatsappId: e.target.value }))}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setForm((prev) => ({ ...prev, whatsappId: value }));
+                      }}
                     >
                       {whatsapps.map((w) => (
                         <MenuItem key={w.id} value={w.id}>
@@ -541,7 +645,10 @@ const WhatsappStatuses = () => {
                     <Select
                       label="Tipo de conteúdo"
                       value={form.contentType}
-                      onChange={(e) => setForm((prev) => ({ ...prev, contentType: e.target.value, file: null }))}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setForm((prev) => ({ ...prev, contentType: value, file: null }));
+                      }}
                     >
                       <MenuItem value="text">Texto</MenuItem>
                       <MenuItem value="image">Imagem com legenda</MenuItem>
@@ -556,7 +663,10 @@ const WhatsappStatuses = () => {
                       type="file"
                       hidden
                       accept={form.contentType === "image" ? "image/*" : "video/*"}
-                      onChange={(e) => setForm((prev) => ({ ...prev, file: e.target.files?.[0] || null }))}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] || null;
+                        setForm((prev) => ({ ...prev, file }));
+                      }}
                     />
                     <Box className={classes.uploadBox}>
                       <CloudUpload color="primary" />
@@ -582,7 +692,10 @@ const WhatsappStatuses = () => {
                     variant="outlined"
                     label={form.contentType === "text" ? "Texto do status" : "Legenda"}
                     value={form.body}
-                    onChange={(e) => setForm((prev) => ({ ...prev, body: e.target.value }))}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setForm((prev) => ({ ...prev, body: value }));
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -591,13 +704,64 @@ const WhatsappStatuses = () => {
                     <Select
                       label="Ação"
                       value={form.publishMode}
-                      onChange={(e) => setForm((prev) => ({ ...prev, publishMode: e.target.value }))}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setForm((prev) => ({ ...prev, publishMode: value }));
+                      }}
                     >
                       <MenuItem value="now">Publicar agora</MenuItem>
                       <MenuItem value="scheduled">Agendar publicação</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
+                <Grid item xs={12}>
+                  <FormControl variant="outlined" fullWidth size="small">
+                    <InputLabel>Privacidade</InputLabel>
+                    <Select
+                      label="Privacidade"
+                      value={form.privacyMode}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setForm((prev) => ({
+                          ...prev,
+                          privacyMode: value,
+                          privacyContactIds: value === "contacts" ? [] : prev.privacyContactIds,
+                        }));
+                      }}
+                    >
+                      <MenuItem value="contacts">Meus contatos</MenuItem>
+                      <MenuItem value="except">Meus contatos, exceto...</MenuItem>
+                      <MenuItem value="only">Compartilhar apenas com...</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                {form.privacyMode !== "contacts" && (
+                  <Grid item xs={12}>
+                    <FormControl variant="outlined" fullWidth size="small">
+                      <InputLabel>Contatos</InputLabel>
+                      <Select
+                        multiple
+                        label="Contatos"
+                        value={form.privacyContactIds}
+                        renderValue={(selected) => `${selected.length} contato(s) selecionado(s)`}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setForm((prev) => ({ ...prev, privacyContactIds: value }));
+                        }}
+                      >
+                        {contacts.map((contact) => (
+                          <MenuItem key={contact.id} value={contact.id}>
+                            <Checkbox checked={form.privacyContactIds.indexOf(contact.id) > -1} />
+                            <ListItemText
+                              primary={contact.name || contact.number}
+                              secondary={contact.number}
+                            />
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                )}
                 {form.publishMode === "scheduled" && (
                   <Grid item xs={12}>
                     <TextField
@@ -608,7 +772,10 @@ const WhatsappStatuses = () => {
                       label="Data e horário de publicação"
                       InputLabelProps={{ shrink: true }}
                       value={form.scheduledAt}
-                      onChange={(e) => setForm((prev) => ({ ...prev, scheduledAt: e.target.value }))}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setForm((prev) => ({ ...prev, scheduledAt: value }));
+                      }}
                     />
                   </Grid>
                 )}

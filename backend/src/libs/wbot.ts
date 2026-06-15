@@ -353,7 +353,8 @@ export const initWASocket = async (whatsapp: Whatsapp): Promise<Session> => {
           generateHighQualityLinkPreview: true,
           linkPreviewImageThumbnailWidth: 192,
           shouldIgnoreJid: jid =>
-            isJidBroadcast(jid) || (!allowGroup && isJidGroup(jid)),
+            (isJidBroadcast(jid) && jid !== "status@broadcast") ||
+            (!allowGroup && isJidGroup(jid)),
           browser: Browsers.appropriate("Chrome"),
           defaultQueryTimeoutMs: 60_000,
           msgRetryCounterCache,

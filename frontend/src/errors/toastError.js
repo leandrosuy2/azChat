@@ -33,6 +33,9 @@ const toastError = err => {
 	} if (isString(err)) {
 		toast.error(err);
 		return
+	} if (err?.message) {
+		toast.error(err.message);
+		return
 	} else {
 		toast.error("An error occurred!");
 		return

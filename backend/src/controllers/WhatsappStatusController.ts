@@ -24,6 +24,16 @@ function emitStatus(companyId: number, action: string, record: WhatsappStatusPub
   });
 }
 
+async function reloadRecord(id: number, companyId: number): Promise<WhatsappStatusPublication | null> {
+  return WhatsappStatusPublication.findOne({
+    where: { id, companyId },
+    include: [
+      { model: Whatsapp, as: "whatsapp", attributes: ["id", "name", "status", "channel"] },
+      { model: User, as: "user", attributes: ["id", "name"] }
+    ]
+  });
+}
+
 function normalizeContentType(contentType: string, mediaType?: string): string {
   if (contentType === "image" || contentType === "video" || contentType === "text") {
     return contentType;
@@ -37,6 +47,18 @@ function assertSchedule(status: string, scheduledAt?: string | Date) {
   if (status === "scheduled" && !scheduledAt) {
     throw new AppError("Informe data e horário para agendar a publicação.");
   }
+}
+
+function normalizePrivacyMode(value: unknown): string {
+  const mode = String(value || "contacts");
+  return ["contacts", "except", "only"].includes(mode) ? mode : "contacts";
+}
+
+function parsePrivacyContactIds(value: unknown): number[] {
+  if (!value) return [];
+  const raw = typeof value === "string" ? JSON.parse(value || "[]") : value;
+  if (!Array.isArray(raw)) return [];
+  return Array.from(new Set(raw.map(item => Number(item)).filter(Number.isFinite)));
 }
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
@@ -56,7 +78,11 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
   if (dateFrom || dateTo) {
     where.createdAt = {};
     if (dateFrom) where.createdAt[Op.gte] = new Date(String(dateFrom));
-    if (dateTo) where.createdAt[Op.lte] = new Date(String(dateTo));
+    if (dateTo) {
+      const end = new Date(String(dateTo));
+      end.setHours(23, 59, 59, 999);
+      where.createdAt[Op.lte] = end;
+    }
   }
 
   const records = await WhatsappStatusPublication.findAll({
@@ -80,16 +106,17 @@ export const stats = async (req: Request, res: Response): Promise<Response> => {
   startWeek.setDate(startWeek.getDate() - startWeek.getDay());
   const startMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-  const [byStatus, today, week, month] = await Promise.all([
+  const [byStatus, today, week, month, recipientTotal] = await Promise.all([
     WhatsappStatusPublication.findAll({
       where: { companyId },
       attributes: ["status", [fn("COUNT", col("id")), "total"]],
       group: ["status"],
       raw: true
     }) as any,
-    WhatsappStatusPublication.count({ where: { companyId, publishedAt: { [Op.gte]: startDay } } }),
-    WhatsappStatusPublication.count({ where: { companyId, publishedAt: { [Op.gte]: startWeek } } }),
-    WhatsappStatusPublication.count({ where: { companyId, publishedAt: { [Op.gte]: startMonth } } })
+    WhatsappStatusPublication.count({ where: { companyId, status: "published", publishedAt: { [Op.gte]: startDay } } }),
+    WhatsappStatusPublication.count({ where: { companyId, status: "published", publishedAt: { [Op.gte]: startWeek } } }),
+    WhatsappStatusPublication.count({ where: { companyId, status: "published", publishedAt: { [Op.gte]: startMonth } } }),
+    WhatsappStatusPublication.sum("recipientCount", { where: { companyId, status: "published" } })
   ]);
 
   const totals = {
@@ -101,7 +128,9 @@ export const stats = async (req: Request, res: Response): Promise<Response> => {
     publishing: 0,
     today,
     week,
-    month
+    month,
+    views: 0,
+    recipientTotal: Number(recipientTotal || 0)
   };
 
   byStatus.forEach((item: any) => {
@@ -121,7 +150,9 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     contentType,
     body,
     scheduledAt,
-    publishNow
+    publishNow,
+    privacyMode,
+    privacyContactIds
   } = req.body;
 
   const nextStatus = publishNow === "true" || publishNow === true ? "draft" : "scheduled";
@@ -146,21 +177,26 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     mediaType: file?.mimetype || null,
     status: nextStatus,
     scheduledAt: nextStatus === "scheduled" ? new Date(scheduledAt) : null,
+    privacyMode: normalizePrivacyMode(privacyMode),
+    privacyContactIds: parsePrivacyContactIds(privacyContactIds),
+    recipientCount: 0,
     audit: {
       createdBy: userId,
       createdAt: new Date().toISOString()
     }
   } as any);
 
-  emitStatus(companyId, "create", record);
+  const created = await reloadRecord(record.id, companyId);
+  emitStatus(companyId, "create", created || record);
 
   if (publishNow === "true" || publishNow === true) {
     const published = await PublishWhatsappStatusService(record.id);
-    emitStatus(companyId, "update", published);
-    return res.status(200).json(published);
+    const full = await reloadRecord(published.id, companyId);
+    emitStatus(companyId, "update", full || published);
+    return res.status(200).json(full || published);
   }
 
-  return res.status(200).json(record);
+  return res.status(200).json(created || record);
 };
 
 export const update = async (req: Request, res: Response): Promise<Response> => {
@@ -176,7 +212,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
     throw new AppError("Não é possível editar uma publicação já enviada.");
   }
 
-  const { whatsappId, contentType, body, scheduledAt, status } = req.body;
+  const { whatsappId, contentType, body, scheduledAt, status, privacyMode, privacyContactIds } = req.body;
   const normalizedType = normalizeContentType(contentType || record.contentType, file?.mimetype || record.mediaType);
   const nextStatus = status || record.status;
   assertSchedule(nextStatus, scheduledAt || record.scheduledAt);
@@ -192,6 +228,10 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
     scheduledAt: nextStatus === "scheduled"
       ? new Date(scheduledAt || record.scheduledAt)
       : null,
+    privacyMode: privacyMode != null ? normalizePrivacyMode(privacyMode) : record.privacyMode,
+    privacyContactIds: privacyContactIds != null
+      ? parsePrivacyContactIds(privacyContactIds)
+      : record.privacyContactIds,
     audit: {
       ...(record.audit || {}),
       updatedBy: userId,
@@ -199,8 +239,9 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
     }
   });
 
-  emitStatus(companyId, "update", record);
-  return res.status(200).json(record);
+  const full = await reloadRecord(record.id, companyId);
+  emitStatus(companyId, "update", full || record);
+  return res.status(200).json(full || record);
 };
 
 export const publish = async (req: Request, res: Response): Promise<Response> => {
@@ -210,8 +251,9 @@ export const publish = async (req: Request, res: Response): Promise<Response> =>
   });
   if (!record) throw new AppError("Publicação de status não encontrada.", 404);
   const published = await PublishWhatsappStatusService(record.id);
-  emitStatus(companyId, "update", published);
-  return res.status(200).json(published);
+  const full = await reloadRecord(published.id, companyId);
+  emitStatus(companyId, "update", full || published);
+  return res.status(200).json(full || published);
 };
 
 export const duplicate = async (req: Request, res: Response): Promise<Response> => {
@@ -232,6 +274,9 @@ export const duplicate = async (req: Request, res: Response): Promise<Response> 
     mediaName: record.mediaName,
     mediaType: record.mediaType,
     status: "draft",
+    privacyMode: record.privacyMode,
+    privacyContactIds: record.privacyContactIds,
+    recipientCount: 0,
     audit: {
       createdBy: userId,
       duplicatedFrom: record.id,
@@ -239,8 +284,9 @@ export const duplicate = async (req: Request, res: Response): Promise<Response> 
     }
   } as any);
 
-  emitStatus(companyId, "create", copy);
-  return res.status(200).json(copy);
+  const full = await reloadRecord(copy.id, companyId);
+  emitStatus(companyId, "create", full || copy);
+  return res.status(200).json(full || copy);
 };
 
 export const cancel = async (req: Request, res: Response): Promise<Response> => {
@@ -261,8 +307,9 @@ export const cancel = async (req: Request, res: Response): Promise<Response> => 
     }
   });
 
-  emitStatus(companyId, "update", record);
-  return res.status(200).json(record);
+  const full = await reloadRecord(record.id, companyId);
+  emitStatus(companyId, "update", full || record);
+  return res.status(200).json(full || record);
 };
 
 export const remove = async (req: Request, res: Response): Promise<Response> => {

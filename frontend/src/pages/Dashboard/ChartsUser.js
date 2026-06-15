@@ -79,13 +79,13 @@ export const ChatsUser = () => {
     const [ticketsData, setTicketsData] = useState({ data: [] });
     const { user } = useContext(AuthContext);
 
-    const companyId = user.companyId;
+    const userId = user?.id;
 
     useEffect(() => {
-        if (companyId) {
+        if (userId) {
             handleGetTicketsInformation();
         }
-    }, [companyId]);
+    }, [userId]);
 
     const dataCharts = {
 
@@ -104,7 +104,7 @@ export const ChatsUser = () => {
     const handleGetTicketsInformation = async () => {
         try {
 
-            const { data } = await api.get(`/dashboard/ticketsUsers?initialDate=${format(initialDate, 'yyyy-MM-dd')}&finalDate=${format(finalDate, 'yyyy-MM-dd')}&companyId=${companyId}`);
+            const { data } = await api.get(`/dashboard/ticketsUsers?initialDate=${format(initialDate, 'yyyy-MM-dd')}&finalDate=${format(finalDate, 'yyyy-MM-dd')}`);
             setTicketsData(data);
         } catch (error) {
             toast.error('Erro ao buscar informações dos tickets');

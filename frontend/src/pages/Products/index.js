@@ -72,7 +72,11 @@ const Products = () => {
     return () => clearTimeout(t);
   }, [load]);
 
-  const handleDelete = async () => {
+  const handleDelete = async (event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     try {
       await api.delete(`/products/${deleteId}`);
       toast.success("Produto removido.");
@@ -127,6 +131,7 @@ const Products = () => {
               }}
             />
             <Button
+              type="button"
               variant="contained"
               color="primary"
               startIcon={<AddIcon />}
@@ -181,6 +186,7 @@ const Products = () => {
                   <TableCell>{p.status === "active" ? "Ativo" : "Inativo"}</TableCell>
                   <TableCell align="right">
                     <IconButton
+                      type="button"
                       size="small"
                       onClick={() => {
                         setEditId(p.id);
@@ -189,7 +195,7 @@ const Products = () => {
                     >
                       <EditIcon fontSize="small" />
                     </IconButton>
-                    <IconButton size="small" onClick={() => setDeleteId(p.id)}>
+                    <IconButton type="button" size="small" onClick={() => setDeleteId(p.id)}>
                       <DeleteOutlineIcon fontSize="small" />
                     </IconButton>
                   </TableCell>

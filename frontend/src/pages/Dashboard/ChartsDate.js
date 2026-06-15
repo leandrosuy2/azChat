@@ -40,14 +40,14 @@ export const ChartsDate = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useContext(AuthContext);
 
-    const companyId = user.companyId;
+    const userId = user?.id;
     const isDarkMode = theme.palette.type === 'dark';
 
     useEffect(() => {
-        if (companyId) {
+        if (userId) {
             handleGetTicketsInformation();
         }
-    }, [companyId]);
+    }, [userId]);
 
     // Gerar cor com transparência baseada no tema
     const getColorWithOpacity = (color, opacity) => {
@@ -137,7 +137,7 @@ export const ChartsDate = () => {
     const handleGetTicketsInformation = async () => {
         try {
             setIsLoading(true);
-            const { data } = await api.get(`/dashboard/ticketsDay?initialDate=${format(initialDate, 'yyyy-MM-dd')}&finalDate=${format(finalDate, 'yyyy-MM-dd')}&companyId=${companyId}`);
+            const { data } = await api.get(`/dashboard/ticketsDay?initialDate=${format(initialDate, 'yyyy-MM-dd')}&finalDate=${format(finalDate, 'yyyy-MM-dd')}`);
             setTicketsData(data);
         } catch (error) {
             toast.error('Erro ao buscar informações dos tickets');

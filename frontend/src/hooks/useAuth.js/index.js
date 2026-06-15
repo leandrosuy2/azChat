@@ -12,6 +12,17 @@ import { isSocketClientReady } from "../../utils/socketClient";
 // import { useDate } from "../../hooks/useDate";
 import moment from "moment";
 
+const readStoredToken = () => {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+
+  try {
+    return JSON.parse(token);
+  } catch {
+    return token;
+  }
+};
+
 const useAuth = () => {
   const history = useHistory();
   const [isAuth, setIsAuth] = useState(false);
@@ -28,9 +39,9 @@ const useAuth = () => {
   useEffect(() => {
     const reqInterceptor = api.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem("token");
+        const token = readStoredToken();
         if (token) {
-          config.headers["Authorization"] = `Bearer ${JSON.parse(token)}`;
+          config.headers["Authorization"] = `Bearer ${token}`;
           setIsAuth(true);
         }
         return config;
@@ -194,7 +205,12 @@ const useAuth = () => {
         //   window.location.reload(true); // Recarregar a página
         // }, 1000);
 
-        history.push("/tickets");
+        const from = history.location?.state?.from;
+        const redirectPath =
+          from?.pathname && from.pathname !== "/login"
+            ? `${from.pathname || ""}${from.search || ""}${from.hash || ""}`
+            : "/tickets";
+        history.push(redirectPath);
         setLoading(false);
       } else {
         // localStorage.setItem("companyId", companyId);

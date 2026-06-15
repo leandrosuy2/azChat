@@ -18,6 +18,7 @@ import { messageQueue, sendScheduledMessages } from "./queues";
 import BullQueue from "./libs/queue"
 import BullBoard from 'bull-board';
 import basicAuth from 'basic-auth';
+import { corsOrigin } from "./config/cors";
 
 // Função de middleware para autenticação básica
 export const isBullAuth = (req, res, next) => {
@@ -46,8 +47,6 @@ app.set("queues", {
   messageQueue,
   sendScheduledMessages
 });
-
-const allowedOrigins = [process.env.FRONTEND_URL];
 
 // Configuração do BullBoard
 if (String(process.env.BULL_BOARD).toLocaleLowerCase() === 'true' && process.env.REDIS_URI_ACK !== '') {
@@ -80,7 +79,7 @@ app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 app.use(
   cors({
     credentials: true,
-    origin: allowedOrigins
+    origin: corsOrigin
   })
 );
 app.use(cookieParser());

@@ -1,9 +1,10 @@
 import moment from "moment";
 import * as Sentry from "@sentry/node";
-import { Op } from "sequelize";
+import { col, fn, Op, where } from "sequelize";
 import SetTicketMessagesAsRead from "../../helpers/SetTicketMessagesAsRead";
 import { getIO } from "../../libs/socket";
 import Ticket from "../../models/Ticket";
+import Contact from "../../models/Contact";
 import Queue from "../../models/Queue";
 import ShowTicketService from "./ShowTicketService";
 import ShowWhatsAppService from "../WhatsappService/ShowWhatsAppService";
@@ -55,6 +56,29 @@ interface Response {
   oldStatus: string;
   oldUserId: number | undefined;
 }
+
+const buildContactIdentityWhere = (contact: Contact): any => {
+  const remoteJid = String((contact as any).remoteJid || "")
+    .trim()
+    .toLowerCase();
+  const number = String((contact as any).number || "").replace(/\D/g, "");
+  const or: any[] = [{ id: contact.id }];
+
+  if (remoteJid) {
+    or.push({ remoteJid: { [Op.iLike]: remoteJid } });
+  }
+
+  if (number) {
+    or.push(
+      where(
+        fn("REGEXP_REPLACE", col("contact.number"), "\\D", "", "g"),
+        number
+      )
+    );
+  }
+
+  return { [Op.or]: or };
+};
 
 const UpdateTicketService = async ({
   ticketData,
@@ -126,10 +150,22 @@ const UpdateTicketService = async ({
       console.log(122, "UpdateTicketService")
       let otherTicket = await Ticket.findOne({
         where: {
-          contactId: ticket.contactId,
+          companyId,
           status: { [Op.or]: ["open", "pending", "group"] },
-          whatsappId: ticket.whatsappId
-        }
+          channel: ticket.channel
+        },
+        include: [
+          {
+            model: Contact,
+            as: "contact",
+            required: true,
+            where: {
+              companyId,
+              ...buildContactIdentityWhere(ticket.contact)
+            }
+          }
+        ],
+        order: [["updatedAt", "DESC"]]
       });
       if (otherTicket) {
         if (otherTicket.id !== ticket.id) {

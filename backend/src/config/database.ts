@@ -20,7 +20,7 @@ module.exports = {
       /SequelizeInvalidConnectionError/,
       /SequelizeConnectionTimedOutError/
     ],
-    max: 100
+    max: parseInt(process.env.DB_RETRY_MAX) || 3
   },
   pool: {
     max: parseInt(process.env.DB_POOL_MAX) || 100,

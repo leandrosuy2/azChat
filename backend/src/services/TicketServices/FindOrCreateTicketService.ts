@@ -83,11 +83,13 @@ const findActiveTicketByConversation = async ({
   contact,
   whatsappId,
   companyId,
+  channel,
   includeRecentClosed = false
 }: {
   contact: Contact;
   whatsappId: number;
   companyId: number;
+  channel?: string;
   includeRecentClosed?: boolean;
 }): Promise<Ticket | null> => {
   const statuses = includeRecentClosed
@@ -98,7 +100,7 @@ const findActiveTicketByConversation = async ({
     where: {
       status: { [Op.or]: statuses },
       companyId,
-      whatsappId
+      ...(channel ? { channel } : { whatsappId })
     },
     include: [
       {
@@ -135,6 +137,7 @@ const FindOrCreateTicketService = async (
   isTransfered?: boolean,
   isCampaign: boolean = false
 ): Promise<Ticket> => {
+  channel = channel || (whatsapp as any)?.channel || "whatsapp";
   const identityContact = groupContact || contact;
   const lockKey = `${companyId}:${whatsapp.id}:${getContactIdentityKey(identityContact)}`;
 
@@ -174,6 +177,7 @@ const FindOrCreateTicketService = async (
     ticket = await findActiveTicketByConversation({
       contact: identityContact,
       whatsappId: whatsapp.id,
+      channel,
       companyId
     });
     if (ticket && Number(ticket.contactId) !== Number(identityContact.id)) {
@@ -228,10 +232,20 @@ const FindOrCreateTicketService = async (
               +new Date()
             ]
           },
-          contactId: identityContact.id,
           companyId,
-          whatsappId: whatsapp.id
+          channel
         },
+        include: [
+          {
+            model: Contact,
+            as: "contact",
+            required: true,
+            where: {
+              companyId,
+              ...buildContactIdentityWhere(identityContact)
+            }
+          }
+        ],
         order: [["updatedAt", "DESC"]]
       });
     }
@@ -295,6 +309,7 @@ const FindOrCreateTicketService = async (
       ticket = await findActiveTicketByConversation({
         contact: identityContact,
         whatsappId: whatsapp.id,
+        channel,
         companyId
       });
       if (!ticket) {

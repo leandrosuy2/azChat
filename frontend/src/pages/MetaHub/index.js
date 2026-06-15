@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import {
   Avatar,
@@ -33,6 +33,17 @@ import {
   Share
 } from "@material-ui/icons";
 import { Webhook as WebhookIcon } from "@mui/icons-material";
+import ReactFlow, {
+  addEdge,
+  Background,
+  Controls,
+  Handle,
+  MiniMap,
+  Position,
+  useEdgesState,
+  useNodesState
+} from "react-flow-renderer";
+import "react-flow-renderer/dist/style.css";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
 import { toast } from "react-toastify";
@@ -85,15 +96,102 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap"
   },
   flowCanvas: {
-    minHeight: 280,
+    height: "calc(100vh - 250px)",
+    minHeight: 640,
     borderRadius: 8,
-    padding: theme.spacing(2),
+    overflow: "hidden",
     background:
       theme.mode === "dark"
         ? "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.12) 1px, transparent 0)"
         : "radial-gradient(circle at 1px 1px, #d9deea 1px, transparent 0)",
     backgroundSize: "22px 22px",
-    border: theme.mode === "dark" ? "1px dashed rgba(255,255,255,0.18)" : "1px dashed #cad1df"
+    border: theme.mode === "dark" ? "1px solid rgba(255,255,255,0.12)" : "1px solid #d8deea"
+  },
+  flowShell: {
+    display: "grid",
+    gridTemplateColumns: "260px minmax(640px, 1fr) 300px",
+    gap: theme.spacing(1),
+    height: "calc(100vh - 250px)",
+    minHeight: 640,
+    [theme.breakpoints.down("sm")]: {
+      gridTemplateColumns: "1fr",
+      height: "auto",
+      minHeight: 0,
+      "& $flowCanvas": {
+        height: "70vh",
+        minHeight: 520
+      }
+    }
+  },
+  flowWorkspace: {
+    marginTop: theme.spacing(1.5),
+    borderRadius: 8,
+    border: theme.mode === "dark" ? "1px solid rgba(255,255,255,0.08)" : "1px solid #dfe5f0",
+    background: theme.palette.background.paper,
+    overflow: "hidden"
+  },
+  flowToolbar: {
+    minHeight: 64,
+    padding: theme.spacing(1, 1.5),
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    borderBottom: theme.mode === "dark" ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e8edf5",
+    flexWrap: "wrap"
+  },
+  palette: {
+    borderRadius: 0,
+    padding: theme.spacing(1.5),
+    borderRight: theme.mode === "dark" ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e8edf5",
+    background: theme.palette.background.paper,
+    height: "100%",
+    overflowY: "auto"
+  },
+  paletteItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    width: "100%",
+    border: 0,
+    textAlign: "left",
+    cursor: "grab",
+    borderRadius: 8,
+    padding: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    background: theme.mode === "dark" ? "rgba(255,255,255,0.06)" : "#f7f9fd",
+    color: theme.palette.text.primary,
+    "&:active": {
+      cursor: "grabbing"
+    }
+  },
+  inspector: {
+    borderRadius: 0,
+    padding: theme.spacing(1.5),
+    borderLeft: theme.mode === "dark" ? "1px solid rgba(255,255,255,0.08)" : "1px solid #e8edf5",
+    background: theme.palette.background.paper,
+    height: "100%",
+    overflowY: "auto"
+  },
+  flowNode: {
+    minWidth: 190,
+    borderRadius: 8,
+    padding: theme.spacing(1.25),
+    background: theme.palette.background.paper,
+    border: "1px solid #dfe5f0",
+    boxShadow: "0 10px 24px rgba(15, 23, 42, 0.12)"
+  },
+  flowNodeTitle: {
+    fontWeight: 800,
+    fontSize: 13,
+    lineHeight: 1.25
+  },
+  flowNodeText: {
+    fontSize: 12,
+    color: theme.palette.text.secondary,
+    marginTop: 4,
+    maxWidth: 210,
+    whiteSpace: "normal"
   },
   block: {
     borderRadius: 8,
@@ -135,6 +233,74 @@ const blockTypes = [
   "Finalizar fluxo"
 ];
 
+const flowBlockTypes = [
+  { type: "message", label: "Mensagem de texto", description: "Resposta automatica para Direct.", color: "#405de6" },
+  { type: "question", label: "Pergunta com opcoes", description: "Menu rapido com respostas guiadas.", color: "#833ab4" },
+  { type: "condition", label: "Condicao", description: "Desvia por palavra, tag ou resposta.", color: "#f59e0b" },
+  { type: "ticket", label: "Encaminhar para atendente", description: "Cria ou assume atendimento humano.", color: "#10b981" },
+  { type: "tagAdd", label: "Adicionar tag", description: "Marca o contato dentro do fluxo.", color: "#2563eb" },
+  { type: "tagRemove", label: "Remover tag", description: "Remove uma segmentacao aplicada.", color: "#ef4444" },
+  { type: "media", label: "Enviar midia", description: "Imagem, video ou arquivo com legenda.", color: "#e1306c" },
+  { type: "interval", label: "Aguardar resposta", description: "Pausa antes do proximo passo.", color: "#64748b" },
+  { type: "finish", label: "Finalizar fluxo", description: "Encerra automacao ou atendimento.", color: "#111827" }
+];
+
+const initialInstagramNodes = [
+  {
+    id: "start",
+    type: "start",
+    position: { x: 80, y: 220 },
+    data: {
+      label: "Inicio do Instagram Direct",
+      description: "Entrada para novas mensagens recebidas.",
+      color: "#e1306c"
+    }
+  }
+];
+
+const InstagramFlowNode = ({ data }) => {
+  const color = data?.color || "#405de6";
+
+  return (
+    <Box
+      style={{
+        minWidth: 190,
+        borderRadius: 8,
+        padding: 12,
+        background: "#fff",
+        border: `1px solid ${color}44`,
+        boxShadow: "0 10px 24px rgba(15, 23, 42, 0.12)"
+      }}
+    >
+      <Handle type="target" position={Position.Left} style={{ background: color }} />
+      <Box display="flex" alignItems="center" gridGap={8}>
+        <span
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: 999,
+            background: color,
+            display: "inline-block",
+            flex: "0 0 auto"
+          }}
+        />
+        <Typography style={{ fontWeight: 800, fontSize: 13, lineHeight: 1.25 }}>
+          {data?.label || "Bloco"}
+        </Typography>
+      </Box>
+      <Typography style={{ fontSize: 12, color: "#64748b", marginTop: 4, maxWidth: 210, whiteSpace: "normal" }}>
+        {data?.description || "Configure o comportamento deste passo."}
+      </Typography>
+      {data?.message && (
+        <Typography style={{ fontSize: 12, marginTop: 8, maxWidth: 210, whiteSpace: "normal" }}>
+          {data.message}
+        </Typography>
+      )}
+      <Handle type="source" position={Position.Right} style={{ background: color }} />
+    </Box>
+  );
+};
+
 const MetaHub = () => {
   const classes = useStyles();
   const history = useHistory();
@@ -153,6 +319,12 @@ const MetaHub = () => {
     flowIdWelcome: "",
     chatbotEnabled: "enabled"
   });
+  const flowWrapperRef = useRef(null);
+  const [selectedFlowId, setSelectedFlowId] = useState("");
+  const [selectedNodeId, setSelectedNodeId] = useState("");
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialInstagramNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   const activeTab = useMemo(() => {
     const value = Number(new URLSearchParams(location.search).get("tab"));
@@ -168,6 +340,22 @@ const MetaHub = () => {
   const facebookConnections = connections.filter((item) => item.channel === "facebook");
   const activeConnections = connections.filter((item) => String(item.status).toUpperCase() === "CONNECTED");
   const activeFlows = flows.filter((flow) => flow.active === true || flow.active === "true");
+  const selectedFlow = useMemo(
+    () => flows.find((flow) => String(flow.id) === String(selectedFlowId)) || flows[0],
+    [flows, selectedFlowId]
+  );
+  const selectedNode = useMemo(
+    () => nodes.find((node) => node.id === selectedNodeId),
+    [nodes, selectedNodeId]
+  );
+  const flowNodeTypes = useMemo(
+    () =>
+      ["start", ...flowBlockTypes.map((item) => item.type)].reduce((acc, type) => {
+        acc[type] = InstagramFlowNode;
+        return acc;
+      }, {}),
+    []
+  );
 
   const setTab = (index) => {
     history.replace({ pathname: "/meta", search: `?tab=${index}` });
@@ -187,6 +375,9 @@ const MetaHub = () => {
       setFlows(flowData?.flows || []);
       if (!selectedConnectionId && metaConnections[0]) {
         setSelectedConnectionId(String(metaConnections[0].id));
+      }
+      if (!selectedFlowId && flowData?.flows?.[0]) {
+        setSelectedFlowId(String(flowData.flows[0].id));
       }
     } catch (err) {
       toastError(err);
@@ -220,6 +411,129 @@ const MetaHub = () => {
     });
     loadLogs(selectedConnection.id);
   }, [selectedConnection?.id]);
+
+  useEffect(() => {
+    const loadFlowData = async () => {
+      if (!selectedFlow?.id) {
+        setNodes(initialInstagramNodes);
+        setEdges([]);
+        setSelectedNodeId("");
+        return;
+      }
+
+      try {
+        const { data } = await api.get(`/flowbuilder/flow/${selectedFlow.id}`);
+        const savedFlow = data?.flow?.flow;
+        setNodes(savedFlow?.nodes?.length ? savedFlow.nodes : initialInstagramNodes);
+        setEdges(savedFlow?.connections || []);
+        setSelectedNodeId("");
+      } catch (err) {
+        toastError(err);
+      }
+    };
+
+    loadFlowData();
+  }, [selectedFlow?.id, setEdges, setNodes]);
+
+  const onConnectFlow = useCallback(
+    (params) =>
+      setEdges((currentEdges) =>
+        addEdge(
+          {
+            ...params,
+            animated: true,
+            style: { stroke: "#e1306c", strokeWidth: 2 }
+          },
+          currentEdges
+        )
+      ),
+    [setEdges]
+  );
+
+  const onDragStartBlock = (event, block) => {
+    event.dataTransfer.setData("application/reactflow", JSON.stringify(block));
+    event.dataTransfer.effectAllowed = "move";
+  };
+
+  const onDragOverFlow = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }, []);
+
+  const onDropFlow = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (!reactFlowInstance || !flowWrapperRef.current) return;
+
+      const raw = event.dataTransfer.getData("application/reactflow");
+      if (!raw) return;
+
+      const block = JSON.parse(raw);
+      const bounds = flowWrapperRef.current.getBoundingClientRect();
+      const point = {
+        x: event.clientX - bounds.left,
+        y: event.clientY - bounds.top
+      };
+      const position = reactFlowInstance.screenToFlowPosition
+        ? reactFlowInstance.screenToFlowPosition({ x: event.clientX, y: event.clientY })
+        : reactFlowInstance.project(point);
+      const id = `${block.type}-${Date.now()}`;
+      const newNode = {
+        id,
+        type: block.type,
+        position,
+        data: {
+          label: block.label,
+          description: block.description,
+          color: block.color,
+          message: block.type === "message" ? "Oi! Como posso te ajudar hoje?" : ""
+        }
+      };
+
+      setNodes((currentNodes) => currentNodes.concat(newNode));
+      setSelectedNodeId(id);
+    },
+    [reactFlowInstance, setNodes]
+  );
+
+  const updateSelectedNodeData = (field, value) => {
+    if (!selectedNodeId) return;
+    setNodes((currentNodes) =>
+      currentNodes.map((node) =>
+        node.id === selectedNodeId
+          ? { ...node, data: { ...node.data, [field]: value } }
+          : node
+      )
+    );
+  };
+
+  const removeSelectedNode = () => {
+    if (!selectedNodeId || selectedNodeId === "start") return;
+    setNodes((currentNodes) => currentNodes.filter((node) => node.id !== selectedNodeId));
+    setEdges((currentEdges) =>
+      currentEdges.filter((edge) => edge.source !== selectedNodeId && edge.target !== selectedNodeId)
+    );
+    setSelectedNodeId("");
+  };
+
+  const saveInstagramFlow = async () => {
+    if (!selectedFlow?.id) {
+      toast.warning("Selecione ou crie um fluxo antes de salvar.");
+      return;
+    }
+
+    try {
+      await api.post("/flowbuilder/flow", {
+        idFlow: selectedFlow.id,
+        nodes,
+        connections: edges
+      });
+      toast.success("Flowbuilder Instagram salvo.");
+      loadData();
+    } catch (err) {
+      toastError(err);
+    }
+  };
 
   const openFlowModal = (flow = null) => {
     setEditingFlow(flow);
@@ -535,70 +849,178 @@ const MetaHub = () => {
         )}
 
         {!loading && activeTab === 3 && (
-          <Paper className={classes.card} style={{ marginTop: 16 }}>
-            <Box className={classes.sectionHeader}>
+          <Box className={classes.flowWorkspace}>
+            <Box className={classes.flowToolbar}>
               <Box>
                 <Typography variant="h6">Flowbuilder Instagram</Typography>
                 <Typography variant="body2" className={classes.muted}>
                   Crie blocos, condições, respostas automáticas e ações para Instagram.
                 </Typography>
               </Box>
-              <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => openFlowModal()}>
-                Novo fluxo Instagram
-              </Button>
+              <Box className={classes.actions}>
+                <Button variant="outlined" startIcon={<Share />} onClick={() => selectedFlow && history.push(`/flowbuilder/${selectedFlow.id}`)}>
+                  Editor completo
+                </Button>
+                <Button variant="contained" color="primary" onClick={saveInstagramFlow}>
+                  Salvar fluxo
+                </Button>
+                <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => openFlowModal()}>
+                  Novo fluxo
+                </Button>
+              </Box>
             </Box>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={5}>
-                <Grid container spacing={1}>
+            <Box className={classes.flowShell}>
+              <Box className={classes.palette}>
+                <TextField
+                  select
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  label="Fluxo"
+                  value={selectedFlow?.id || ""}
+                  onChange={(event) => setSelectedFlowId(event.target.value)}
+                >
                   {flows.map((flow) => (
-                    <Grid item xs={12} key={flow.id}>
-                      <Box className={classes.block}>
-                        <Box className={classes.sectionHeader}>
-                          <Box>
-                            <Typography style={{ fontWeight: 800 }}>{flow.name}</Typography>
-                            <Typography variant="body2" className={classes.muted}>
-                              Status: {flow.active ? "ativo" : "rascunho/inativo"}
-                            </Typography>
-                          </Box>
-                          <Chip size="small" label="Instagram" color="primary" />
-                        </Box>
-                        <Box className={classes.actions}>
-                          <IconButton size="small" onClick={() => history.push(`/flowbuilder/${flow.id}`)}>
-                            <Share fontSize="small" />
-                          </IconButton>
-                          <IconButton size="small" onClick={() => openFlowModal(flow)}>
-                            <Edit fontSize="small" />
-                          </IconButton>
-                          <IconButton size="small" onClick={() => toggleFlow(flow)}>
-                            <PlayArrow fontSize="small" />
-                          </IconButton>
-                          <IconButton size="small" onClick={() => setDeleteInfo(flow)}>
-                            <DeleteOutline fontSize="small" />
-                          </IconButton>
-                        </Box>
-                      </Box>
-                    </Grid>
+                    <MenuItem key={flow.id} value={flow.id}>
+                      {flow.name}
+                    </MenuItem>
                   ))}
-                </Grid>
-              </Grid>
-              <Grid item xs={12} md={7}>
-                <Box className={classes.flowCanvas}>
-                  <Grid container spacing={2}>
-                    {blockTypes.slice(0, 6).map((type, index) => (
-                      <Grid item xs={12} sm={6} key={type}>
-                        <Box className={classes.block}>
-                          <Typography variant="caption" className={classes.muted}>
-                            Bloco {index + 1}
-                          </Typography>
-                          <Typography style={{ fontWeight: 800 }}>{type}</Typography>
-                        </Box>
-                      </Grid>
-                    ))}
-                  </Grid>
+                </TextField>
+                {selectedFlow && (
+                  <Box mt={1.5} mb={1.5} className={classes.actions}>
+                    <Chip
+                      size="small"
+                      label={selectedFlow.active ? "ativo" : "rascunho"}
+                      color={selectedFlow.active ? "primary" : "default"}
+                    />
+                    <IconButton size="small" onClick={() => openFlowModal(selectedFlow)}>
+                      <Edit fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" onClick={() => toggleFlow(selectedFlow)}>
+                      <PlayArrow fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" onClick={() => setDeleteInfo(selectedFlow)}>
+                      <DeleteOutline fontSize="small" />
+                    </IconButton>
+                  </Box>
+                )}
+                <Divider style={{ margin: "12px 0" }} />
+                <Typography variant="subtitle2" style={{ fontWeight: 800, marginBottom: 8 }}>
+                  Arraste para o canvas
+                </Typography>
+                {flowBlockTypes.map((block) => (
+                  <button
+                    key={block.type}
+                    type="button"
+                    className={classes.paletteItem}
+                    draggable
+                    onDragStart={(event) => onDragStartBlock(event, block)}
+                  >
+                    <span
+                      style={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: 999,
+                        background: block.color,
+                        flex: "0 0 auto"
+                      }}
+                    />
+                    <Box>
+                      <Typography style={{ fontWeight: 800, fontSize: 13 }}>
+                        {block.label}
+                      </Typography>
+                      <Typography variant="caption" className={classes.muted}>
+                        {block.description}
+                      </Typography>
+                    </Box>
+                  </button>
+                ))}
+              </Box>
+
+              <Box className={classes.flowCanvas} ref={flowWrapperRef}>
+                <ReactFlow
+                  nodes={nodes}
+                  edges={edges}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  onConnect={onConnectFlow}
+                  onDrop={onDropFlow}
+                  onDragOver={onDragOverFlow}
+                  onInit={setReactFlowInstance}
+                  onNodeClick={(_, node) => setSelectedNodeId(node.id)}
+                  nodeTypes={flowNodeTypes}
+                  fitView
+                  deleteKeyCode={["Backspace", "Delete"]}
+                  defaultEdgeOptions={{
+                    animated: true,
+                    style: { stroke: "#e1306c", strokeWidth: 2 }
+                  }}
+                >
+                  <Controls />
+                  <MiniMap />
+                  <Background variant="dots" gap={18} size={1} />
+                </ReactFlow>
+              </Box>
+
+              <Box className={classes.inspector}>
+                <Box className={classes.sectionHeader}>
+                  <Typography variant="subtitle1" style={{ fontWeight: 800 }}>
+                    Propriedades
+                  </Typography>
                 </Box>
-              </Grid>
-            </Grid>
-          </Paper>
+                {!selectedNode ? (
+                  <Typography variant="body2" className={classes.muted}>
+                    Selecione um bloco no canvas para editar nome, mensagem e comportamento.
+                  </Typography>
+                ) : (
+                  <Box display="flex" flexDirection="column" gridGap={12}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      label="Nome do bloco"
+                      value={selectedNode.data?.label || ""}
+                      onChange={(event) => updateSelectedNodeData("label", event.target.value)}
+                    />
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={3}
+                      variant="outlined"
+                      label="Mensagem / instrução"
+                      value={selectedNode.data?.message || ""}
+                      onChange={(event) => updateSelectedNodeData("message", event.target.value)}
+                    />
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={2}
+                      variant="outlined"
+                      label="Descrição operacional"
+                      value={selectedNode.data?.description || ""}
+                      onChange={(event) => updateSelectedNodeData("description", event.target.value)}
+                    />
+                    <TextField
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      label="Chave/condição/tag"
+                      value={selectedNode.data?.key || ""}
+                      onChange={(event) => updateSelectedNodeData("key", event.target.value)}
+                    />
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      disabled={selectedNode.id === "start"}
+                      onClick={removeSelectedNode}
+                    >
+                      Remover bloco
+                    </Button>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+          </Box>
         )}
 
         {!loading && activeTab === 4 && (

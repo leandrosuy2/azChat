@@ -23,6 +23,12 @@ const ProductCategoriesPanel = () => {
   const [newCategory, setNewCategory] = useState("");
   const [subNames, setSubNames] = useState({});
 
+  const stopSubmitEvent = (event) => {
+    if (!event) return;
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   const load = useCallback(async () => {
     try {
       const { data } = await api.get("/product-categories");
@@ -36,7 +42,8 @@ const ProductCategoriesPanel = () => {
     load();
   }, [load]);
 
-  const handleAddCategory = async () => {
+  const handleAddCategory = async (event) => {
+    stopSubmitEvent(event);
     const name = newCategory.trim();
     if (!name) return;
     try {
@@ -49,7 +56,8 @@ const ProductCategoriesPanel = () => {
     }
   };
 
-  const handleAddSubcategory = async (parentId) => {
+  const handleAddSubcategory = async (parentId, event) => {
+    stopSubmitEvent(event);
     const name = (subNames[parentId] || "").trim();
     if (!name) return;
     try {
@@ -62,7 +70,8 @@ const ProductCategoriesPanel = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, event) => {
+    stopSubmitEvent(event);
     try {
       await api.delete(`/product-categories/${id}`);
       toast.success("Removido.");
@@ -83,6 +92,7 @@ const ProductCategoriesPanel = () => {
           fullWidth
         />
         <Button
+          type="button"
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
@@ -126,7 +136,7 @@ const ProductCategoriesPanel = () => {
                         mb={0.5}
                       >
                         <Typography variant="body2">{sub.name}</Typography>
-                        <IconButton size="small" onClick={() => handleDelete(sub.id)}>
+                        <IconButton type="button" size="small" onClick={(event) => handleDelete(sub.id, event)}>
                           <DeleteOutlineIcon fontSize="small" />
                         </IconButton>
                       </Box>
@@ -142,16 +152,17 @@ const ProductCategoriesPanel = () => {
                         fullWidth
                       />
                       <Button
+                        type="button"
                         size="small"
                         variant="outlined"
-                        onClick={() => handleAddSubcategory(cat.id)}
+                        onClick={(event) => handleAddSubcategory(cat.id, event)}
                       >
                         +
                       </Button>
                     </Box>
                   </TableCell>
                   <TableCell align="right">
-                    <IconButton size="small" onClick={() => handleDelete(cat.id)}>
+                    <IconButton type="button" size="small" onClick={(event) => handleDelete(cat.id, event)}>
                       <DeleteOutlineIcon fontSize="small" />
                     </IconButton>
                   </TableCell>

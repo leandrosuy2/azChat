@@ -93,7 +93,14 @@ const ProductModal = ({ open, onClose, productId, onSaved }) => {
     })();
   }, [open, productId]);
 
-  const handleAddCustomUnit = async () => {
+  const stopSubmitEvent = (event) => {
+    if (!event) return;
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleAddCustomUnit = async (event) => {
+    stopSubmitEvent(event);
     const name = newCustomUnit.trim();
     if (!name) return;
     try {
@@ -110,7 +117,8 @@ const ProductModal = ({ open, onClose, productId, onSaved }) => {
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = async (event) => {
+    stopSubmitEvent(event);
     if (!form.name.trim()) {
       toast.warning("Informe o nome do produto.");
       return;
@@ -285,7 +293,7 @@ const ProductModal = ({ open, onClose, productId, onSaved }) => {
                 onChange={(e) => setNewCustomUnit(e.target.value)}
                 fullWidth
               />
-              <Button variant="outlined" onClick={handleAddCustomUnit}>
+              <Button type="button" variant="outlined" onClick={handleAddCustomUnit}>
                 Adicionar
               </Button>
             </Box>
@@ -334,10 +342,10 @@ const ProductModal = ({ open, onClose, productId, onSaved }) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} disabled={loading}>
+        <Button type="button" onClick={onClose} disabled={loading}>
           Cancelar
         </Button>
-        <Button color="primary" variant="contained" onClick={handleSave} disabled={loading}>
+        <Button type="button" color="primary" variant="contained" onClick={handleSave} disabled={loading}>
           Salvar
         </Button>
       </DialogActions>

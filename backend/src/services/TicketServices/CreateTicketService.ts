@@ -1,9 +1,10 @@
 import AppError from "../../errors/AppError";
-import { Op } from "sequelize";
+import { col, fn, Op, where } from "sequelize";
 
 import GetDefaultWhatsApp from "../../helpers/GetDefaultWhatsApp";
 import GetDefaultWhatsAppByUser from "../../helpers/GetDefaultWhatsAppByUser";
 import Ticket from "../../models/Ticket";
+import Contact from "../../models/Contact";
 import ShowContactService from "../ContactServices/ShowContactService";
 import { getIO } from "../../libs/socket";
 import ShowWhatsAppService from "../WhatsappService/ShowWhatsAppService";
@@ -28,6 +29,59 @@ interface Request {
   /** Título do cartão no quadro (TicketQuadro.nomeProjeto) */
   nomeProjeto?: string | null;
 }
+
+const buildContactIdentityWhere = (contact: Contact): any => {
+  const remoteJid = String((contact as any).remoteJid || "")
+    .trim()
+    .toLowerCase();
+  const number = String((contact as any).number || "").replace(/\D/g, "");
+  const or: any[] = [{ id: contact.id }];
+
+  if (remoteJid) {
+    or.push({ remoteJid: { [Op.iLike]: remoteJid } });
+  }
+
+  if (number) {
+    or.push(
+      where(
+        fn("REGEXP_REPLACE", col("contact.number"), "\\D", "", "g"),
+        number
+      )
+    );
+  }
+
+  return { [Op.or]: or };
+};
+
+const findActiveTicketByConversation = async ({
+  contact,
+  companyId,
+  channel
+}: {
+  contact: Contact;
+  companyId: number;
+  channel: string;
+}): Promise<Ticket | null> => {
+  return Ticket.findOne({
+    where: {
+      companyId,
+      channel,
+      status: { [Op.in]: ["open", "pending", "group", "nps", "lgpd"] }
+    },
+    include: [
+      {
+        model: Contact,
+        as: "contact",
+        required: true,
+        where: {
+          companyId,
+          ...buildContactIdentityWhere(contact)
+        }
+      }
+    ],
+    order: [["updatedAt", "DESC"], ["id", "DESC"]]
+  });
+};
 
 const CreateTicketService = async ({
   contactId,
@@ -105,17 +159,14 @@ const CreateTicketService = async ({
   // mesmo para o mesmo contato/número.
   // Se no futuro precisarem bloquear/reaproveitar, isso deve ser opt-in explícito por tela.
 
-  const { isGroup } = await ShowContactService(contactId, companyId);
+  const contact = await ShowContactService(contactId, companyId);
+  const { isGroup } = contact;
 
   if (!forceNewTicket) {
-    const activeTicket = await Ticket.findOne({
-      where: {
-        contactId,
-        companyId,
-        whatsappId: defaultWhatsapp.id,
-        status: { [Op.in]: ["open", "pending", "group"] }
-      },
-      order: [["updatedAt", "DESC"]]
+    const activeTicket = await findActiveTicketByConversation({
+      contact,
+      companyId,
+      channel: defaultWhatsapp.channel
     });
 
     if (activeTicket) {
@@ -123,19 +174,37 @@ const CreateTicketService = async ({
     }
   }
 
-  let ticket = await Ticket.create({
-    contactId,
-    companyId,
-    whatsappId: defaultWhatsapp.id,
-    channel: defaultWhatsapp.channel,
-    isGroup,
-    userId,
-    isBot: true,
-    queueId: resolvedQueueId,
-    status: isGroup ? "group" : "open",
-    isActiveDemand: true,
-    ...(qg != null ? { quadroGroupId: qg } : {})
-  });
+  let ticket: Ticket;
+  try {
+    ticket = await Ticket.create({
+      contactId,
+      companyId,
+      whatsappId: defaultWhatsapp.id,
+      channel: defaultWhatsapp.channel,
+      isGroup,
+      userId,
+      isBot: true,
+      queueId: resolvedQueueId,
+      status: isGroup ? "group" : "open",
+      isActiveDemand: true,
+      ...(qg != null ? { quadroGroupId: qg } : {})
+    });
+  } catch (err: any) {
+    const errText = `${err?.message || ""} ${err?.original?.message || ""}`;
+    if (!errText.includes("ERR_DUPLICATED_ACTIVE_TICKET")) {
+      throw err;
+    }
+
+    const activeTicket = await findActiveTicketByConversation({
+      contact,
+      companyId,
+      channel: defaultWhatsapp.channel
+    });
+    if (!activeTicket) {
+      throw err;
+    }
+    return ShowTicketService(activeTicket.id, companyId);
+  }
 
   const nomeProjetoTrim =
     typeof nomeProjeto === "string" && nomeProjeto.trim() !== ""

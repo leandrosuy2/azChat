@@ -47,7 +47,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { Box, CircularProgress } from "@material-ui/core";
 import BallotIcon from '@mui/icons-material/Ballot';
 
-import "reactflow/dist/style.css";
+import "react-flow-renderer/dist/style.css";
 
 import ReactFlow, {
   MiniMap,

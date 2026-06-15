@@ -88,6 +88,10 @@ const ticketConversationKey = (ticket: Ticket): string | null => {
 
   if (!contactKey) return null;
 
+  if (remoteJid || number) {
+    return `${companyKey}:${channel}:${groupFlag}:${contactKey}`;
+  }
+
   return `${companyKey}:${channel}:${connectionKey}:${groupFlag}:${contactKey}`;
 };
 

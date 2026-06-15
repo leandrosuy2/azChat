@@ -1,5 +1,5 @@
 import { subHours } from "date-fns";
-import { Op } from "sequelize";
+import { col, fn, Op, where } from "sequelize";
 import Contact from "../../models/Contact";
 import Ticket from "../../models/Ticket";
 import ShowTicketService from "./ShowTicketService";
@@ -11,6 +11,29 @@ interface TicketData {
   companyId?: number;
   unreadMessages?: number;
 }
+
+const buildContactIdentityWhere = (contact: Contact): any => {
+  const remoteJid = String((contact as any).remoteJid || "")
+    .trim()
+    .toLowerCase();
+  const number = String((contact as any).number || "").replace(/\D/g, "");
+  const or: any[] = [{ id: contact.id }];
+
+  if (remoteJid) {
+    or.push({ remoteJid: { [Op.iLike]: remoteJid } });
+  }
+
+  if (number) {
+    or.push(
+      where(
+        fn("REGEXP_REPLACE", col("contact.number"), "\\D", "", "g"),
+        number
+      )
+    );
+  }
+
+  return { [Op.or]: or };
+};
 
 const FindOrCreateTicketServiceMeta = async (
   contact: Contact,
@@ -24,10 +47,20 @@ const FindOrCreateTicketServiceMeta = async (
       status: {
         [Op.or]: ["open", "pending", "closed"]
       },
-      contactId: contact.id,
       companyId,
       channel
     },
+    include: [
+      {
+        model: Contact,
+        as: "contact",
+        required: true,
+        where: {
+          companyId,
+          ...buildContactIdentityWhere(contact)
+        }
+      }
+    ],
     order: [["id", "DESC"]]
   });
 
@@ -38,9 +71,20 @@ const FindOrCreateTicketServiceMeta = async (
   if (!ticket) {
     ticket = await Ticket.findOne({
       where: {
-        contactId: contact.id,
+        companyId,
         channel
       },
+      include: [
+        {
+          model: Contact,
+          as: "contact",
+          required: true,
+          where: {
+            companyId,
+            ...buildContactIdentityWhere(contact)
+          }
+        }
+      ],
       order: [["updatedAt", "DESC"]]
     });
 
@@ -72,8 +116,20 @@ const FindOrCreateTicketServiceMeta = async (
         updatedAt: {
           [Op.between]: [+subHours(new Date(), 2), +new Date()]
         },
-        contactId: contact.id
+        companyId,
+        channel
       },
+      include: [
+        {
+          model: Contact,
+          as: "contact",
+          required: true,
+          where: {
+            companyId,
+            ...buildContactIdentityWhere(contact)
+          }
+        }
+      ],
       order: [["updatedAt", "DESC"]]
     });
 

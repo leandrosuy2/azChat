@@ -279,9 +279,7 @@ const wbotMonitor = async (
           }
         }
 
-        // jsonb aceita array nativo; passar string força re-parse e introduz
-        // chance de "[object Object]" se algum upstream serializar errado.
-        await row.update({ contacts: list as any });
+        await row.update({ contacts: JSON.stringify(list) });
       } catch (err) {
         Sentry.captureException(err);
         logger.error(`Erro contacts.update (Baileys merge): ${err}`);

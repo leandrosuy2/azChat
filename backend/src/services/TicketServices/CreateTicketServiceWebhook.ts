@@ -2,7 +2,10 @@ import AppError from "../../errors/AppError";
 import CheckContactOpenTickets from "../../helpers/CheckContactOpenTickets";
 import GetDefaultWhatsApp from "../../helpers/GetDefaultWhatsApp";
 import Ticket from "../../models/Ticket";
+import Contact from "../../models/Contact";
 import { getIO } from "../../libs/socket";
+import ShowTicketService from "./ShowTicketService";
+import { Op } from "sequelize";
 
 interface Request {
   contactId: number;
@@ -29,9 +32,46 @@ const CreateTicketServiceWebhook = async ({
 }: Request): Promise<Ticket> => {
   const defaultWhatsapp = await GetDefaultWhatsApp(undefined, companyId);
 
-  await CheckContactOpenTickets(contactId, 0, companyId);
-
   const isGroup = false;
+  const contact = await Contact.findOne({
+    where: { id: contactId, companyId },
+    attributes: ["id", "companyId", "number", "remoteJid", "channel"]
+  });
+  const remoteJid = String((contact as any)?.remoteJid || "").trim();
+  const number = String((contact as any)?.number || "").replace(/\D/g, "");
+  const contactWhere: Record<string, unknown> = { companyId };
+  if (remoteJid) {
+    contactWhere.remoteJid = remoteJid;
+  } else if (number) {
+    contactWhere.number = number;
+  } else {
+    contactWhere.id = contactId;
+  }
+
+  const existingTicket = contact
+    ? await Ticket.findOne({
+        where: {
+          companyId,
+          channel: defaultWhatsapp.channel || "whatsapp",
+          status: { [Op.in]: ["open", "pending", "group"] }
+        },
+        include: [
+          {
+            model: Contact,
+            as: "contact",
+            required: true,
+            where: contactWhere
+          }
+        ],
+        order: [["updatedAt", "DESC"], ["id", "DESC"]]
+      })
+    : null;
+
+  if (existingTicket) {
+    return ShowTicketService(existingTicket.id, companyId);
+  }
+
+  await CheckContactOpenTickets(contactId, defaultWhatsapp.id, companyId);
 
   const [{ id }] = await Ticket.findOrCreate({
     where: {

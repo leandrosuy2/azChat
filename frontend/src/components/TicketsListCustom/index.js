@@ -139,6 +139,10 @@ const ticketConversationKey = (ticket) => {
 
     if (!contactKey) return null;
 
+    if (remoteJid || number) {
+        return `${companyKey}:${channel}:${groupFlag}:${contactKey}`;
+    }
+
     return `${companyKey}:${channel}:${connectionKey}:${groupFlag}:${contactKey}`;
 };
 
@@ -162,9 +166,12 @@ const ticketIdentityKeys = (ticketOrId) => {
     const remoteJid = String(ticketOrId.contact?.remoteJid || "").trim().toLowerCase();
     const contactId = Number(ticketOrId.contactId ?? ticketOrId.contact?.id);
     const baseKey = `${companyKey}:${channel}:${connectionKey}:${groupFlag}`;
+    const looseBaseKey = `${companyKey}:${channel}:${groupFlag}`;
 
     if (number) keys.add(`number:${baseKey}:${number}`);
     if (remoteJid) keys.add(`remote:${baseKey}:${remoteJid}`);
+    if (number) keys.add(`number:${looseBaseKey}:${number}`);
+    if (remoteJid) keys.add(`remote:${looseBaseKey}:${remoteJid}`);
     if (Number.isFinite(contactId)) keys.add(`contact:${baseKey}:${contactId}`);
 
     return keys;

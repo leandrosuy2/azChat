@@ -7,6 +7,23 @@ interface Request {
   chats?: Chat[];
 }
 
+const parseBaileysJson = <T>(value: unknown): T[] => {
+  if (!value) return [];
+  if (Array.isArray(value)) return value as T[];
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+  if (typeof value === "object") {
+    return [];
+  }
+  return [];
+};
+
 const createOrUpdateBaileysService = async ({
   whatsappId,
   contacts,
@@ -19,12 +36,8 @@ const createOrUpdateBaileysService = async ({
     });
 
     if (baileysExists) {
-      const getChats = baileysExists.chats
-        ? JSON.parse(baileysExists.chats)
-        : [];
-      const getContacts = baileysExists.contacts
-        ? JSON.parse(baileysExists.contacts)
-        : [];
+      const getChats = parseBaileysJson<Chat>((baileysExists as any).chats);
+      const getContacts = parseBaileysJson<Contact>((baileysExists as any).contacts);
 
       if (chats) {
         getChats.push(...chats);
@@ -50,14 +63,14 @@ const createOrUpdateBaileysService = async ({
 
     const baileys = await Baileys.create({
       whatsappId,
-      contacts: JSON.stringify(contacts),
-      chats: JSON.stringify(chats)
+      contacts: JSON.stringify(contacts || []),
+      chats: JSON.stringify(chats || [])
     });
     await new Promise(resolve => setTimeout(resolve, 1000));
     return baileys;
   } catch (error) {
     console.log(error, whatsappId, contacts);
-    throw new Error(error);
+    throw error;
   }
 };
 

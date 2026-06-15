@@ -74,6 +74,20 @@ class WhatsappStatusPublication extends Model<WhatsappStatusPublication> {
   @Column(DataType.TEXT)
   failureReason: string;
 
+  @Default("contacts")
+  @Column(DataType.STRING)
+  privacyMode: string;
+
+  @Column(DataType.JSONB)
+  privacyContactIds: number[];
+
+  @Default(0)
+  @Column
+  recipientCount: number;
+
+  @Column(DataType.STRING)
+  whatsappMessageId: string;
+
   @Column(DataType.JSONB)
   audit: any;
 

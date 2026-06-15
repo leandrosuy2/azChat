@@ -16,12 +16,44 @@ export interface Params {
   days?: number;
   date_from?: string;
   date_to?: string;
+  userId?: string | number;
+  profile?: string;
 }
 
 export default async function DashboardDataService(
   companyId: string | number,
   params: Params
 ): Promise<DashboardData> {
+  const isAdmin = params.profile === "admin";
+  const currentUserId = params.userId;
+  const userTicketFilter = isAdmin || !currentUserId
+    ? ""
+    : ` and (
+          t."userId" = ?
+          or (
+            t."status" = 'pending'
+            and t."queueId" in (
+              select uq."queueId"
+              from "UserQueues" uq
+              where uq."userId" = ?
+            )
+          )
+        )`;
+  const trackingUserFilter = isAdmin || !currentUserId
+    ? ""
+    : ` and (
+          tt."userId" = ?
+          or (
+            t."status" = 'pending'
+            and t."queueId" in (
+              select uq."queueId"
+              from "UserQueues" uq
+              where uq."userId" = ?
+            )
+          )
+        )`;
+  const attendantsUserFilter = isAdmin || !currentUserId ? "" : ` and u1.id = ?`;
+
   const query = `
     with
     traking as (
@@ -65,12 +97,12 @@ export default async function DashboardDataService(
         (
           select count(distinct "id")
           from "Tickets" t
-          where status like 'open' and t."companyId" = ?
+          where status like 'open' and t."companyId" = ? ${userTicketFilter}
         ) "supportHappening",
         (
           select count(distinct "id")
           from "Tickets" t
-          where status like 'pending' and t."companyId" = ?
+          where status like 'pending' and t."companyId" = ? ${userTicketFilter}
         ) "supportPending",
         (select count(id) from traking where groups) "supportGroups",
         (
@@ -145,7 +177,7 @@ export default async function DashboardDataService(
       from "Users" u1
         left join traking t on t."userId" = u1.id
         left join "UserRatings" ur on ur."userId" = t."userId" and ur."ticketId" = t."ticketId"
-      where u1."companyId" = ?
+      where u1."companyId" = ? ${attendantsUserFilter}
       group by 1, 2
       order by u1."name"
       )
@@ -172,11 +204,23 @@ export default async function DashboardDataService(
     replacements.push(`${params.date_to} 23:59:59`);
   }
 
+  if (!isAdmin && currentUserId) {
+    where += trackingUserFilter;
+    replacements.push(currentUserId, currentUserId);
+  }
+
   replacements.push(companyId);
+  if (!isAdmin && currentUserId) {
+    replacements.push(currentUserId, currentUserId);
+  }
   replacements.push(companyId);
+  if (!isAdmin && currentUserId) {
+    replacements.push(currentUserId, currentUserId);
+  }
   replacements.push(companyId);
-  replacements.push(companyId);
-  replacements.push(companyId);
+  if (!isAdmin && currentUserId) {
+    replacements.push(currentUserId);
+  }
 
   const finalQuery = query.replace("-- filterPeriod", where);
 

@@ -7,7 +7,6 @@ import TicketsQueuesService from "../services/TicketServices/TicketsQueuesServic
 type IndexQuery = {
   initialDate: string;
   finalDate: string;
-  companyId: number | any;
 };
 
 type IndexQueryPainel = {
@@ -19,21 +18,22 @@ type IndexQueryPainel = {
 };
 export const index = async (req: Request, res: Response): Promise<Response> => {
   const params: Params = req.query;
-  const { companyId } = req.user;
+  const { companyId, id: userId, profile } = req.user;
   let daysInterval = 3;
 
   const dashboardData: DashboardData = await DashboardDataService(
     companyId,
-    params
+    { ...params, userId, profile }
   );
   return res.status(200).json(dashboardData);
 };
 
 export const reportsUsers = async (req: Request, res: Response): Promise<Response> => {
 
-  const { initialDate, finalDate, companyId } = req.query as IndexQuery
+  const { initialDate, finalDate } = req.query as IndexQuery
+  const { companyId, id: userId, profile } = req.user;
 
-  const { data } = await TicketsAttendance({ initialDate, finalDate, companyId });
+  const { data } = await TicketsAttendance({ initialDate, finalDate, companyId, userId, profile });
 
   return res.json({ data });
 
@@ -41,9 +41,10 @@ export const reportsUsers = async (req: Request, res: Response): Promise<Respons
 
 export const reportsDay = async (req: Request, res: Response): Promise<Response> => {
 
-  const { initialDate, finalDate, companyId } = req.query as IndexQuery
+  const { initialDate, finalDate } = req.query as IndexQuery
+  const { companyId, id: userId, profile } = req.user;
 
-  const { count, data } = await TicketsDayService({ initialDate, finalDate, companyId });
+  const { count, data } = await TicketsDayService({ initialDate, finalDate, companyId, userId, profile });
 
   return res.json({ count, data });
 

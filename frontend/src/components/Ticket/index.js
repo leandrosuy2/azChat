@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef, useCallback } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import clsx from "clsx";
 
-import { makeStyles, Paper, Box, Drawer } from "@material-ui/core";
+import { makeStyles, Paper, Box, Drawer, Typography } from "@material-ui/core";
 
 import ContactDrawer from "../ContactDrawer";
 import MessageInput from "../MessageInput";
@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Ticket = () => {
   const { ticketId } = useParams();
-  const history = useHistory();
   const classes = useStyles();
 
   const { user, socket } = useContext(AuthContext);
@@ -97,6 +96,7 @@ const Ticket = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
   const [contact, setContact] = useState({});
   const [ticket, setTicket] = useState({});
   const [dragDropFiles, setDragDropFiles] = useState([]);
@@ -111,7 +111,9 @@ const Ticket = () => {
       const { data } = await api.get("/tickets/u/" + ticketId);
       setContact(data.contact);
       setTicket(data);
+      setNotFound(false);
     } catch (err) {
+      setNotFound(true);
       toastError(err);
     }
   }, [ticketId]);
@@ -142,13 +144,16 @@ const Ticket = () => {
             // setWhatsapp(data.whatsapp);
             // setQueueId(data.queueId);
             setTicket(data);
+            setNotFound(false);
             if (["pending", "open", "group"].includes(data.status)) {
               setTabOpen(data.status);
             }
             setLoading(false);
           }
         } catch (err) {
-          history.push("/tickets");   // correção para evitar tela branca uuid não encontrado Feito por Altemir 16/08/2023
+          setNotFound(true);
+          setTicket({});
+          setContact({});
           setLoading(false);
           toastError(err);
         }
@@ -157,7 +162,7 @@ const Ticket = () => {
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [ticketId, history]);
+  }, [ticketId]);
 
   const ticketIdRef = useRef(ticket.id);
   ticketIdRef.current = ticket.id;
@@ -181,7 +186,9 @@ const Ticket = () => {
       }
 
       if (data.action === "delete" && data.ticketId === ticketIdRef.current) {
-        history.push("/tickets");
+        setNotFound(true);
+        setTicket({});
+        setContact({});
       }
     };
 
@@ -208,7 +215,7 @@ const Ticket = () => {
         socket.off(`company-${companyId}-contact`, onCompanyContactTicket);
       }
     };
-  }, [ticketId, ticket.id, history, user.companyId, companyId, socket]);
+  }, [ticketId, ticket.id, user.companyId, companyId, socket]);
 
   const handleDrawerOpen = useCallback(() => {
     setQuickRepliesOpen(false);
@@ -235,6 +242,27 @@ const Ticket = () => {
   }, []);
 
   const renderMessagesList = () => {
+    if (notFound) {
+      return (
+        <Box
+          display="flex"
+          flex={1}
+          minHeight={0}
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          p={3}
+        >
+          <Box>
+            <Typography variant="h6">Conversa nao encontrada</Typography>
+            <Typography variant="body2" color="textSecondary">
+              A conversa pode ter sido removida, finalizada ou nao esta mais disponivel para o seu usuario.
+            </Typography>
+          </Box>
+        </Box>
+      );
+    }
+
     return (
       <Box display="flex" flexDirection="column" flex={1} minHeight={0} minWidth={0}>
         <MessagesList

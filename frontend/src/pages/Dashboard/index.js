@@ -7,27 +7,29 @@ import {
   Card, 
   CardContent, 
   Avatar, 
-  Button, 
   IconButton, 
   Paper, 
   Stack, 
   SvgIcon, 
   Tab, 
   Tabs,
-  Divider,
-  useTheme
+  Divider
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {
   SaveAlt,
   Groups,
   FilterList,
-  Clear,
   Call as CallIcon,
   HourglassEmpty as HourglassEmptyIcon,
   CheckCircle as CheckCircleIcon,
   RecordVoiceOver as RecordVoiceOverIcon,
   GroupAdd as GroupAddIcon,
+  AssignmentTurnedIn as AssignmentTurnedInIcon,
+  EventNote as EventNoteIcon,
+  Dashboard as DashboardIcon,
+  Contacts as ContactsIcon,
+  BarChart as BarChartIcon,
 } from "@mui/icons-material";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
@@ -36,8 +38,6 @@ import moment from "moment";
 import TableAttendantsStatus from "../../components/Dashboard/TableAttendantsStatus";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import useDashboard from "../../hooks/useDashboard";
-import useContacts from "../../hooks/useContacts";
-import useMessages from "../../hooks/useMessages";
 import { ChatsUser } from "./ChartsUser";
 import ChartDonut from "./ChartDonut";
 import Filters from "./Filters";
@@ -50,12 +50,11 @@ import Reports from "../Reports";
 import CommercialBiPanel from "../../components/Dashboard/CommercialBiPanel";
 import CompanyFinancePanel from "../../components/Dashboard/CompanyFinancePanel";
 import { getBackendUrl } from "../../config";
+import canPerform from "../../utils/permissions";
 
-const HUB_KEYS = ["indicators", "reports", "live", "commercial", "finance"];
 const backendUrl = getBackendUrl();
 
 const Dashboard = () => {
-  const theme = useTheme();
   const history = useHistory();
   const location = useLocation();
   const [counters, setCounters] = useState({});
@@ -67,28 +66,32 @@ const Dashboard = () => {
   const [fetchDataFilter, setFetchDataFilter] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const { user } = useContext(AuthContext);
+  const isAdminDashboard = user?.super || user?.profile === "admin";
+  const canViewAdminDashboard = isAdminDashboard || canPerform(user, "dashboard:view");
+  const canViewLivePanel = isAdminDashboard || user?.allowRealTime === "enabled";
+
+  const hubTabs = useMemo(() => ([
+    { key: "indicators", label: isAdminDashboard ? "Indicadores" : "Meu painel", visible: true },
+    { key: "reports", label: "Relatorios", visible: canViewAdminDashboard },
+    { key: "live", label: "Painel ao vivo", visible: canViewLivePanel },
+    { key: "commercial", label: "BI Comercial", visible: canViewAdminDashboard },
+    { key: "finance", label: "Financeiro", visible: canViewAdminDashboard },
+  ].filter((tab) => tab.visible)), [canViewAdminDashboard, canViewLivePanel, isAdminDashboard]);
 
   const hubTab = useMemo(() => {
     const hub = new URLSearchParams(location.search).get("hub");
-    const idx = HUB_KEYS.indexOf(hub);
+    const idx = hubTabs.findIndex((tab) => tab.key === hub);
     return idx >= 0 ? idx : 0;
-  }, [location.search]);
+  }, [hubTabs, location.search]);
 
   const setHubTab = (index) => {
-    const key = HUB_KEYS[index] || "indicators";
+    const key = hubTabs[index]?.key || "indicators";
     const search = index === 0 ? "" : `?hub=${key}`;
     history.replace({ pathname: "/", search });
   };
   
   const { find } = useDashboard();
-  const { user } = useContext(AuthContext);
-
-  let newDate = new Date();
-  let date = newDate.getDate();
-  let month = newDate.getMonth() + 1;
-  let year = newDate.getFullYear();
-  let nowIni = `${year}-${month < 10 ? `0${month}` : `${month}`}-01`;
-  let now = `${year}-${month < 10 ? `0${month}` : `${month}`}-${date < 10 ? `0${date}` : `${date}`}`;
 
   useEffect(() => {
     async function firstLoad() {
@@ -130,10 +133,6 @@ const Dashboard = () => {
     XLSX.writeFile(wb, 'relatorio-de-atendentes.xlsx');
   };
 
-  function formatTime(minutes) {
-    return moment().startOf("day").add(minutes, "minutes").format("HH[h] mm[m]");
-  }
-
   const GetUsers = () => {
     let userOnline = 0;
     attendants.forEach(user => {
@@ -144,20 +143,6 @@ const Dashboard = () => {
     return userOnline;
   };
 
-  const GetContacts = (all) => {
-    let props = all ? {} : { dateStart: dateStartTicket, dateEnd: dateEndTicket };
-    const { count } = useContacts(props);
-    return count;
-  };
-
-  const GetMessages = (all, fromMe) => {
-    let props = all
-      ? { fromMe }
-      : { fromMe, dateStart: dateStartTicket, dateEnd: dateEndTicket };
-    const { count } = useMessages(props);
-    return count;
-  };
-
   function toggleShowFilter() {
     setShowFilter(!showFilter);
   }
@@ -166,11 +151,25 @@ const Dashboard = () => {
     setActiveTab(newValue);
   };
 
+  const detailTabs = useMemo(() => ([
+    { key: "performance", label: isAdminDashboard ? i18n.t("dashboard.tabs.performance") : "Minha atividade" },
+    { key: "assessments", label: isAdminDashboard ? i18n.t("dashboard.tabs.assessments") : "Minhas avaliacoes" },
+    { key: "attendants", label: i18n.t("dashboard.tabs.attendants"), visible: isAdminDashboard },
+  ].filter((tab) => tab.visible !== false)), [isAdminDashboard]);
+
+  useEffect(() => {
+    if (activeTab > detailTabs.length - 1) {
+      setActiveTab(0);
+    }
+  }, [activeTab, detailTabs.length]);
+
+  const activeDetailTab = detailTabs[activeTab]?.key || "performance";
+
   if (user.profile === "user" && user.showDashboard === "disabled") {
     return <ForbiddenPage />;
   }
 
-  const statCards = [
+  const adminStatCards = [
     {
       title: i18n.t("dashboard.cards.inAttendance"),
       value: counters.supportHappening || 0,
@@ -208,6 +207,51 @@ const Dashboard = () => {
       color: "#f39c12"
     }
   ];
+  const userStatCards = [
+    {
+      title: "Meus atendimentos",
+      value: counters.supportHappening || 0,
+      icon: <CallIcon />,
+      color: "#2563eb"
+    },
+    {
+      title: "Pendentes nas minhas filas",
+      value: counters.supportPending || 0,
+      icon: <HourglassEmptyIcon />,
+      color: "#0f766e"
+    },
+    {
+      title: "Finalizados por mim",
+      value: counters.supportFinished || 0,
+      icon: <CheckCircleIcon />,
+      color: "#16a34a"
+    },
+    {
+      title: "Novos contatos atendidos",
+      value: counters.leads || 0,
+      icon: <GroupAddIcon />,
+      color: "#d97706"
+    },
+    {
+      title: "Avaliacoes recebidas",
+      value: counters.withRating || 0,
+      icon: <AssignmentTurnedInIcon />,
+      color: "#7c3aed"
+    },
+    {
+      title: "Score NPS",
+      value: counters.npsScore || 0,
+      icon: <BarChartIcon />,
+      color: "#db2777"
+    }
+  ];
+  const statCards = isAdminDashboard ? adminStatCards : userStatCards;
+  const shortcuts = [
+    { label: "Atendimentos", helper: "Abrir minha fila de conversas", icon: <CallIcon />, path: "/tickets", color: "#2563eb" },
+    { label: "Agenda", helper: "Ver compromissos e lembretes", icon: <EventNoteIcon />, path: "/schedules", color: "#0f766e" },
+    { label: "Kanban", helper: "Organizar cards e etapas", icon: <DashboardIcon />, path: "/kanban", color: "#7c3aed" },
+    { label: "Contatos", helper: "Consultar clientes e historico", icon: <ContactsIcon />, path: "/contacts", color: "#d97706" },
+  ];
 
   const softShadow = "0 12px 34px rgba(15, 23, 42, 0.08)";
   const panelBorder = "1px solid rgba(226, 232, 240, 0.9)";
@@ -223,7 +267,7 @@ const Dashboard = () => {
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, gap: 1.5, mb: 2, flexDirection: { xs: "column", sm: "row" } }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Typography variant="h5" fontWeight={800} color="#10162f" sx={{ letterSpacing: 0 }}>
-              Painel operacional
+              {isAdminDashboard ? "Painel operacional" : "Meu painel"}
             </Typography>
             <HelpHint areaKey="dashboard" />
           </Box>
@@ -255,21 +299,19 @@ const Dashboard = () => {
               "& .MuiTabs-indicator": { height: 3, borderRadius: "3px 3px 0 0", background: "#5b2be0" }
             }}
           >
-            <Tab label="Indicadores" />
-            <Tab label="Relatórios" />
-            <Tab label="Painel ao vivo" />
-            <Tab label="BI Comercial" />
-            <Tab label="Financeiro" />
+            {hubTabs.map((tab) => (
+              <Tab key={tab.key} label={tab.label} />
+            ))}
           </Tabs>
         </Paper>
 
-        {hubTab === 1 && (
+        {hubTabs[hubTab]?.key === "reports" && (
           <Paper sx={{ p: 0, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3, overflow: "hidden" }}>
             <Reports embedded />
           </Paper>
         )}
 
-        {hubTab === 2 && (
+        {hubTabs[hubTab]?.key === "live" && (
           <Paper sx={{ p: 2, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3, minHeight: "70vh" }}>
             <Box display="flex" alignItems="center" mb={2}>
               <Typography variant="h6" fontWeight="bold">
@@ -281,19 +323,19 @@ const Dashboard = () => {
           </Paper>
         )}
 
-        {hubTab === 3 && (
+        {hubTabs[hubTab]?.key === "commercial" && (
           <Paper sx={{ p: 3, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3 }}>
             <CommercialBiPanel />
           </Paper>
         )}
 
-        {hubTab === 4 && (
+        {hubTabs[hubTab]?.key === "finance" && (
           <Paper sx={{ p: 3, borderRadius: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.08)", mb: 3 }}>
             <CompanyFinancePanel />
           </Paper>
         )}
 
-        {hubTab === 0 && (
+        {hubTabs[hubTab]?.key === "indicators" && (
         <>
         <Paper
           sx={{
@@ -340,7 +382,9 @@ const Dashboard = () => {
                 Bem-vindo, {user?.name || "Atendente"}
               </Typography>
               <Typography variant="body2" color="#596275" sx={{ maxWidth: 620, lineHeight: 1.4, fontSize: { xs: 12.5, sm: 13.5 } }}>
-                Acompanhe seus atendimentos, metas e indicadores em um painel organizado para decisao rapida.
+                {isAdminDashboard
+                  ? "Acompanhe atendimentos, metas e indicadores em um painel organizado para decisao rapida."
+                  : "Acompanhe sua rotina de atendimentos, pendencias e resultados sem misturar dados administrativos."}
               </Typography>
             </Box>
           </Stack>
@@ -434,6 +478,46 @@ const Dashboard = () => {
           ))}
         </Grid>
 
+        {!isAdminDashboard && (
+          <Grid container spacing={1.5} sx={{ mb: 2.25 }}>
+            {shortcuts.map((shortcut) => (
+              <Grid item xs={12} sm={6} md={3} key={shortcut.label}>
+                <Card
+                  onClick={() => history.push(shortcut.path)}
+                  sx={{
+                    height: "100%",
+                    cursor: "pointer",
+                    borderRadius: 2,
+                    border: panelBorder,
+                    boxShadow: "0 8px 24px rgba(15, 23, 42, 0.07)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                    "&:hover": {
+                      transform: "translateY(-2px)",
+                      boxShadow: "0 14px 30px rgba(15, 23, 42, 0.12)"
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 1.5 }}>
+                    <Stack direction="row" spacing={1.25} alignItems="center">
+                      <Avatar sx={{ bgcolor: `${shortcut.color}16`, color: shortcut.color, width: 42, height: 42 }}>
+                        {shortcut.icon}
+                      </Avatar>
+                      <Box sx={{ minWidth: 0 }}>
+                        <Typography fontWeight={800} color="#10162f" sx={{ fontSize: 15 }}>
+                          {shortcut.label}
+                        </Typography>
+                        <Typography color="#64748b" sx={{ fontSize: 12.5, lineHeight: 1.25 }}>
+                          {shortcut.helper}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+
         {/* Tabs Navigation */}
         <Paper sx={{ 
           mb: 3, 
@@ -459,15 +543,15 @@ const Dashboard = () => {
               "& .MuiTabs-indicator": { height: 3, borderRadius: "3px 3px 0 0", background: "#5b2be0" }
             }}
           >
-            <Tab label={i18n.t("dashboard.tabs.performance")} />
-            <Tab label={i18n.t("dashboard.tabs.assessments")} />
-            <Tab label={i18n.t("dashboard.tabs.attendants")} />
+            {detailTabs.map((tab) => (
+              <Tab key={tab.key} label={tab.label} />
+            ))}
           </Tabs>
         </Paper>
 
         {/* Tab Panels */}
         {/* Performance Tab */}
-        {activeTab === 0 && (
+        {activeDetailTab === "performance" && (
           <Paper 
             sx={{ 
               p: 3, 
@@ -476,7 +560,7 @@ const Dashboard = () => {
             }}
           >
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-              {i18n.t("dashboard.charts.performance")}
+              {isAdminDashboard ? i18n.t("dashboard.charts.performance") : "Minha atividade no periodo"}
             </Typography>
             <Divider sx={{ mb: 2 }} />
             <ChartsDate />
@@ -484,7 +568,7 @@ const Dashboard = () => {
         )}
 
         {/* Assessments Tab - NPS Data */}
-        {activeTab === 1 && (
+        {activeDetailTab === "assessments" && (
           <Paper 
             sx={{ 
               p: 3, 
@@ -494,7 +578,7 @@ const Dashboard = () => {
           >
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
               <Typography variant="h6" fontWeight="bold">
-                {i18n.t("dashboard.tabs.assessments")}
+                {isAdminDashboard ? i18n.t("dashboard.tabs.assessments") : "Minhas avaliacoes"}
               </Typography>
             </Box>
             <Divider sx={{ mb: 3 }} />
@@ -638,7 +722,7 @@ const Dashboard = () => {
         )}
 
         {/* Attendants Tab */}
-        {activeTab === 2 && (
+        {activeDetailTab === "attendants" && isAdminDashboard && (
           <Paper 
             sx={{ 
               p: 3, 
